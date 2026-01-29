@@ -24,7 +24,8 @@ export function renderScreen(screenName) {
   app.appendChild(screen);
 }
 
+window.renderScreen = renderScreen;
+
 document.addEventListener("DOMContentLoaded", () => {
   renderScreen("Lobby");
 });
-
