@@ -1,33 +1,41 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
-}
+/* =========================================
+   ==========  SPLASH SCREEN CSS ===========
+   ========================================= */
 
-#app {
-  padding: 20px;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-button {
-  display: block;
+.splash-screen {
   width: 100%;
-  padding: 14px;
-  margin: 10px 0;
-  font-size: 18px;
-  background: #ffcc00;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  height: 100vh;
+  background: #f2f2f2; /* light neutral background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.8s ease-out;
 }
 
-button:hover {
-  background: #e6b800;
+.splash-door {
+  width: 180px;
+  height: 300px;
+  background: #d9d9d9; /* neutral gray door */
+  border: 8px solid #333; /* thick outline */
+  border-radius: 6px;
+  position: relative;
+}
+
+/* Door handle */
+.splash-door::after {
+  content: "";
+  width: 22px;
+  height: 22px;
+  background: #333;
+  border-radius: 50%;
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
 }
