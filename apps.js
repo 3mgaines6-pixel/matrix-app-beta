@@ -1,5 +1,6 @@
 import { Lobby } from "./screens/Lobby.js";
 import { CardioStudio } from "./screens/CardioStudio.js";
+import { StrengthStudio } from "./screens/StrengthStudio.js";
 
 export function renderScreen(screenName) {
   const app = document.getElementById("app");
@@ -16,6 +17,10 @@ export function renderScreen(screenName) {
       screen = CardioStudio();
       break;
 
+    case "StrengthStudio":
+      screen = StrengthStudio();
+      break;
+
     default:
       screen = Lobby();
   }
@@ -29,3 +34,4 @@ window.renderScreen = renderScreen;
 document.addEventListener("DOMContentLoaded", () => {
   renderScreen("Lobby");
 });
+
