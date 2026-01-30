@@ -1,6 +1,10 @@
 export function Lobby() {
   const container = document.createElement('div');
   container.innerHTML = `
+ /* =========================================
+   ==========  GYM FLOOR SCREEN  ===========
+   ========================================= */
+
    <h1>Gym Floor</h1>
 
     <button onclick="renderScreen('CardioStudio')">Cardio Studio</button>
