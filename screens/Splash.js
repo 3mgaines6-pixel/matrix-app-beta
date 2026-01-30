@@ -13,7 +13,8 @@ export function Splash() {
 
   // Auto-transition after 1500ms
   setTimeout(() => {
-    window.renderScreen("Lobby");
+   window.renderScreen("GymFloor");
+
   }, 1500);
 
   return container;
