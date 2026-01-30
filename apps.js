@@ -1,6 +1,7 @@
 import { Splash } from "./screens/Splash.js";
 
-import { Lobby } from "./screens/Lobby.js";
+import { GymFloor } from "./screens/GymFloor.js";
+
 import { CardioStudio } from "./screens/CardioStudio.js";
 import { StrengthStudio } from "./screens/StrengthStudio.js";
 import { StretchStudio } from "./screens/StretchStudio.js";
@@ -16,9 +17,10 @@ export function renderScreen(screenName) {
       screen = Splash();
       break;
 
-    case "Lobby":
-      screen = Lobby();
-      break;
+   case "GymFloor":
+  screen = GymFloor();
+  break;
+
 
     case "CardioStudio":
       screen = CardioStudio();
@@ -32,8 +34,9 @@ export function renderScreen(screenName) {
       screen = StretchStudio();
       break;
 
-    default:
-      screen = Lobby();
+   default:
+  screen = GymFloor();
+
 }
 
   app.innerHTML = "";
