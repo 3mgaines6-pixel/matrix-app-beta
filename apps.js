@@ -1,3 +1,5 @@
+import { Splash } from "./screens/Splash.js";
+
 import { Lobby } from "./screens/Lobby.js";
 import { CardioStudio } from "./screens/CardioStudio.js";
 import { StrengthStudio } from "./screens/StrengthStudio.js";
@@ -10,6 +12,10 @@ export function renderScreen(screenName) {
   let screen;
 
   switch (screenName) {
+    case "Splash":
+      screen = Splash();
+      break;
+
     case "Lobby":
       screen = Lobby();
       break;
@@ -21,13 +27,14 @@ export function renderScreen(screenName) {
     case "StrengthStudio":
       screen = StrengthStudio();
       break;
-case "StretchStudio":
-  screen = StretchStudio();
-  break;
+
+    case "StretchStudio":
+      screen = StretchStudio();
+      break;
 
     default:
       screen = Lobby();
-  }
+}
 
   app.innerHTML = "";
   app.appendChild(screen);
@@ -36,6 +43,7 @@ case "StretchStudio":
 window.renderScreen = renderScreen;
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderScreen("Lobby");
+  renderScreen("Splash");
 });
+
 
