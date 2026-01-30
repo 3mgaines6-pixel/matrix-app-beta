@@ -1,4 +1,5 @@
-export function Lobby() {
+export function GymFloor() {
+
   const container = document.createElement('div');
   container.innerHTML = `
  /* =========================================
