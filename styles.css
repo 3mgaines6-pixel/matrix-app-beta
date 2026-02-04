@@ -83,3 +83,131 @@ background: url("https://images.unsplash.com/photo-1517963628607-235ccdd5476c")
   backdrop-filter: blur(4px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
+/* =========================================
+   ==========  STRENGTH FLOOR CSS ==========
+   ========================================= */
+
+.strength-screen {
+  width: 100%;
+  min-height: 100vh;
+  background: rgba(0,0,0,0.85);
+  padding: 20px;
+  color: white;
+}
+
+.strength-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.strength-group {
+  margin-bottom: 30px;
+}
+
+.strength-group h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.strength-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.strength-btn {
+  padding: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+/* =========================================
+   ==========  MACHINE SCREEN CSS ==========
+   ========================================= */
+
+.machine-screen {
+  padding: 20px;
+  color: white;
+  background: rgba(0,0,0,0.85);
+  min-height: 100vh;
+}
+
+.machine-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.machine-subtitle {
+  font-size: 16px;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.tempo-row {
+  font-size: 18px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.info-row {
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+.sets-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.set-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.set-row input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+.timer-btn,
+.log-btn,
+.close-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.timer-btn {
+  background: #444;
+  color: white;
+}
+
+.log-btn {
+  background: #2ecc71;
+  color: black;
+}
+
+.close-btn {
+  background: #e74c3c;
+  color: white;
+}
+
