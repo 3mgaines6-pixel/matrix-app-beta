@@ -38,4 +38,86 @@ export function Machine14() {
       : "Tempo ▾";
   };
 
-  /* ----------
+  /* ---------- LAST + SUGGESTED ---------- */
+  const lastRow = document.createElement("div");
+  lastRow.className = "info-row";
+  lastRow.textContent = "Last: None";
+
+  const suggestedRow = document.createElement("div");
+  suggestedRow.className = "info-row";
+  suggestedRow.textContent = "Suggested: —";
+
+  /* ---------- SET INPUTS ---------- */
+  const setsContainer = document.createElement("div");
+  setsContainer.className = "sets-container";
+
+  for (let i = 1; i <= 3; i++) {
+    const row = document.createElement("div");
+    row.className = "set-row";
+
+    const label = document.createElement("span");
+    label.textContent = `Set ${i}`;
+
+    const reps = document.createElement("input");
+    reps.placeholder = "Reps";
+
+    const weight = document.createElement("input");
+    weight.placeholder = "Weight";
+
+    row.appendChild(label);
+    row.appendChild(reps);
+    row.appendChild(weight);
+
+    setsContainer.appendChild(row);
+  }
+
+  /* ---------- REST TIMER ---------- */
+  const timerBtn = document.createElement("button");
+  timerBtn.className = "timer-btn";
+  timerBtn.textContent = "Start Rest Timer";
+
+  const timerDisplay = document.createElement("div");
+  timerDisplay.id = "timer-display-14";
+  timerDisplay.textContent = "00:00";
+
+  let timerInterval = null;
+  timerBtn.onclick = () => {
+    let seconds = 0;
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      seconds++;
+      const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+      const s = String(seconds % 60).padStart(2, "0");
+      timerDisplay.textContent = `${m}:${s}`;
+    }, 1000);
+  };
+
+  /* ---------- LOG + CLOSE ---------- */
+  const logBtn = document.createElement("button");
+  logBtn.className = "log-btn";
+  logBtn.textContent = "Log Exercise";
+
+  logBtn.onclick = () => {
+    alert("Exercise logged!");
+    window.renderScreen("StrengthStudio");
+  };
+
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "close-btn";
+  closeBtn.textContent = "Close";
+  closeBtn.onclick = () => window.renderScreen("StrengthStudio");
+
+  /* ---------- APPEND EVERYTHING ---------- */
+  container.appendChild(title);
+  container.appendChild(subtitle);
+  container.appendChild(tempoRow);
+  container.appendChild(lastRow);
+  container.appendChild(suggestedRow);
+  container.appendChild(setsContainer);
+  container.appendChild(timerBtn);
+  container.appendChild(timerDisplay);
+  container.appendChild(logBtn);
+  container.appendChild(closeBtn);
+
+  return container;
+}
