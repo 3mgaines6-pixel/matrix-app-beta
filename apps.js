@@ -6,6 +6,7 @@ import { Machine12 } from "./screens/Machine-12.js";
 import { Machine13 } from "./screens/Machine-13.js";
 import { Machine14 } from "./screens/Machine-14.js";
 import { Machine3 } from "./screens/Machine-3.js";
+import { Machine10 } from "./screens/Machine-10.js";
 
 import { CardioStudio } from "./screens/CardioStudio.js";
 import { StrengthStudio } from "./screens/StrengthStudio.js";
@@ -52,6 +53,9 @@ case "Machine-14":
   break;
 case "Machine-3":
   screen = Machine3();
+  break;
+case "Machine-10":
+  screen = Machine10();
   break;
 
       
