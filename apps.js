@@ -2,6 +2,10 @@ import { Splash } from "./screens/Splash.js";
 
 import { GymFloor } from "./screens/GymFloor.js";
 import { Machine15 } from "./screens/Machine-15.js";
+import { Machine12 } from "./screens/Machine-12.js";
+import { Machine13 } from "./screens/Machine-13.js";
+import { Machine14 } from "./screens/Machine-14.js";
+import { Machine3 } from "./screens/Machine-3.js";
 
 import { CardioStudio } from "./screens/CardioStudio.js";
 import { StrengthStudio } from "./screens/StrengthStudio.js";
@@ -37,7 +41,20 @@ export function renderScreen(screenName) {
 case "Machine-15":
   screen = Machine15();
   break;
+case "Machine-12":
+  screen = Machine12();
+  break;
+case "Machine-13":
+  screen = Machine13();
+  break;
+case "Machine-14":
+  screen = Machine14();
+  break;
+case "Machine-3":
+  screen = Machine3();
+  break;
 
+      
    default:
   screen = GymFloor();
 
