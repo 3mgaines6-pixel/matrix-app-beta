@@ -112,4 +112,12 @@ export function Machine9() {
   container.appendChild(subtitle);
   container.appendChild(tempoRow);
   container.appendChild(lastRow);
-  container.appendChild(suggest
+  container.appendChild(suggestedRow);
+  container.appendChild(setsContainer);
+  container.appendChild(timerBtn);
+  container.appendChild(timerDisplay);
+  container.appendChild(logBtn);
+  container.appendChild(closeBtn);
+
+  return container;
+}
