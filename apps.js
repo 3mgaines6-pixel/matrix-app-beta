@@ -67,9 +67,10 @@ case "Machine-11":
    case "Machine-7":
   screen = Machine7();
   break;
-case "Machine-6":
+cacase "Machine-6":
   screen = Machine6();
   break;
+
 case "Machine-2":
   screen = Machine2();
   break;
@@ -77,8 +78,10 @@ case "Machine-2":
 case "Machine-9":
   screen = Machine9();
   break;
-    
-default: screen = GymFloor(); break;
+
+default:
+  screen = GymFloor();
+  break;
 
   app.innerHTML = "";
   app.appendChild(screen);
