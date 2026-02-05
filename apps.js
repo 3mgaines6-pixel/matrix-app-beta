@@ -73,13 +73,12 @@ case "Machine-6":
 case "Machine-2":
   screen = Machine2();
   break;
-   default:
+
 case "Machine-9":
   screen = Machine9();
   break;
-      screen = GymFloor();
-
-}
+    
+default: screen = GymFloor(); break;
 
   app.innerHTML = "";
   app.appendChild(screen);
