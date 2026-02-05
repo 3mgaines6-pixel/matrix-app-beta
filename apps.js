@@ -10,7 +10,8 @@ import { Machine10 } from "./screens/Machine-10.js";
 import { Machine11 } from "./screens/Machine-11.js";
 import { Machine7 } from "./screens/Machine-7.js";
 import { Machine6 } from "./screens/Machine-6.js";
-
+import { Machine2 } from "./screens/Machine-2.js";
+import { Machine9 } from "./screens/Machine-9.js";
 import { CardioStudio } from "./screens/CardioStudio.js";
 import { StrengthStudio } from "./screens/StrengthStudio.js";
 import { StretchStudio } from "./screens/StretchStudio.js";
@@ -69,9 +70,14 @@ case "Machine-11":
 case "Machine-6":
   screen = Machine6();
   break;
-
+case "Machine-2":
+  screen = Machine2();
+  break;
    default:
-  screen = GymFloor();
+case "Machine-9":
+  screen = Machine9();
+  break;
+      screen = GymFloor();
 
 }
 
