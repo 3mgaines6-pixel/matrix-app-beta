@@ -13,7 +13,7 @@ container.innerHTML = `
   /* ---------- HEADER ---------- */
   const title = document.createElement("h1");
   title.className = "machine-title";
-  title.textContent = "#5 PEC SEATED ROW";
+  title.textContent = "#5 SEATED ROW";
 
   const subtitle = document.createElement("div");
   subtitle.className = "machine-subtitle";
