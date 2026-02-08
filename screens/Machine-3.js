@@ -92,12 +92,49 @@ export function Machine3() {
     }, 1000);
   };
 
-  /* ---------- LOG + CLOSE ---------- */
+  /* ----------  + CLOSE ---------- */
   const logBtn = document.createElement("button");
   logBtn.className = "log-btn";
   logBtn.textContent = "Log Exercise";
 
   logBtn.onclick = () => {
+  const rows = setsContainer.querySelectorAll(".set-row");
+  const history = JSON.parse(localStorage.getItem("machine3")) || [];
+
+  const loggedSets = [];
+
+  rows.forEach((row, index) => {
+    const reps = row.children[1].value;
+    const weight = row.children[2].value;
+
+    if (reps && weight) {
+      loggedSets.push({
+        set: index + 1,
+        reps,
+        weight,
+        date: new Date().toISOString()
+      });
+    }
+  });
+
+  if (loggedSets.length === 0) {
+    alert("Enter reps + weight before logging.");
+    return;
+  }
+
+  // Save to history
+  history.push(loggedSets);
+  localStorage.setItem("machine3", JSON.stringify(history));
+
+  // Update Last + Suggested
+  const last = loggedSets[loggedSets.length - 1];
+  lastRow.textContent = `Last: ${last.reps} reps @ ${last.weight}`;
+  suggestedRow.textContent = `Suggested: ${last.weight}`;
+
+  alert("Exercise logged!");
+  window.renderScreen("StrengthStudio");
+};
+
     alert("Exercise logged!");
     window.renderScreen("StrengthStudio");
   };
