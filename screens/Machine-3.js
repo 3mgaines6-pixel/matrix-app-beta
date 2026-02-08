@@ -92,12 +92,12 @@ export function Machine3() {
     }, 1000);
   };
 
-  /* ----------  + CLOSE ---------- */
-  const logBtn = document.createElement("button");
-  logBtn.className = "log-btn";
-  logBtn.textContent = "Log Exercise";
+ /* ---------- LOG + CLOSE ---------- */
+const logBtn = document.createElement("button");
+logBtn.className = "log-btn";
+logBtn.textContent = "Log Exercise";
 
-  logBtn.onclick = () => {
+logBtn.onclick = () => {
   const rows = setsContainer.querySelectorAll(".set-row");
   const history = JSON.parse(localStorage.getItem("machine3")) || [];
 
@@ -135,14 +135,10 @@ export function Machine3() {
   window.renderScreen("StrengthStudio");
 };
 
-    alert("Exercise logged!");
-    window.renderScreen("StrengthStudio");
-  };
-
-  const closeBtn = document.createElement("button");
-  closeBtn.className = "close-btn";
-  closeBtn.textContent = "Close";
-  closeBtn.onclick = () => window.renderScreen("StrengthStudio");
+const closeBtn = document.createElement("button");
+closeBtn.className = "close-btn";
+closeBtn.textContent = "Close";
+closeBtn.onclick = () => window.renderScreen("StrengthStudio");
 
   /* ---------- APPEND EVERYTHING ---------- */
   container.appendChild(title);
