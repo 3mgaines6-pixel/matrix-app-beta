@@ -172,6 +172,11 @@ background: url("https://images.unsplash.com/photo-1517963628607-235ccdd5476c")
   justify-content: flex-start; /* change to center if you want */
   padding-top: 40px; /* pushes content down slightly */
 }
+.machine-screen > * {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
 
 
 /* ---------- HEADER ---------- */
