@@ -30,21 +30,20 @@ function formatLastSession(entry) {
 
 function getSuggestedWeight(meta, lastEntry) {
   if (!lastEntry || !lastEntry.sets || lastEntry.sets.length === 0) {
-    return meta.base ?? "—";
+    return { weight: meta.base ?? 0, safeMax: (meta.base ?? 0) + 5 };
   }
 
   const type = meta.type; // HEAVY, LIGHT, CORE
   const reps = lastEntry.sets.map(s => Number(s.reps) || 0);
   const weights = lastEntry.sets.map(s => Number(s.weight) || 0);
 
-  // Heaviest weight attempted last session
   const topWeight = Math.max(...weights);
-
-  // Average reps across sets (useful for LIGHT)
   const avgReps = reps.reduce((a, b) => a + b, 0) / reps.length;
 
-  // Helper: round to nearest 2.5 (Matrix machines)
   const round25 = (n) => Math.round(n / 2.5) * 2.5;
+  const minWeight = meta.base ?? 0;
+
+  let suggested = topWeight;
 
   // -------------------------
   // HEAVY LOGIC (6–8 reps)
@@ -53,43 +52,63 @@ function getSuggestedWeight(meta, lastEntry) {
     const minReps = Math.min(...reps);
     const maxReps = Math.max(...reps);
 
-    // If all sets hit 8 → increase +5
     if (minReps >= 8) {
-      return round25(topWeight + 5);
+      suggested = round25(topWeight + 5);
+    } else if (minReps >= 6) {
+      suggested = round25(topWeight);
+    } else if (maxReps < 3) {
+      suggested = round25(topWeight - 2.5);
+    } else {
+      suggested = round25(topWeight);
     }
 
-    // If reps are in range (6–8) → keep weight
-    if (minReps >= 6) {
-      return round25(topWeight);
-    }
-
-    // If reps are extremely low (<3) → deload 1 step
-    if (maxReps < 3) {
-      return round25(topWeight - 2.5);
-    }
-
-    // Otherwise → keep weight
-    return round25(topWeight);
+    return {
+      weight: suggested,
+      safeMax: suggested + 5 // heavy jumps allowed up to +5
+    };
   }
 
   // -------------------------
-  // LIGHT LOGIC (12–15 reps)
+  // LIGHT LOGIC (10–12 reps)
   // -------------------------
   if (type === "LIGHT") {
-    if (avgReps >= 15) return round25(topWeight + 2.5);
-    if (avgReps >= 12) return round25(topWeight);
-    return round25(topWeight - 2.5);
+    if (avgReps >= 12) {
+      suggested = round25(topWeight);
+    } else if (avgReps >= 10) {
+      suggested = round25(topWeight);
+    } else {
+      suggested = round25(topWeight - 2.5);
+    }
+
+    // enforce minimum weight
+    suggested = Math.max(suggested, minWeight);
+
+    return {
+      weight: suggested,
+      safeMax: suggested + 2.5 // LIGHT should only jump 1 step
+    };
   }
 
   // -------------------------
-  // CORE LOGIC (always same)
+  // CORE LOGIC
   // -------------------------
   if (type === "CORE") {
-    return round25(topWeight);
+    suggested = round25(topWeight);
+    suggested = Math.max(suggested, minWeight);
+
+    return {
+      weight: suggested,
+      safeMax: suggested + 2.5
+    };
   }
 
-  return round25(topWeight);
+  // fallback
+  return {
+    weight: round25(topWeight),
+    safeMax: round25(topWeight) + 5
+  };
 }
+
 
 
 /* =========================================
