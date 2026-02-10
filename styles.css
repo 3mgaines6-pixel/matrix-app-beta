@@ -236,8 +236,13 @@ background: url("https://images.unsplash.com/photo-1517963628607-235ccdd5476c")
   border-radius: 6px;
   border: none;
   background: rgba(255,255,255,0.1);
-  color: #000; /* ← FIX */
+  color: #4da3ff; /* bright readable blue */
   border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Keep placeholder text white */
+.set-row input::placeholder {
+  color: rgba(255,255,255,0.7);
 }
 
 
