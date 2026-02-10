@@ -1,6 +1,11 @@
 /* =========================================
    ==========  SPLASH SCREEN CSS ===========
    ========================================= */
+body {
+  background: rgba(0,0,0,0.85);
+  margin: 0;
+  padding: 0;
+}
 
 .splash-screen {
   width: 100%;
@@ -162,7 +167,7 @@ background: url("https://images.unsplash.com/photo-1517963628607-235ccdd5476c")
 .machine-screen {
   padding: 20px;
   color: white;
-  background: rgba(0,0,0,0.85);
+
   min-height: 100vh;
   max-width: 420px;
   margin: 0 auto;
