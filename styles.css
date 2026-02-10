@@ -179,9 +179,10 @@ background: url("https://images.unsplash.com/photo-1517963628607-235ccdd5476c")
 }
 .machine-screen > * {
   width: 100%;
-  max-width: 360px;
+  max-width: 500px; /* wider for phones + tablets */
   margin: 0 auto;
 }
+
 
 
 /* ---------- HEADER ---------- */
