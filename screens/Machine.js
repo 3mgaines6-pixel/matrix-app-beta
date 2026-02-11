@@ -114,6 +114,38 @@ function getSuggestedWeight(meta, lastEntry) {
 /* =========================================
    MAIN MACHINE SCREEN
 ========================================= */
+function getProgressionMessage(meta, lastEntry) {
+  if (!lastEntry || !lastEntry.sets || lastEntry.sets.length === 0) {
+    return "No previous data — start strong today.";
+  }
+
+  const type = meta.type;
+  const reps = lastEntry.sets.map(s => Number(s.reps) || 0);
+  const minReps = Math.min(...reps);
+  const maxReps = Math.max(...reps);
+  const avgReps = reps.reduce((a, b) => a + b, 0) / reps.length;
+
+  // HEAVY (6–8)
+  if (type === "HEAVY") {
+    if (minReps >= 8) return "Strong session — increase next time.";
+    if (minReps >= 6) return "Weight maintained — solid work.";
+    if (maxReps < 3) return "Deload recommended — reps too low.";
+    return "Stay at this weight — keep building.";
+  }
+
+  // LIGHT (10–12)
+  if (type === "LIGHT") {
+    if (avgReps >= 10) return "Perfect range — keep the same weight.";
+    return "Below target — deload slightly.";
+  }
+
+  // CORE
+  if (type === "CORE") {
+    return "Maintain weight — focus on control.";
+  }
+
+  return "";
+}
 
 export function Machine(id) {
   const meta = MACHINES[id];
