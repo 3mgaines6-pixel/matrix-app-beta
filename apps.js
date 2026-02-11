@@ -1,6 +1,15 @@
 import { Splash } from "./screens/Splash.js";
 import { GymFloor } from "./screens/GymFloor.js";
 import { Machine } from "./screens/Machine.js";
+import { WeeklySchedule } from "./screens/WeeklySchedule.js";
+import { DayView } from "./screens/DayView.js";
+
+window.SCREENS = {
+  StrengthStudio,
+  Machine,
+  WeeklySchedule,
+  DayView,
+};
 
 import { CardioStudio } from "./screens/CardioStudio.js";
 import { StrengthStudio } from "./screens/StrengthStudio.js";
