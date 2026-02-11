@@ -1,6 +1,12 @@
 export function StrengthStudio() {
   const container = document.createElement("div");
   container.className = "strength-screen";
+const weeklyBtn = document.createElement("button");
+weeklyBtn.className = "strength-btn";
+weeklyBtn.textContent = "Weekly Schedule";
+weeklyBtn.onclick = () => window.renderScreen("WeeklySchedule");
+
+container.appendChild(weeklyBtn);
 
   container.innerHTML = `
     <h1 class="strength-title">Strength Floor</h1>
