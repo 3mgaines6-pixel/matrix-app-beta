@@ -244,7 +244,9 @@ export function Machine(id) {
     };
 
     handleRow.appendChild(label);
-   
+    handleRow.appendChild(toggle);
+  }
+
   /* ---------- SET INPUTS ---------- */
   const setsContainer = document.createElement("div");
   setsContainer.className = "sets-container";
