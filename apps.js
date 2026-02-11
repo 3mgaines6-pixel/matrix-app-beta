@@ -1,25 +1,23 @@
 /* =========================================
    IMPORT SCREENS (ORDER MATTERS)
 ========================================= */
-
 import { Splash } from "./screens/Splash.js";
 import { GymFloor } from "./screens/GymFloor.js";
 import { StrengthStudio } from "./screens/StrengthStudio.js";   // ⭐ moved up
 import { Machine } from "./screens/Machine.js";
 import { CardioStudio } from "./screens/CardioStudio.js";
 import { StretchStudio } from "./screens/StretchStudio.js";
-
 /* =========================================
    SCREEN REGISTRY
 ========================================= */
 
 window.SCREENS = {
-  Splash,
-  GymFloor,
   StrengthStudio,
   Machine,
   CardioStudio,
   StretchStudio,
+  GymFloor,
+  Splash
 };
 
 /* =========================================
