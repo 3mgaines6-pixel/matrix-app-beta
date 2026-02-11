@@ -368,8 +368,9 @@ if (id === 2 || id === 6) {
   container.appendChild(closeBtn);
 container.appendChild(lastRow);
 container.appendChild(suggestedRow);
-container.appendChild(messageRow);   // ⭐ ADD THIS
-if (handleRow) container.appendChild(handleRow);
+container.appendChild(messageRow);   
+   if (handleRow) container.appendChild(handleRow);
+
 
    container.appendChild(setsContainer);
 
