@@ -26,8 +26,8 @@ function formatLastSession(entry) {
   const weights = entry.sets.map(s => s.weight).join("/");
 
   const handle = entry.handle ? ` (${entry.handle})` : "";
-return `Last: ${reps} reps @ ${weights}${handle}`;
-
+  return `Last: ${reps} reps @ ${weights}${handle}`;
+}
 
 /* =========================================
    SMART SUGGESTED WEIGHT ENGINE
@@ -115,6 +115,7 @@ function getSuggestedWeight(meta, lastEntry) {
 /* =========================================
    MAIN MACHINE SCREEN
 ========================================= */
+
 function getProgressionMessage(meta, lastEntry) {
   if (!lastEntry || !lastEntry.sets || lastEntry.sets.length === 0) {
     return "No previous data — start strong today.";
@@ -196,98 +197,96 @@ export function Machine(id) {
   const suggestedRow = document.createElement("div");
   suggestedRow.className = "info-row";
   suggestedRow.textContent = `Suggested: ${suggestion.weight}`;
-const messageRow = document.createElement("div");
-messageRow.className = "info-row";
-messageRow.textContent = getProgressionMessage(meta, lastEntry);
-/* ---------- HANDLE TOGGLE (ONLY FOR MACHINES 2 & 6) ---------- */
-let handleChoice = "inner"; // default
 
-let handleRow = null;
-if (id === 2 || id === 6) {
-  handleRow = document.createElement("div");
-  handleRow.className = "info-row";
-  handleRow.style.display = "flex";
-  handleRow.style.justifyContent = "space-between";
-  handleRow.style.alignItems = "center";
+  const messageRow = document.createElement("div");
+  messageRow.className = "info-row";
+  messageRow.textContent = getProgressionMessage(meta, lastEntry);
 
-  const label = document.createElement("span");
-  label.textContent = "Handle Position";
+  /* ---------- HANDLE TOGGLE (ONLY FOR MACHINES 2 & 6) ---------- */
+  let handleChoice = "inner"; // default
 
-  const toggle = document.createElement("select");
-  toggle.style.padding = "6px";
-  toggle.style.borderRadius = "6px";
-  toggle.style.background = "rgba(255,255,255,0.1)";
-  toggle.style.color = "white";
-  toggle.style.border = "1px solid rgba(255,255,255,0.2)";
+  let handleRow = null;
+  if (id === 2 || id === 6) {
+    handleRow = document.createElement("div");
+    handleRow.className = "info-row";
+    handleRow.style.display = "flex";
+    handleRow.style.justifyContent = "space-between";
+    handleRow.style.alignItems = "center";
 
-  const optInner = document.createElement("option");
-  optInner.value = "inner";
-  optInner.textContent = "Inner";
+    const label = document.createElement("span");
+    label.textContent = "Handle Position";
 
-  const optOuter = document.createElement("option");
-  optOuter.value = "outer";
-  optOuter.textContent = "Outer";
+    const toggle = document.createElement("select");
+    toggle.style.padding = "6px";
+    toggle.style.borderRadius = "6px";
+    toggle.style.background = "rgba(255,255,255,0.1)";
+    toggle.style.color = "white";
+    toggle.style.border = "1px solid rgba(255,255,255,0.2)";
 
-  toggle.appendChild(optInner);
-  toggle.appendChild(optOuter);
+    const optInner = document.createElement("option");
+    optInner.value = "inner";
+    optInner.textContent = "Inner";
 
-  // Load last handle choice if available
-  if (lastEntry && lastEntry.handle) {
-    toggle.value = lastEntry.handle;
-    handleChoice = lastEntry.handle;
-  }
+    const optOuter = document.createElement("option");
+    optOuter.value = "outer";
+    optOuter.textContent = "Outer";
 
-  toggle.onchange = () => {
-    handleChoice = toggle.value;
-  };
+    toggle.appendChild(optInner);
+    toggle.appendChild(optOuter);
 
-  handleRow.appendChild(label);
-  handleRow.appendChild(toggle);
-}
+    if (lastEntry && lastEntry.handle) {
+      toggle.value = lastEntry.handle;
+      handleChoice = lastEntry.handle;
+    }
 
+    toggle.onchange = () => {
+      handleChoice = toggle.value;
+    };
+
+    handleRow.appendChild(label);
+   
   /* ---------- SET INPUTS ---------- */
   const setsContainer = document.createElement("div");
   setsContainer.className = "sets-container";
 
   for (let i = 1; i <= 3; i++) {
-  const row = document.createElement("div");
-  row.className = "set-row";
+    const row = document.createElement("div");
+    row.className = "set-row";
 
-  const label = document.createElement("span");
-  label.textContent = `Set ${i}`;
+    const label = document.createElement("span");
+    label.textContent = `Set ${i}`;
 
-  const reps = document.createElement("input");
-  reps.placeholder = "Reps";
-  reps.type = "text";
-  reps.inputMode = "numeric";
-  reps.pattern = "[0-9]*";
+    const reps = document.createElement("input");
+    reps.placeholder = "Reps";
+    reps.type = "text";
+    reps.inputMode = "numeric";
+    reps.pattern = "[0-9]*";
 
-  const weight = document.createElement("input");
-  weight.placeholder = "Weight";
-  weight.type = "text";
-  weight.inputMode = "decimal";
-  weight.pattern = "[0-9]*[.,]?[0-9]*";
+    const weight = document.createElement("input");
+    weight.placeholder = "Weight";
+    weight.type = "text";
+    weight.inputMode = "decimal";
+    weight.pattern = "[0-9]*[.,]?[0-9]*";
 
-  // ⭐ AUTO-FILL SUGGESTED WEIGHT ⭐
-  weight.value = suggestion.weight;
+    // ⭐ AUTO-FILL SUGGESTED WEIGHT ⭐
+    weight.value = suggestion.weight;
 
-  // ⭐ RED WARNING FOR TOO-HEAVY JUMPS ⭐
-  weight.addEventListener("input", () => {
-    const entered = Number(weight.value);
-    if (entered > suggestion.safeMax) {
-      weight.classList.add("danger");
-    } else {
-      weight.classList.remove("danger");
-    }
-  });
+    // ⭐ RED WARNING FOR TOO-HEAVY JUMPS ⭐
+    weight.addEventListener("input", () => {
+      const entered = Number(weight.value);
+      if (entered > suggestion.safeMax) {
+        weight.classList.add("danger");
+      } else {
+        weight.classList.remove("danger");
+      }
+    });
 
-  row.appendChild(label);
-  row.appendChild(reps);
-  row.appendChild(weight);
+    row.appendChild(label);
+    row.appendChild(reps);
+    row.appendChild(weight);
 
-  setsContainer.appendChild(row);
-}
-
+    setsContainer.appendChild(row);
+  }
 
   /* ---------- REST TIMER ---------- */
   const timerBtn = document.createElement("button");
@@ -339,9 +338,9 @@ if (id === 2 || id === 6) {
     }
 
     history.push({
-  sets: newSets,
-  handle: handleChoice
-});
+      sets: newSets,
+      handle: handleChoice
+    });
 
     saveHistory(id, history);
 
@@ -355,24 +354,19 @@ if (id === 2 || id === 6) {
   closeBtn.textContent = "Close";
   closeBtn.onclick = () => window.renderScreen("StrengthStudio");
 
-  /* ---------- APPEND EVERYTHING ---------- */
+  /* ---------- APPEND EVERYTHING IN CORRECT ORDER ---------- */
   container.appendChild(title);
   container.appendChild(subtitle);
   container.appendChild(tempoRow);
   container.appendChild(lastRow);
   container.appendChild(suggestedRow);
+  container.appendChild(messageRow);
+  if (handleRow) container.appendChild(handleRow);
   container.appendChild(setsContainer);
   container.appendChild(timerBtn);
   container.appendChild(timerDisplay);
   container.appendChild(logBtn);
   container.appendChild(closeBtn);
-container.appendChild(lastRow);
-container.appendChild(suggestedRow);
-container.appendChild(messageRow);   
-   if (handleRow) container.appendChild(handleRow);
-
-
-   container.appendChild(setsContainer);
 
   return container;
 }
