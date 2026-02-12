@@ -1,5 +1,5 @@
 export const WEEKLY_SCHEDULE = {
-  Monday: [
+  Mon: [
     15,   // Leg Press (Heavy)
     12,   // Seated Leg Curl
     10,   // Prone Leg Curl
@@ -8,7 +8,7 @@ export const WEEKLY_SCHEDULE = {
     14    // Hip Abductor
   ],
 
-  Tuesday: [
+  Tue: [
     7,    // Chest Press (Heavy)
     6,    // Shoulder Press (Heavy)
     2,    // Triceps Press
@@ -17,7 +17,7 @@ export const WEEKLY_SCHEDULE = {
     5     // Seated Row
   ],
 
-  Wednesday: [
+  Wed: [
     107,  // Chest Press (Light)
     2,    // Triceps Press
     9,    // Pec Fly / Rear Delt
@@ -28,7 +28,7 @@ export const WEEKLY_SCHEDULE = {
     3     // Ab Crunch (Core)
   ],
 
-  Thursday: [
+  Thur: [
     115,  // Leg Press (Light)
     12,   // Seated Leg Curl
     10,   // Prone Leg Curl
@@ -37,7 +37,7 @@ export const WEEKLY_SCHEDULE = {
     14    // Hip Abductor
   ],
 
-  Friday: [
+  Fri: [
     8,    // Lat Pulldown
     5,    // Seated Row
     9,    // Pec Fly / Rear Delt
