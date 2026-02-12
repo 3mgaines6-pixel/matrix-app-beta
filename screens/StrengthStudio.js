@@ -70,4 +70,35 @@ export function StrengthStudio() {
   function renderMachineList(day) {
     machineList.innerHTML = "";
 
-    const ids = WEEKLY_SCHEDULE
+    const ids = WEEKLY_SCHEDULE[day];
+    if (!ids) return;
+
+    ids.forEach(id => {
+      const meta = MACHINES[id];
+      if (!meta) return;
+
+      const btn = document.createElement("button");
+      btn.className = "strength-btn";
+      btn.textContent = `#${id} ${meta.name}`;
+      btn.onclick = () => window.renderScreen(`Machine-${id}`);
+
+      machineList.appendChild(btn);
+    });
+  }
+
+  /* =========================================
+     HIGHLIGHT SELECTED DAY
+  ========================================== */
+  function highlightSelectedDay(container, selectedDay) {
+    const buttons = container.querySelectorAll("button");
+    buttons.forEach(btn => {
+      if (btn.textContent === selectedDay) {
+        btn.style.background = "rgba(0, 120, 255, 0.6)";
+      } else {
+        btn.style.background = "rgba(255,255,255,0.1)";
+      }
+    });
+  }
+
+  return container;
+}
