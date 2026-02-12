@@ -1,8 +1,7 @@
-console.log("StrengthStudio VERSION 7");
-
-
 import { WEEKLY_SCHEDULE } from "../data/weeklySchedule.js";
-import { MACHINES } from "../data/machines.js"
+import { MACHINES } from "../data/machines.js";
+
+let manualDaySelection = null;   // ⭐ remembers user choice across screens
 
 export function StrengthStudio() {
   const container = document.createElement("div");
@@ -10,70 +9,60 @@ export function StrengthStudio() {
 
   const title = document.createElement("h1");
   title.className = "strength-title";
-  title.textContent = "Strength Studio";
+  title.textContent = "Strength Floor";
 
-  // Determine today's day
-  const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
-  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-
-  // Selected day (auto-select today)
-  let selectedDay = days.includes(today) ? today : "Monday";
-
-  // Day buttons container
+  /* ---------- DAY BUTTONS ---------- */
   const dayButtons = document.createElement("div");
   dayButtons.className = "strength-day-buttons";
 
-  function renderDayButtons() {
-    dayButtons.innerHTML = "";
+  const days = Object.keys(WEEKLY_SCHEDULE);
 
-    days.forEach(day => {
-      const btn = document.createElement("button");
-      btn.className = "strength-btn";
-      btn.textContent = day;
+  days.forEach(day => {
+    const btn = document.createElement("button");
+    btn.className = "strength-btn";
+    btn.textContent = day;
 
-      if (day === selectedDay) {
-        btn.style.background = "rgba(0,150,255,0.4)";
-        btn.style.border = "2px solid #4da3ff";
-      }
+    btn.onclick = () => {
+      manualDaySelection = day;     // ⭐ lock in user choice
+      renderMachineList(day);
+    };
 
-      btn.onclick = () => {
-        selectedDay = day;
-        renderDayButtons();
-        renderMachineList();
-      };
+    dayButtons.appendChild(btn);
+  });
 
-      dayButtons.appendChild(btn);
-    });
-  }
-
-  // Machine list container
+  /* ---------- MACHINE LIST ---------- */
   const machineList = document.createElement("div");
- dayButtons.className = "strength-day-buttons";
-machineList.className = "strength-machine-buttons";
-
-  function renderMachineList() {
-    machineList.innerHTML = "";
-
-    const ids = WEEKLY_SCHEDULE[selectedDay];
-console.log("Selected day:", selectedDay);
-console.log("IDs for this day:", ids);
-
-    ids.forEach(id => {
-      const btn = document.createElement("button");
-      btn.className = "strength-btn";
-      btn.textContent = `#${id} ${MACHINES[id].name}`;
-      btn.onclick = () => window.renderScreen("Machine", id);
-      machineList.appendChild(btn);
-    });
-  }
-
-  // Initial render
-  renderDayButtons();
-  renderMachineList();
+  machineList.className = "strength-machine-buttons";
 
   container.appendChild(title);
   container.appendChild(dayButtons);
   container.appendChild(machineList);
+
+  /* ---------- INITIAL LOAD ---------- */
+  const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
+
+  const startingDay = manualDaySelection || today;   // ⭐ only auto-select if user hasn't chosen
+  renderMachineList(startingDay);
+
+  /* ---------- RENDER MACHINE LIST ---------- */
+  function renderMachineList(day) {
+    machineList.innerHTML = "";
+
+    const ids = WEEKLY_SCHEDULE[day];
+    if (!ids) return;
+
+    ids.forEach(id => {
+      const meta = MACHINES[id];
+      if (!meta) return;
+
+      const btn = document.createElement("button");
+      btn.className = "strength-btn";
+      btn.textContent = `#${id} ${meta.name}`;
+      btn.onclick = () => window.renderScreen(`Machine-${id}`);
+
+      machineList.appendChild(btn);
+    });
+  }
 
   return container;
 }
