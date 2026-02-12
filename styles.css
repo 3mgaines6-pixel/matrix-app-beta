@@ -111,39 +111,55 @@ background: url("https://images.unsplash.com/photo-1517963628607-235ccdd5476c")
 /* =========================================
    ==========  STRENGTH FLOOR CSS ==========
    ========================================= */
+/* =========================================
+   ==========  STRENGTH FLOOR CSS ==========
+   ========================================= */
+
+/* Full-screen background container */
 .strength-screen {
   width: 100%;
-  max-width: 420px;
-  margin: 0 auto;
   min-height: 100vh;
   background: rgba(0,0,0,0.85);
-  padding: 20px;
+  padding: 20px 0; /* remove side padding so wrapper controls width */
   color: white;
+
+  display: flex;
+  justify-content: center; /* center wrapper horizontally */
 }
 
+/* Width-controlled inner wrapper (same idea as machine-screen > *) */
+.strength-wrapper {
+  width: 100%;
+  max-width: 480px;   /* matches machine-card feel */
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 16px;    /* consistent side padding */
+}
 
+/* Title */
 .strength-title {
   text-align: center;
   font-size: 32px;
   margin-bottom: 20px;
 }
 
-.strength-group {
-  margin-bottom: 30px;
+/* Day buttons row */
+.strength-day-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-.strength-group h2 {
-  font-size: 22px;
-  margin-bottom: 10px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
-}
-
-.strength-buttons {
+/* Machine list column */
+.strength-machine-buttons {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+/* Buttons */
 .strength-btn {
   padding: 14px;
   font-size: 18px;
@@ -155,18 +171,20 @@ background: url("https://images.unsplash.com/photo-1517963628607-235ccdd5476c")
   backdrop-filter: blur(4px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
+
+/* Back button */
 .strength-back-btn {
-  display: inline-block;
+  display: block;
+  width: 100%;
   margin: 10px 0 20px 0;
   padding: 12px 20px;
-  background-color: #222;        /* dark gym theme */
+  background-color: #222;
   color: #fff;
   border: 2px solid #555;
   border-radius: 8px;
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  width: 100%;                   /* full-width like your machine buttons */
   text-align: center;
   transition: all 0.2s ease;
 }
