@@ -5,7 +5,7 @@ export const MACHINES = {
   15: {
     id: 15,
     name: "Leg Press (Heavy)",
-    muscle: "Quads / Glutes",
+    muscles: "Quads / Glutes",
     type: "HEAVY",
     reps: "6-8",
     tempo: "3-1-2",
@@ -18,7 +18,7 @@ export const MACHINES = {
   115: {
     id: 115,
     name: "Leg Press (Light)",
-    muscle: "Quads / Glutes",
+    muscles: "Quads / Glutes",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -28,7 +28,7 @@ export const MACHINES = {
   12: {
     id: 12,
     name: "Seated Leg Curl",
-    muscle: "Hamstrings",
+    muscles: "Hamstrings",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -38,7 +38,7 @@ export const MACHINES = {
   10: {
     id: 10,
     name: "Prone Leg Curl",
-    muscle: "Hamstrings",
+    muscles: "Hamstrings",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -48,7 +48,7 @@ export const MACHINES = {
   11: {
     id: 11,
     name: "Leg Extension",
-    muscle: "Quads",
+    muscles: "Quads",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -58,7 +58,7 @@ export const MACHINES = {
   13: {
     id: 13,
     name: "Hip Adductor",
-    muscle: "Inner Thighs",
+    muscles: "Inner Thighs",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -68,7 +68,7 @@ export const MACHINES = {
   14: {
     id: 14,
     name: "Hip Abductor",
-    muscle: "Outer Thighs",
+    muscles: "Outer Thighs",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -81,7 +81,7 @@ export const MACHINES = {
   7: {
     id: 7,
     name: "Chest Press (Heavy)",
-    muscle: "Chest",
+    muscles: "Chest",
     type: "HEAVY",
     reps: "6-8",
     tempo: "3-1-2",
@@ -91,7 +91,7 @@ export const MACHINES = {
   6: {
     id: 6,
     name: "Shoulder Press",
-    muscle: "Shoulders",
+    muscles: "Shoulders",
     type: "light",
     reps: "10-12",
     tempo: "2-1-2",
@@ -104,7 +104,7 @@ export const MACHINES = {
   107: {
     id: 107,
     name: "Chest Press (Light)",
-    muscle: "Chest",
+    muscles: "Chest",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -114,7 +114,7 @@ export const MACHINES = {
   2: {
     id: 2,
     name: "Triceps Press",
-    muscle: "Arms",
+    muscles: "Arms",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -124,7 +124,7 @@ export const MACHINES = {
   9: {
     id: 9,
     name: "Pec Fly / Rear Delt",
-    muscle: "Chest / Shoulders",
+    muscles: "Chest / Shoulders",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -137,7 +137,7 @@ export const MACHINES = {
   8: {
     id: 8,
     name: "Lat Pulldown",
-    muscle: "Back",
+    muscles: "Back",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -147,7 +147,7 @@ export const MACHINES = {
   5: {
     id: 5,
     name: "Seated Row",
-    muscle: "Back",
+    muscles: "Back",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -157,7 +157,7 @@ export const MACHINES = {
   4: {
     id: 4,
     name: "Back Extension",
-    muscle: "Lower Back",
+    muscles: "Lower Back",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -170,7 +170,7 @@ export const MACHINES = {
   1: {
     id: 1,
     name: "Dependent Curl",
-    muscle: "Arms",
+    muscles: "Arms",
     type: "LIGHT",
     reps: "10-12",
     tempo: "2-1-2",
@@ -180,7 +180,7 @@ export const MACHINES = {
   3: {
     id: 3,
     name: "Ab Crunch",
-    muscle: "Core",
+    muscles: "Core",
     type: "CORE",
     reps: "12-15",
     tempo: "2-1-2",
