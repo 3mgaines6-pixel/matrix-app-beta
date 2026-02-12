@@ -1,5 +1,6 @@
 import { WEEKLY_SCHEDULE } from "../data/weeklySchedule.js";
 import { MACHINES } from "../data/machines.js";
+import { getRotationInfo, getRotatedMachine } from "../data/rotation.js";
 
 /* =========================================
    REMEMBER USER'S SELECTED DAY
@@ -7,27 +8,32 @@ import { MACHINES } from "../data/machines.js";
 let manualDaySelection = localStorage.getItem("selectedDay") || null;
 
 export function StrengthStudio() {
-  /* ---------- OUTER FULLSCREEN CONTAINER ---------- */
   const container = document.createElement("div");
   container.className = "strength-screen";
 
-  /* ---------- INNER WIDTH-CONTROLLED WRAPPER ---------- */
   const wrapper = document.createElement("div");
   wrapper.className = "strength-wrapper";
   container.appendChild(wrapper);
 
-  /* ---------- TITLE ---------- */
   const title = document.createElement("h1");
   title.className = "strength-title";
   title.textContent = "Strength Floor";
+  wrapper.appendChild(title);
 
-  /* ---------- RETURN BUTTON ---------- */
+  const rot = getRotationInfo();
+  const rotationLabel = document.createElement("div");
+  rotationLabel.style.textAlign = "center";
+  rotationLabel.style.opacity = "0.7";
+  rotationLabel.style.marginBottom = "10px";
+  rotationLabel.style.fontSize = "14px";
+  rotationLabel.textContent = `Rotation Block ${rot.block} • ${rot.mode} • ${rot.range}`;
+  wrapper.appendChild(rotationLabel);
+
   const backBtn = document.createElement("button");
   backBtn.className = "strength-back-btn";
   backBtn.textContent = "Return to Gym Floor";
   backBtn.onclick = () => window.renderScreen("GymFloor");
 
-  /* ---------- DAY BUTTONS ---------- */
   const dayButtons = document.createElement("div");
   dayButtons.className = "strength-day-buttons";
 
@@ -38,7 +44,6 @@ export function StrengthStudio() {
     btn.className = "strength-btn";
     btn.textContent = day;
 
-    // Highlight selected day
     if (manualDaySelection === day) {
       btn.style.background = "rgba(0, 120, 255, 0.6)";
     }
@@ -53,39 +58,19 @@ export function StrengthStudio() {
     dayButtons.appendChild(btn);
   });
 
-  /* ---------- MACHINE LIST ---------- */
   const machineList = document.createElement("div");
   machineList.className = "strength-machine-buttons";
-
-  /* ---------- APPEND STRUCTURE INTO WRAPPER ---------- */
-  wrapper.appendChild(title);
-   wrapper.appendChild(title);
-
-const rot = getRotationInfo();
-
-const rotationLabel = document.createElement("div");
-rotationLabel.style.textAlign = "center";
-rotationLabel.style.opacity = "0.7";
-rotationLabel.style.marginBottom = "10px";
-rotationLabel.style.fontSize = "14px";
-rotationLabel.textContent = `Rotation Block ${rot.block} • ${rot.mode} • ${rot.range}`;
-
-wrapper.appendChild(rotationLabel);
 
   wrapper.appendChild(backBtn);
   wrapper.appendChild(dayButtons);
   wrapper.appendChild(machineList);
 
-  /* ---------- INITIAL LOAD ---------- */
   const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
   const startingDay = manualDaySelection || today;
 
   renderMachineList(startingDay);
   highlightSelectedDay(dayButtons, startingDay);
 
-  /* =========================================
-     RENDER MACHINE LIST
-  ========================================== */
   function renderMachineList(day) {
     machineList.innerHTML = "";
 
@@ -93,29 +78,26 @@ wrapper.appendChild(rotationLabel);
     if (!ids) return;
 
     ids.forEach(id => {
-      const meta = MACHINES[id];
+      const rotatedId = getRotatedMachine(id);
+      const meta = MACHINES[rotatedId];
       if (!meta) return;
 
       const btn = document.createElement("button");
       btn.className = "strength-btn";
-      btn.textContent = `#${id} ${meta.name}`;
-      btn.onclick = () => window.renderScreen(`Machine-${id}`);
+      btn.textContent = `#${rotatedId} ${meta.name}`;
+      btn.onclick = () => window.renderScreen(`Machine-${rotatedId}`);
 
       machineList.appendChild(btn);
     });
   }
 
-  /* =========================================
-     HIGHLIGHT SELECTED DAY
-  ========================================== */
   function highlightSelectedDay(container, selectedDay) {
     const buttons = container.querySelectorAll("button");
     buttons.forEach(btn => {
-      if (btn.textContent === selectedDay) {
-        btn.style.background = "rgba(0, 120, 255, 0.6)";
-      } else {
-        btn.style.background = "rgba(255,255,255,0.1)";
-      }
+      btn.style.background =
+        btn.textContent === selectedDay
+          ? "rgba(0, 120, 255, 0.6)"
+          : "rgba(255,255,255,0.1)";
     });
   }
 
