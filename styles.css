@@ -111,19 +111,16 @@ background: url("https://images.unsplash.com/photo-1517963628607-235ccdd5476c")
 /* =========================================
    ==========  STRENGTH FLOOR CSS ==========
    ========================================= */
-/* Fix Strength Studio width */
-.strength-screen {
-  max-width: 420px;
-  margin: 0 auto;
-}
-
 .strength-screen {
   width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
   min-height: 100vh;
   background: rgba(0,0,0,0.85);
   padding: 20px;
   color: white;
 }
+
 
 .strength-title {
   text-align: center;
