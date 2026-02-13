@@ -9,6 +9,7 @@ import { Machine } from "./screens/Machine.js";
 import { CardioStudio } from "./screens/CardioStudio.js";
 import { StretchStudio } from "./screens/StretchStudio.js";
 import { Summary } from "./screens/Summary.js";
+import { WeeklyOverview } from "./screens/WeeklyOverview.js";
 
 /* =========================================
    SCREEN REGISTRY
@@ -62,6 +63,9 @@ case "Summary":
   screen = Summary();
   break;
 
+case "WeeklyOverview":
+  screen = WeeklyOverview();
+  break;
 
         
     default:
