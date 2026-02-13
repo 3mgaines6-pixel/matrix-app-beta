@@ -23,13 +23,15 @@ export function Machine(id) {
   tempoRow.textContent = `Tempo ▸`;
 
   /* ---------- LAST SESSION ---------- */
-  const last = loadLast(rotatedId);
+  const history = loadHistory(rotatedId);
+const last = history.length > 0 ? history[history.length - 1] : null;
 
-  const lastRow = document.createElement("div");
-  lastRow.className = "info-row";
-  lastRow.textContent = last
+const lastRow = document.createElement("div");
+lastRow.className = "info-row";
+lastRow.textContent = last
   ? `Last: ${last.reps.join("/")} @ ${last.weight.join("/")} ${last.handle ? "(" + last.handle + ")" : ""}`
   : "Last: —";
+
 
   /* ---------- SUGGESTED WEIGHT ---------- */
   const suggested = computeSuggested(meta, last);
