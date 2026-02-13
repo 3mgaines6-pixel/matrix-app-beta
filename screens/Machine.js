@@ -117,7 +117,12 @@ timerBtn.onclick = () => {
 
 
   /* ---------- LOG BUTTON ---------- */
-  logBtn.onclick = () => {
+  /* ---------- LOG BUTTON ---------- */
+const logBtn = document.createElement("button");
+logBtn.className = "log-btn";
+logBtn.textContent = "Log Set";
+
+logBtn.onclick = () => {
   const reps = setInputs.map(s => Number(s.reps.value || 0));
   const weight = setInputs.map(s => Number(s.weight.value || suggested.weight));
 
@@ -125,8 +130,6 @@ timerBtn.onclick = () => {
 
   window.renderScreen("StrengthStudio");
 };
-
-
 
   /* ---------- CLOSE BUTTON ---------- */
   const closeBtn = document.createElement("button");
