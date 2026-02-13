@@ -24,7 +24,12 @@ export function Summary() {
 
   Object.keys(MACHINES).forEach(id => {
     const meta = MACHINES[id];
-    const raw = localStorage.getItem(`machine-${id}`);
+    const raw = localStorage.getItem(`machine-${id}-history`);
+if (!raw) return;
+
+const history = JSON.parse(raw);
+const entry = history[history.length - 1]; // last session only
+
     if (!raw) return;
 
     const entry = JSON.parse(raw);
