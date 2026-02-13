@@ -120,12 +120,20 @@ timerBtn.onclick = () => {
   logBtn.textContent = "Log Set";
 
   logBtn.onclick = () => {
-    const reps = setInputs.map(s => Number(s.reps.value || 0));
-    const weight = setInputs.map(s => Number(s.weight.value || suggested.weight));
+  const reps = setInputs.map(s => Number(s.reps.value || 0));
+  const weight = setInputs.map(s => Number(s.weight.value || suggested.weight));
 
-    saveLast(rotatedId, reps, weight);
-    window.renderScreen("StrengthStudio");
+  const entry = {
+    reps,
+    weight,
+    handle: handlePosition   // <— NEW
   };
+
+  localStorage.setItem(`machine-${rotatedId}`, JSON.stringify(entry));
+
+  window.renderScreen("StrengthStudio");
+};
+
 
   /* ---------- CLOSE BUTTON ---------- */
   const closeBtn = document.createElement("button");
