@@ -117,24 +117,15 @@ timerBtn.onclick = () => {
 
 
   /* ---------- LOG BUTTON ---------- */
-  const logBtn = document.createElement("button");
-  logBtn.className = "log-btn";
-  logBtn.textContent = "Log Set";
-
   logBtn.onclick = () => {
   const reps = setInputs.map(s => Number(s.reps.value || 0));
   const weight = setInputs.map(s => Number(s.weight.value || suggested.weight));
 
-  const entry = {
-    reps,
-    weight,
-    handle: handlePosition   // <— NEW
-  };
-
-  localStorage.setItem(`machine-${rotatedId}`, JSON.stringify(entry));
+  saveHistory(rotatedId, reps, weight, handlePosition);
 
   window.renderScreen("StrengthStudio");
 };
+
 
 
   /* ---------- CLOSE BUTTON ---------- */
@@ -197,14 +188,8 @@ function saveHistory(id, reps, weight, handle = null) {
     date: Date.now()
   });
 
-  logBtn.onclick = () => {
-  const reps = setInputs.map(s => Number(s.reps.value || 0));
-  const weight = setInputs.map(s => Number(s.weight.value || suggested.weight));
-
-  saveHistory(rotatedId, reps, weight, handlePosition);
-
-  window.renderScreen("StrengthStudio");
-};
+  localStorage.setItem(key, JSON.stringify(history));
+}
 
 
 
