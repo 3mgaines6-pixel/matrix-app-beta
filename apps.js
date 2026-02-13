@@ -59,8 +59,9 @@ export function renderScreen(screenName, data) {
       break;
 
 case "Summary":
-  root.appendChild(Summary());
+  screen = Summary();
   break;
+
 
         
     default:
