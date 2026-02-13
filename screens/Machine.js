@@ -174,21 +174,30 @@ if (rotatedId === 2 || rotatedId === 6) {
   return container;
 }
 
-/* ============================================================
-   LOAD / SAVE HISTORY
+/* ==========================================================
+   LOAD / SAVE FULL HISTORY (A1)
 ============================================================ */
 
-function loadLast(id) {
-  const raw = localStorage.getItem(`machine-${id}`);
-  return raw ? JSON.parse(raw) : null;
+function loadHistory(id) {
+  const key = `machine-${id}-history`;
+  const raw = localStorage.getItem(key);
+  return raw ? JSON.parse(raw) : [];
 }
 
-function saveLast(id, reps, weight) {
-  localStorage.setItem(
-    `machine-${id}`,
-    JSON.stringify({ reps, weight })
-  );
+function saveHistory(id, reps, weight, handle = null) {
+  const key = `machine-${id}-history`;
+  const history = JSON.parse(localStorage.getItem(key)) || [];
+
+  history.push({
+    reps,
+    weight,
+    handle,
+    date: Date.now()
+  });
+
+  localStorage.setItem(key, JSON.stringify(history));
 }
+
 
 /* ============================================================
    SUGGESTED WEIGHT ENGINE (CLEAN + FINAL)
