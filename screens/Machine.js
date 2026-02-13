@@ -154,7 +154,8 @@ logBtn.onclick = () => {
   /* ---------- APPEND ---------- */
   container.appendChild(title);
   container.appendChild(subtitle);
-  /* ---------- HANDLE POSITION TOGGLE (ONLY FOR #2 AND #6) ---------- */
+
+  
 
 
   container.appendChild(tempoRow);
