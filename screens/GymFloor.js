@@ -9,63 +9,44 @@ export function GymFloor() {
   const title = document.createElement("h1");
   title.className = "gymfloor-title";
   title.textContent = "Gym Floor";
+  container.appendChild(title);
 
-  const buttons = document.createElement("div");
-  buttons.className = "gymfloor-buttons";
-
+  /* ============================
+     TRAINING ZONES
+  ============================ */
   const zones = [
-  { label: "Cardio Studio", screen: "CardioStudio" },
-  { label: "Strength Studio", screen: "StrengthStudio" },
-  { label: "Stretch Studio", screen: "StretchStudio" },
-  { label: "Summary", screen: "Summary" }
-];
+    { label: "Cardio Studio", screen: "CardioStudio" },
+    { label: "Strength Studio", screen: "StrengthStudio" },
+    { label: "Stretch Studio", screen: "StretchStudio" }
+  ];
 
-   // Create the main container
-const container = document.createElement("div");
-container.className = "gymfloor-screen";
-
-/* ============================
-   TRAINING ZONES
-============================ */
-const zoneHeader = document.createElement("h2");
-zoneHeader.textContent = "Training Zones";
-container.appendChild(zoneHeader);
-
-zones.forEach(z => {
-  const btn = document.createElement("button");
-  btn.className = "gym-btn";
-  btn.textContent = z.label;
-  btn.onclick = () => window.renderScreen(z.screen);
-  container.appendChild(btn);
-});
-
-/* ============================
-   ANALYTICS SECTION
-============================ */
-const analyticsHeader = document.createElement("h2");
-analyticsHeader.textContent = "Training Analytics";
-analyticsHeader.className = "analytics-header";
-container.appendChild(analyticsHeader);
-
-const summaryBtn = document.createElement("button");
-summaryBtn.className = "gym-btn analytics-btn";
-summaryBtn.textContent = "Workout Summary";
-summaryBtn.onclick = () => window.renderScreen("Summary");
-container.appendChild(summaryBtn);
-
-return container;
-
+  const zoneHeader = document.createElement("h2");
+  zoneHeader.textContent = "Training Zones";
+  container.appendChild(zoneHeader);
 
   zones.forEach(z => {
     const btn = document.createElement("button");
-    btn.className = "gymfloor-btn";
+    btn.className = "gym-btn";
     btn.textContent = z.label;
     btn.onclick = () => window.renderScreen(z.screen);
-    buttons.appendChild(btn);
+    container.appendChild(btn);
   });
 
-  container.appendChild(title);
-  container.appendChild(buttons);
+  /* ============================
+     ANALYTICS SECTION
+  ============================ */
+  const analyticsHeader = document.createElement("h2");
+  analyticsHeader.textContent = "Training Analytics";
+  analyticsHeader.className = "analytics-header";
+  container.appendChild(analyticsHeader);
+
+  const summaryBtn = document.createElement("button");
+  summaryBtn.className = "gym-btn analytics-btn";
+  summaryBtn.textContent = "Workout Summary";
+  summaryBtn.onclick = () => window.renderScreen("Summary");
+  container.appendChild(summaryBtn);
 
   return container;
 }
+
+    
