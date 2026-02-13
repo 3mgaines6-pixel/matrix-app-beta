@@ -12,49 +12,32 @@ export function Summary() {
   /* ============================
      SECTION: STRENGTH SUMMARY
   ============================ */
-  const strengthHeader = document.createElement("h2");
-  strengthHeader.textContent = "Strength Summary";
-  container.appendChild(strengthHeader);
-
-  let totalSets = 0;
-  let totalVolume = 0;
-
-  const strengthList = document.createElement("div");
-  strengthList.className = "summary-list";
-
   Object.keys(MACHINES).forEach(id => {
-    const meta = MACHINES[id];
-    const raw = localStorage.getItem(`machine-${id}-history`);
-if (!raw) return;
+  const meta = MACHINES[id];
+  const raw = localStorage.getItem(`machine-${id}-history`);
+  if (!raw) return;
 
-const history = JSON.parse(raw);
-const entry = history[history.length - 1]; // last session only
+  const history = JSON.parse(raw);
+  if (history.length === 0) return;
 
-    if (!raw) return;
+  const entry = history[history.length - 1]; // last session only
 
-    const entry = JSON.parse(raw);
-    const reps = entry.reps.join("/");
-    const weight = entry.weight.join("/");
-    const handle = entry.handle ? ` (${entry.handle})` : "";
+  const reps = entry.reps.join("/");
+  const weight = entry.weight.join("/");
+  const handle = entry.handle ? ` (${entry.handle})` : "";
 
-    // Calculate volume
-    entry.reps.forEach((r, i) => {
-      totalSets++;
-      totalVolume += r * entry.weight[i];
-    });
-
-    const row = document.createElement("div");
-    row.className = "summary-row";
-    row.textContent = `#${id} ${meta.name}: ${reps} @ ${weight}${handle}`;
-    strengthList.appendChild(row);
+  // Calculate volume
+  entry.reps.forEach((r, i) => {
+    totalSets++;
+    totalVolume += r * entry.weight[i];
   });
 
-  container.appendChild(strengthList);
+  const row = document.createElement("div");
+  row.className = "summary-row";
+  row.textContent = `#${id} ${meta.name}: ${reps} @ ${weight}${handle}`;
+  strengthList.appendChild(row);
+});
 
-  const totals = document.createElement("div");
-  totals.className = "summary-totals";
-  totals.textContent = `Total Sets: ${totalSets} • Total Volume: ${totalVolume} lbs`;
-  container.appendChild(totals);
 
   /* ============================
      SECTION: CARDIO SUMMARY
