@@ -8,6 +8,8 @@ import { StrengthStudio } from "./screens/StrengthStudio.js?v=2";
 import { Machine } from "./screens/Machine.js";
 import { CardioStudio } from "./screens/CardioStudio.js";
 import { StretchStudio } from "./screens/StretchStudio.js";
+import { Summary } from "./screens/Summary.js";
+
 /* =========================================
    SCREEN REGISTRY
 ========================================= */
