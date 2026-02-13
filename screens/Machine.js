@@ -114,7 +114,21 @@ timerBtn.onclick = () => {
     timerDisplay.textContent = formatTime(remaining);
   }, 1000);
 };
+let handlePosition = localStorage.getItem(`handle-${rotatedId}`) || "inner";
 
+if (rotatedId === 2 || rotatedId === 6) {
+  const toggle = document.createElement("button");
+  toggle.className = "toggle-btn";
+  toggle.textContent = `Handle: ${handlePosition}`;
+
+  toggle.onclick = () => {
+    handlePosition = handlePosition === "inner" ? "outer" : "inner";
+    toggle.textContent = `Handle: ${handlePosition}`;
+    localStorage.setItem(`handle-${rotatedId}`, handlePosition);
+  };
+
+  container.appendChild(toggle);
+}
 
   /* ---------- LOG BUTTON ---------- */
 const logBtn = document.createElement("button");
@@ -141,21 +155,7 @@ logBtn.onclick = () => {
   container.appendChild(title);
   container.appendChild(subtitle);
   /* ---------- HANDLE POSITION TOGGLE (ONLY FOR #2 AND #6) ---------- */
-let handlePosition = localStorage.getItem(`handle-${rotatedId}`) || "inner";
 
-if (rotatedId === 2 || rotatedId === 6) {
-  const toggle = document.createElement("button");
-  toggle.className = "toggle-btn";
-  toggle.textContent = `Handle: ${handlePosition}`;
-
-  toggle.onclick = () => {
-    handlePosition = handlePosition === "inner" ? "outer" : "inner";
-    toggle.textContent = `Handle: ${handlePosition}`;
-    localStorage.setItem(`handle-${rotatedId}`, handlePosition);
-  };
-
-  container.appendChild(toggle);
-}
 
   container.appendChild(tempoRow);
   container.appendChild(lastRow);
