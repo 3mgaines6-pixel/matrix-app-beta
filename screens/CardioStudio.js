@@ -1,20 +1,13 @@
-/* =========================================
-   ==========  CARDIO STUDIO  ==============
-   ========================================= */
-
 export function CardioStudio() {
   const container = document.createElement("div");
   container.className = "cardio-screen";
 
-  /* ---------- TITLE ---------- */
   const title = document.createElement("h1");
   title.className = "cardio-title";
   title.textContent = "Cardio Studio";
   container.appendChild(title);
 
-  /* ============================
-     GENERAL CARDIO OPTIONS
-  ============================ */
+  /* ----- General Cardio Options ----- */
   const generalHeader = document.createElement("h2");
   generalHeader.textContent = "Cardio Options";
   generalHeader.className = "cardio-header";
@@ -42,9 +35,7 @@ export function CardioStudio() {
 
   container.appendChild(generalButtons);
 
-  /* ============================
-     MATRIX CARDIO MACHINES
-  ============================ */
+  /* ----- Matrix Machines ----- */
   const matrixHeader = document.createElement("h2");
   matrixHeader.textContent = "Matrix Cardio Machines";
   matrixHeader.className = "cardio-header";
@@ -69,7 +60,7 @@ export function CardioStudio() {
 
   container.appendChild(matrixButtons);
 
-  /* ---------- BACK BUTTON ---------- */
+  /* ----- Back Button ----- */
   const backBtn = document.createElement("button");
   backBtn.className = "cardio-back-btn";
   backBtn.textContent = "Return to Gym Floor";
@@ -78,4 +69,3 @@ export function CardioStudio() {
 
   return container;
 }
-
