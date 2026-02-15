@@ -53,7 +53,7 @@ export function MatrixTreadmill() {
   /* ---------- BACK BUTTON ---------- */
   const backBtn = document.createElement("button");
   backBtn.className = "cardio-back-btn";
-  backBtn.textContent = "Back";
+  backBtn.textContent = "Return to Cardio Studio";
   backBtn.onclick = () => window.renderScreen("CardioStudio");
   container.appendChild(backBtn);
 
