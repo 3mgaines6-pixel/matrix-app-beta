@@ -57,9 +57,11 @@ const goalSelect = document.createElement("select");
 goalSelect.className = "nutrition-input";
 goalSelect.innerHTML = `
   <option value="loss">Weight Loss (1.2–1.6 g/kg)</option>
+  <option value="hybrid">Hybrid Training (1.4–1.8 g/kg)</option>
   <option value="gain">Muscle Gain (1.6–2.2 g/kg)</option>
 `;
 container.appendChild(goalSelect);
+
 
 const proteinResult = document.createElement("div");
 proteinResult.className = "nutrition-result";
@@ -76,7 +78,12 @@ proteinBtn.onclick = () => {
   if (goalSelect.value === "loss") {
     low = kg * 1.2;
     high = kg * 1.6;
-  } else {
+  } 
+  else if (goalSelect.value === "hybrid") {
+    low = kg * 1.4;
+    high = kg * 1.8;
+  }
+  else {
     low = kg * 1.6;
     high = kg * 2.2;
   }
