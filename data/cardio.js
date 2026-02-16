@@ -46,4 +46,3 @@ export function saveCardio(key, entry) {
 
   localStorage.setItem(`cardio-${key}`, JSON.stringify(history));
 }
-
