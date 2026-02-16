@@ -199,7 +199,7 @@ function saveHistory(id, reps, weight, handle = null) {
    SUGGESTED WEIGHT ENGINE (CLEAN + FINAL)
 ============================================================ */
 
-function computeSuggested(meta, last) {
+
   const min = meta.min || 20;
   const type = meta.type;
 
