@@ -349,7 +349,21 @@ background: url("https://images.unsplash.com/photo-1517963628607-235ccdd5476c")
   text-align: center;
   font-weight: 500;
 }
+/* ---------- TEMPO DETAILS (HIDDEN BY DEFAULT) ---------- */
+const tempoDetails = document.createElement("div");
+tempoDetails.className = "info-row hidden";
 
+if (meta.type === "HEAVY") tempoDetails.textContent = "3-1-2";
+if (meta.type === "LIGHT") tempoDetails.textContent = "2-1-2";
+if (meta.type === "CORE")  tempoDetails.textContent = "2-2-2";
+
+/* Toggle open/close */
+tempoRow.onclick = () => {
+  tempoDetails.classList.toggle("hidden");
+};
+
+container.appendChild(tempoRow);
+container.appendChild(tempoDetails);
 
 .hidden {
   display: none;
