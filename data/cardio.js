@@ -7,15 +7,14 @@ export function loadCardio(key) {
   return raw ? JSON.parse(raw) : [];
 }
 
-export function saveCardio(key, entry) {
-  const history = loadCardio(key);
-
+/* ---------- LOAD PR DATA ---------- */
 export function loadCardioPR(key) {
   const raw = localStorage.getItem(`cardio-${key}-pr`);
   return raw ? JSON.parse(raw) : { mile1: null, mile2: null };
 }
 
-   export function updateCardioPR(key, entry) {
+/* ---------- UPDATE PR DATA ---------- */
+export function updateCardioPR(key, entry) {
   const prKey = `cardio-${key}-pr`;
   const pr = loadCardioPR(key);
 
@@ -36,12 +35,15 @@ export function loadCardioPR(key) {
   localStorage.setItem(prKey, JSON.stringify(pr));
 }
 
-   
+/* ---------- SAVE CARDIO ENTRY ---------- */
+export function saveCardio(key, entry) {
+  const history = loadCardio(key);
+
   history.push({
     ...entry,
     date: Date.now()
   });
 
-
   localStorage.setItem(`cardio-${key}`, JSON.stringify(history));
 }
+
