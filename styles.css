@@ -344,15 +344,12 @@ background: url("https://images.unsplash.com/photo-1517963628607-235ccdd5476c")
 
 /* ---------- TEMPO + INFO ---------- */
 
-.tempo-row,
-.info-row {
-  background: rgba(255,255,255,0.08);
-  padding: 12px 14px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  font-size: 16px;
+.tempo-row {
+  color: #88c0ff;
+  text-align: center;
+  font-weight: 500;
 }
+
 
 .hidden {
   display: none;
