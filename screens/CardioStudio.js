@@ -18,7 +18,7 @@ export function CardioStudio() {
   }
 
   /* ---------- BUTTONS (FINAL ORDER) ---------- */
-  container.appendChild(makeBtn("🏃‍♂️", "Matrix Treadmill", "Treadmill"));
+  container.appendChild(makeBtn("🏃‍♂️", "Matrix Treadmill", "MatrixTreadmill"));
   container.appendChild(makeBtn("🚴", "Spin Class", "SpinClass"));
   container.appendChild(makeBtn("💪", "Core Class", "CoreClass"));
   container.appendChild(makeBtn("🚲", "Matrix Cycle", "Cycle"));
