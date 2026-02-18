@@ -585,3 +585,35 @@ input.danger {
   margin-left: auto;
   margin-right: auto;
 }
+
+.cardio-screen {
+  text-align: center;
+  padding: 20px;
+}
+
+.cardio-title {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #88c0ff;
+}
+
+/* Full-width blue buttons */
+.cardio-btn {
+  width: 90%;
+  margin: 10px auto;
+  padding: 14px;
+  background: #88c0ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;   /* center icon + text as a group */
+  align-items: center;
+  gap: 10px;                 /* space between emoji + text */
+  cursor: pointer;
+}
+
+.cardio-btn .icon {
+  font-size: 1.4rem;
+}
