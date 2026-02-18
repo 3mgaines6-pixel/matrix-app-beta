@@ -617,3 +617,57 @@ input.danger {
 .cardio-btn .icon {
   font-size: 1.4rem;
 }
+
+/* ---------- TREADMILL SCREEN ---------- */
+.cardio-machine-screen {
+  text-align: center;
+  padding: 20px;
+}
+
+.cardio-machine-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #88c0ff;
+}
+
+.last-session {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+/* Input rows */
+.input-row {
+  width: 90%;
+  margin: 10px auto;
+  text-align: left;
+}
+
+.input-row label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.input-row input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Log button */
+.log-btn {
+  width: 90%;
+  margin-top: 20px;
+  padding: 14px;
+  background: #88c0ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
