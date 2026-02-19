@@ -211,7 +211,23 @@ function saveHistory(id, reps, weight, handle = null) {
   });
 
   localStorage.setItem(key, JSON.stringify(history));
+
+  /* -----------------------------------------
+     GLOBAL STRENGTH HISTORY (for Strength HX)
+  ----------------------------------------- */
+  const strengthHistory = JSON.parse(localStorage.getItem("strength_history")) || [];
+
+  strengthHistory.unshift({
+    id,
+    reps,
+    weight,
+    handle,
+    date: Date.now()
+  });
+
+  localStorage.setItem("strength_history", JSON.stringify(strengthHistory));
 }
+
 
 /* ============================================================
    SUGGESTED WEIGHT ENGINE (CLEAN + FINAL)
