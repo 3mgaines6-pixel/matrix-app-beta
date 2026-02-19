@@ -16,7 +16,7 @@ import { MatrixElliptical } from "./screens/MatrixElliptical.js";
 import { NutritionGuide } from "./screens/NutritionGuide.js";
 import { SpinClass } from "./screens/SpinClass.js";
 import { CoreClass } from "./screens/CoreClass.js";
-import { CardioHistory } from "./screens/CardioHistory.js";
+ { CardioHistory } from "./screens/CardioHistory.js";
 
 
 
@@ -27,6 +27,7 @@ import { CardioHistory } from "./screens/CardioHistory.js";
 window.SCREENS = {
   StrengthStudio,
   Machine,
+  StrengthHistory,
   CardioStudio,
   StretchStudio,
   GymFloor,
@@ -67,6 +68,10 @@ export function renderScreen(screenName, data) {
     case "StrengthStudio":
       screen = StrengthStudio();
       break;
+        
+case "StrengthHistory":
+  screen = StrengthHistory();
+  break;
 
     case "CardioStudio":
       screen = CardioStudio();
