@@ -4,7 +4,7 @@
 import { Splash } from "./screens/Splash.js";
 import { GymFloor } from "./screens/GymFloor.js";
 import { StrengthStudio } from "./screens/StrengthStudio.js?v=2";
-  // ⭐ moved up
+import { StrengthHistory } from "./screens/StrengthHistory.js";
 import { Machine } from "./screens/Machine.js";
 import { CardioStudio } from "./screens/CardioStudio.js";
 import { StretchStudio } from "./screens/StretchStudio.js";
@@ -16,7 +16,7 @@ import { MatrixElliptical } from "./screens/MatrixElliptical.js";
 import { NutritionGuide } from "./screens/NutritionGuide.js";
 import { SpinClass } from "./screens/SpinClass.js";
 import { CoreClass } from "./screens/CoreClass.js";
- { CardioHistory } from "./screens/CardioHistory.js";
+import { CardioHistory } from "./screens/CardioHistory.js";
 
 
 
