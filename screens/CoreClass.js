@@ -54,32 +54,34 @@ container.appendChild(calInput);
   logBtn.textContent = "Log Session";
 
   logBtn.onclick = () => {
-    const minutes = parseFloat(minutesInput.querySelector("input").value);
-    const intensity = parseFloat(intensityInput.querySelector("input").value);
+  const minutes = parseFloat(minutesInput.querySelector("input").value);
+  const intensity = parseFloat(intensityInput.querySelector("input").value);
+  const hr = parseFloat(hrInput.querySelector("input").value) || null;
+  const calories = parseFloat(calInput.querySelector("input").value) || null;
 
-    if (!minutes || !intensity) {
-      alert("Please enter minutes and intensity.");
-      return;
-    }
+  if (!minutes || !intensity) {
+    alert("Please enter minutes and intensity.");
+    return;
+  }
 
-    const entry = {
-      type: "core",
-      minutes,
-      intensity,
-      date: Date.now()
-    };
-
-    /* Save last session */
-    localStorage.setItem("core_last", JSON.stringify(entry));
-
-    /* Save to cardio history */
-    const history = JSON.parse(localStorage.getItem("cardio_history")) || [];
-    history.unshift(entry);
-    localStorage.setItem("cardio_history", JSON.stringify(history));
-
-    alert("Session logged!");
-    window.renderScreen("CardioStudio");
+  const entry = {
+    type: "core",
+    minutes,
+    intensity,
+    hr,
+    calories,
+    date: Date.now()
   };
+
+  localStorage.setItem("core_last", JSON.stringify(entry));
+
+  const history = JSON.parse(localStorage.getItem("cardio_history")) || [];
+  history.unshift(entry);
+  localStorage.setItem("cardio_history", JSON.stringify(history));
+
+  alert("Session logged!");
+  window.renderScreen("CardioStudio");
+};
 
   container.appendChild(logBtn);
 
