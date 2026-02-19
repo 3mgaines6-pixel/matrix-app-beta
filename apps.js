@@ -35,8 +35,8 @@ window.SCREENS = {
   MatrixElliptical,
 
   // Coming soon (safe placeholders)
-  SpinClass: null,
-  CoreClass: null,
+  SpinClass,
+  CoreClass,
   Rowing: null,
   OutdoorWalk: null
 };
@@ -87,6 +87,13 @@ case "MatrixCycle":
 
 case "MatrixElliptical":
   screen = MatrixElliptical();
+  break;
+case "SpinClass":
+  screen = SpinClass();
+  break;
+
+case "CoreClass":
+  screen = CoreClass();
   break;
 
 case "Summary":
