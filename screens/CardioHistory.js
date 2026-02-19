@@ -60,18 +60,28 @@ export function CardioHistory() {
     container.appendChild(dateHeader);
 
     groups[dateKey].forEach(entry => {
-      const row = document.createElement("div");
-      row.className = "history-row";
+  const row = document.createElement("div");
+  row.className = "history-row";
 
-      const machine = entry.machine || "Cardio";
-      const icon = CARDIO_ICONS[machine] || "🏋️";
-      const minutes = entry.minutes || "?";
-      const miles = entry.miles ? `${entry.miles} mi` : "";
+  let machine = entry.machine || "Cardio";
 
-      row.textContent = `${icon}  ${machine} — ${minutes} min ${miles}`;
-      container.appendChild(row);
-    });
-  });
+  // Normalize names so icons match correctly
+  if (machine.includes("Treadmill")) machine = "Treadmill";
+  if (machine.includes("Cycle")) machine = "Cycle";
+  if (machine.includes("Elliptical")) machine = "Elliptical";
+  if (machine.includes("Row")) machine = "Rowing";
+  if (machine.includes("Walk")) machine = "Outdoor Walk";
+
+  const icon = CARDIO_ICONS[machine] || "🏃‍♂️";
+
+  const minutes = entry.minutes || "?";
+  const miles = entry.miles ? `${entry.miles} mi` : "";
+
+  row.textContent = `${icon}  ${machine} — ${minutes} min ${miles}`;
+  container.appendChild(row);
+});
+
+  
 
   /* ---------- RETURN BUTTON ---------- */
   const backBtn = document.createElement("button");
