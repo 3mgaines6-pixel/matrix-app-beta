@@ -38,10 +38,15 @@ export function CoreClass() {
   }
 
   const minutesInput = makeInput("Minutes", "core_minutes");
-  const intensityInput = makeInput("Intensity (1–10)", "core_intensity");
+const intensityInput = makeInput("Intensity (1–10)", "core_intensity");
+const hrInput = makeInput("Heart Rate (optional)", "core_hr");
+const calInput = makeInput("Calories (optional)", "core_calories");
 
-  container.appendChild(minutesInput);
-  container.appendChild(intensityInput);
+container.appendChild(minutesInput);
+container.appendChild(intensityInput);
+container.appendChild(hrInput);
+container.appendChild(calInput);
+
 
   /* ---------- LOG BUTTON ---------- */
   const logBtn = document.createElement("button");
