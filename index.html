@@ -3,18 +3,23 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta charset="UTF-8">
-  <title>Matrix App</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>Matrix App</title>
+
+<!-- Add version number -->
+<link rel="stylesheet" href="styles.css?v=15">
 </head>
+
 <body>
   <div id="app"></div>
-<!-- Reps (no decimal keypad) -->
-<input type="text" inputmode="numeric" pattern="[0-9]*">
 
-<!-- Weight (decimal keypad) -->
-<input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*">
+  <!-- Reps (no decimal keypad) -->
+  <input type="text" inputmode="numeric" pattern="[0-9]*">
 
-  <script type="module" src="apps.js"></script>
+  <!-- Weight (decimal keypad) -->
+  <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*">
+
+  <!-- Add version number -->
+  <script type="module" src="apps.js?v=15"></script>
 </body>
 </html>
