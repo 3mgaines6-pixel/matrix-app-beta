@@ -17,20 +17,22 @@ export function CardioStudio() {
     return btn;
   }
 
-  /* ---------- BUTTONS (FINAL ORDER) ---------- */
-  container.appendChild(makeBtn("🏃‍♂️", "Matrix Treadmill", "MatrixTreadmill"));
-  container.appendChild(makeBtn("🚴", "Spin Class", "SpinClass"));
-  container.appendChild(makeBtn("💪", "Core Class", "CoreClass"));
-  container.appendChild(makeBtn("🚲", "Matrix Cycle", "Cycle"));
-  container.appendChild(makeBtn("🏃‍♀️", "Matrix Elliptical", "Elliptical"));
-  container.appendChild(makeBtn("🚣", "Rowing Machine", "Rowing"));
-  container.appendChild(makeBtn("🌤️", "Outdoor Walk", "OutdoorWalk"));
-/* ---------- RETURN TO GYM FLOOR ---------- */
+container.appendChild(makeBtn("🏃‍♂️", "Matrix Treadmill", "MatrixTreadmill"));
+container.appendChild(makeBtn("🚴", "Spin Class", "SpinClass"));
+container.appendChild(makeBtn("💪", "Core Class", "CoreClass"));
+container.appendChild(makeBtn("🚲", "Matrix Cycle", "MatrixCycle"));
+container.appendChild(makeBtn("🏃‍♀️", "Matrix Elliptical", "MatrixElliptical"));
+container.appendChild(makeBtn("🚣", "Rowing Machine", "Rowing"));
+container.appendChild(makeBtn("🌤️", "Outdoor Walk", "OutdoorWalk"));
+container.appendChild(makeBtn("📅", "Cardio History", "CardioHistory"));  // ⭐ NEW
+
+/* Return to Gym Floor */
 const backBtn = document.createElement("button");
 backBtn.className = "cardio-btn";
 backBtn.textContent = "← Return to Gym Floor";
 backBtn.onclick = () => window.renderScreen("GymFloor");
 container.appendChild(backBtn);
+
 
   return container;
 }
