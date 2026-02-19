@@ -81,7 +81,7 @@ export function CardioHistory() {
   container.appendChild(row);
 });
 
-  
+ }); 
 
   /* ---------- RETURN BUTTON ---------- */
   const backBtn = document.createElement("button");
