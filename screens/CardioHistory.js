@@ -11,11 +11,21 @@ export function CardioHistory() {
   /* ---------- LOAD HISTORY ---------- */
   const history = JSON.parse(localStorage.getItem("cardio_history")) || [];
 
+  /* ---------- EMPTY STATE ---------- */
   if (history.length === 0) {
     const empty = document.createElement("p");
     empty.className = "empty-history";
     empty.textContent = "No cardio sessions logged yet.";
     container.appendChild(empty);
+
+    // Return button even when empty
+    const backBtn = document.createElement("button");
+    backBtn.className = "cardio-btn";
+    backBtn.textContent = "← Back to Cardio Studio";
+    backBtn.style.marginTop = "20px";
+    backBtn.onclick = () => window.renderScreen("CardioStudio");
+    container.appendChild(backBtn);
+
     return container;
   }
 
@@ -45,30 +55,18 @@ export function CardioHistory() {
       const row = document.createElement("div");
       row.className = "history-row";
 
-      let text = "";
+      const machine = entry.machine || "Cardio";
+      const minutes = entry.minutes || "?";
+      const miles = entry.miles ? `${entry.miles} mi` : "";
 
-      if (entry.type === "treadmill") {
-        text = `Treadmill — ${entry.minutes} min • ${entry.miles} miles • ${entry.mph} mph • ${entry.incline}% incline`;
-      }
-
-      if (entry.type === "spin") {
-        text = `Spin Class — ${entry.minutes} min • ${entry.miles} miles • ${entry.rpm} rpm`;
-      }
-
-      if (entry.type === "core") {
-        text = `Core Class — ${entry.minutes} min • Intensity ${entry.intensity}`;
-        if (entry.hr) text += ` • HR ${entry.hr}`;
-        if (entry.calories) text += ` • ${entry.calories} cal`;
-      }
-
-      row.textContent = text;
+      row.textContent = `${machine} — ${minutes} min ${miles}`;
       container.appendChild(row);
     });
   });
 
   /* ---------- RETURN BUTTON ---------- */
   const backBtn = document.createElement("button");
-  backBtn.className = "log-btn";
+  backBtn.className = "cardio-btn";
   backBtn.textContent = "← Back to Cardio Studio";
   backBtn.style.marginTop = "20px";
   backBtn.onclick = () => window.renderScreen("CardioStudio");
