@@ -149,13 +149,13 @@ if (rotatedId === 2 || rotatedId === 6) {
 }
 
 /* ---------- PEC FLY / REAR DELT TOGGLE ---------- */
-if (id === 9) {
-  const toggleLabel = document.createElement("label");
-  toggleLabel.textContent = "Mode:";
-  toggleLabel.className = "toggle-label";
+if (rotatedId === 9) {
+  const modeLabel = document.createElement("label");
+  modeLabel.textContent = "Mode:";
+  modeLabel.className = "toggle-label";
 
-  const toggle = document.createElement("select");
-  toggle.className = "toggle-select";
+  const modeSelect = document.createElement("select");
+  modeSelect.className = "toggle-select";
 
   const opt1 = document.createElement("option");
   opt1.value = "Pec Fly";
@@ -165,21 +165,22 @@ if (id === 9) {
   opt2.value = "Rear Delt";
   opt2.textContent = "Rear Delt";
 
-  toggle.appendChild(opt1);
-  toggle.appendChild(opt2);
+  modeSelect.appendChild(opt1);
+  modeSelect.appendChild(opt2);
 
-  // Load last used mode for this machine
+  // Load last used mode
   const lastMode = localStorage.getItem("machine-9-mode") || "Pec Fly";
-  toggle.value = lastMode;
+  modeSelect.value = lastMode;
 
   // Save mode when changed
-  toggle.onchange = () => {
-    localStorage.setItem("machine-9-mode", toggle.value);
+  modeSelect.onchange = () => {
+    localStorage.setItem("machine-9-mode", modeSelect.value);
   };
 
-  container.appendChild(toggleLabel);
-  container.appendChild(toggle);
+  container.appendChild(modeLabel);
+  container.appendChild(modeSelect);
 }
+
   
   /* ---------- LOG BUTTON ---------- */
 const logBtn = document.createElement("button");
@@ -245,17 +246,17 @@ function saveHistory(id, reps, weight, handle = null) {
 
   localStorage.setItem(key, JSON.stringify(history));
 
- /* ---------- GLOBAL STRENGTH HISTORY ---------- */
+/* ---------- GLOBAL STRENGTH HISTORY ---------- */
 const strengthHistory = JSON.parse(localStorage.getItem("strength_history")) || [];
 
 let mode = null;
-if (id === 9) {
+if (rotatedId === 9) {
   mode = localStorage.getItem("machine-9-mode") || "Pec Fly";
 }
 
 strengthHistory.unshift({
-  id,
-  machineName: mode ? `${mode}` : MACHINES[id]?.name || `Machine #${id}`,
+  id: rotatedId,
+  machineName: mode ? mode : MACHINES[rotatedId]?.name || `Machine #${rotatedId}`,
   sets: 1,
   reps,
   weight,
@@ -263,7 +264,6 @@ strengthHistory.unshift({
 });
 
 localStorage.setItem("strength_history", JSON.stringify(strengthHistory));
-
 
 
 
