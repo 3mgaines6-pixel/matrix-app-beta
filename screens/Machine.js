@@ -148,6 +148,39 @@ if (rotatedId === 2 || rotatedId === 6) {
   container.appendChild(toggle);
 }
 
+/* ---------- PEC FLY / REAR DELT TOGGLE ---------- */
+if (id === 9) {
+  const toggleLabel = document.createElement("label");
+  toggleLabel.textContent = "Mode:";
+  toggleLabel.className = "toggle-label";
+
+  const toggle = document.createElement("select");
+  toggle.className = "toggle-select";
+
+  const opt1 = document.createElement("option");
+  opt1.value = "Pec Fly";
+  opt1.textContent = "Pec Fly";
+
+  const opt2 = document.createElement("option");
+  opt2.value = "Rear Delt";
+  opt2.textContent = "Rear Delt";
+
+  toggle.appendChild(opt1);
+  toggle.appendChild(opt2);
+
+  // Load last used mode for this machine
+  const lastMode = localStorage.getItem("machine-9-mode") || "Pec Fly";
+  toggle.value = lastMode;
+
+  // Save mode when changed
+  toggle.onchange = () => {
+    localStorage.setItem("machine-9-mode", toggle.value);
+  };
+
+  container.appendChild(toggleLabel);
+  container.appendChild(toggle);
+}
+  
   /* ---------- LOG BUTTON ---------- */
 const logBtn = document.createElement("button");
 logBtn.className = "log-btn";
