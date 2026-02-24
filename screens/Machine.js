@@ -25,7 +25,7 @@ export function Machine(id) {
     renderTempo(meta),
     renderLastSession(last),
     renderSuggested(suggested),
-    setWrapper,
+    setWrapper, // FIXED: inputs now appear
     renderTimer(meta),
     renderHandleToggle(rotatedId),
     renderModeToggle(rotatedId),
@@ -126,10 +126,11 @@ function renderSetInputs(suggested) {
     weight.placeholder = suggested.weight;
 
     row.append(reps, weight);
+    wrapper.append(row);   // ⭐ FIXED — rows now appear
     inputs.push({ reps, weight });
   }
 
-  wrapper.inputs = inputs; // FIXED: store inputs directly
+  wrapper.inputs = inputs;
   return wrapper;
 }
 
