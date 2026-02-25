@@ -15,10 +15,11 @@ export function GymFloor() {
      TRAINING ZONES
   ============================ */
   const zones = [
-    { label: "Cardio Studio", screen: "CardioStudio" },
-    { label: "Strength Studio", screen: "StrengthStudio" },
-    { label: "Stretch Studio", screen: "StretchStudio" }
-  ];
+  { label: "Cardio Studio", screen: "CardioStudio" },
+  { label: "Strength Floor", screen: "StrengthFloor" },
+  { label: "Stretch Studio", screen: "StretchStudio" }
+];
+
 
   const zoneHeader = document.createElement("h2");
   zoneHeader.textContent = "Training Zones";
