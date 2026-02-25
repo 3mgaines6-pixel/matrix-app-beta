@@ -3,9 +3,7 @@
 ========================================= */
 import { Splash } from "./screens/Splash.js?v=3";
 import { GymFloor } from "./screens/GymFloor.js?v=3";
-import { StrengthStudio } from "./screens/StrengthStudio.js?v=3";
-import { StrengthFloor } from "./screens/StrengthFloor.js";
-
+import { StrengthFloor } from "./screens/StrengthFloor.js";   // ⭐ NEW
 import { StrengthHistory } from "./screens/StrengthHistory.js?v=3";
 import { Machine } from "./screens/Machine.js?v=3";
 import { CardioStudio } from "./screens/CardioStudio.js?v=3";
@@ -20,15 +18,12 @@ import { SpinClass } from "./screens/SpinClass.js?v=3";
 import { CoreClass } from "./screens/CoreClass.js?v=3";
 import { CardioHistory } from "./screens/CardioHistory.js?v=3";
 
-
-
 /* =========================================
    SCREEN REGISTRY
 ========================================= */
 
 window.SCREENS = {
-  StrengthStudio,
-   StrengthFloor,
+  StrengthFloor,     // ⭐ NEW
   Machine,
   StrengthHistory,
   CardioStudio,
@@ -41,13 +36,14 @@ window.SCREENS = {
   MatrixCycle,
   MatrixElliptical,
 
-  // Coming soon (safe placeholders)
+  // Group Fitness
   SpinClass,
   CoreClass,
+
+  // Coming soon
   Rowing: null,
   OutdoorWalk: null
 };
-
 
 /* =========================================
    RENDER FUNCTION
@@ -68,24 +64,18 @@ export function renderScreen(screenName, data) {
       screen = GymFloor();
       break;
 
-    case "StrengthStudio":
-      screen = StrengthStudio();
+    case "StrengthFloor":      // ⭐ NEW
+      screen = StrengthFloor();
       break;
-        
-case "StrengthHistory":
-  screen = StrengthHistory();
-  break;
+
+    case "StrengthHistory":
+      screen = StrengthHistory();
+      break;
 
     case "CardioStudio":
       screen = CardioStudio();
       break;
 
-    // ADD THIS:
-    case "StrengthFloor":
-       screen = StrengthFloor();
-  break;
-
-        
     case "StretchStudio":
       screen = StretchStudio();
       break;
@@ -94,41 +84,42 @@ case "StrengthHistory":
       screen = Machine(data);
       break;
 
-     case "MatrixTreadmill":
-  screen = MatrixTreadmill();
-  break;
+    case "MatrixTreadmill":
+      screen = MatrixTreadmill();
+      break;
 
-case "MatrixCycle":
-  screen = MatrixCycle();
-  break;
+    case "MatrixCycle":
+      screen = MatrixCycle();
+      break;
 
-case "MatrixElliptical":
-  screen = MatrixElliptical();
-  break;
-case "SpinClass":
-  screen = SpinClass();
-  break;
+    case "MatrixElliptical":
+      screen = MatrixElliptical();
+      break;
 
-case "CoreClass":
-  screen = CoreClass();
-  break;
-        
-case "CardioHistory":
-  screen = CardioHistory();
-  break;
+    case "SpinClass":
+      screen = SpinClass();
+      break;
 
-case "Summary":
-  screen = Summary();
-  break;
+    case "CoreClass":
+      screen = CoreClass();
+      break;
 
-case "WeeklyOverview":
-  screen = WeeklyOverview();
-  break;
+    case "CardioHistory":
+      screen = CardioHistory();
+      break;
 
-case "NutritionGuide":
-  screen = NutritionGuide();
-  break;
-        
+    case "Summary":
+      screen = Summary();
+      break;
+
+    case "WeeklyOverview":
+      screen = WeeklyOverview();
+      break;
+
+    case "NutritionGuide":
+      screen = NutritionGuide();
+      break;
+
     default:
       // Unified machine routing: "Machine-15", "Machine-3", etc.
       if (screenName.startsWith("Machine-")) {
@@ -152,4 +143,3 @@ window.renderScreen = renderScreen;
 document.addEventListener("DOMContentLoaded", () => {
   renderScreen("Splash");
 });
-
