@@ -60,6 +60,14 @@ export function GymFloor() {
   nutritionBtn.onclick = () => window.renderScreen("NutritionGuide");
   analyticsButtons.appendChild(nutritionBtn);
 
+/* ----- Strength History ----- */
+const strengthHistoryBtn = document.createElement("button");
+strengthHistoryBtn.className = "gymfloor-btn analytics-btn";
+strengthHistoryBtn.textContent = "Strength History";
+strengthHistoryBtn.onclick = () => window.renderScreen("StrengthHistory");
+analyticsButtons.appendChild(strengthHistoryBtn);
+
+   
   container.appendChild(analyticsButtons);
 
   return container;
