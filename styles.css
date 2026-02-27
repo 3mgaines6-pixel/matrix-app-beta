@@ -1,7 +1,6 @@
 /* =========================================
-   ==========  SPLASH SCREEN CSS ===========
-   ========================================= */
-
+   SPLASH SCREEN
+========================================= */
 body {
   background: rgba(0,0,0,0.85);
   margin: 0;
@@ -45,9 +44,8 @@ body {
 }
 
 /* =========================================
-   ==========  GYM FLOOR SCREEN  ===========
-   ========================================= */
-
+   GYM FLOOR
+========================================= */
 .gymfloor-screen {
   width: 100%;
   height: 100vh;
@@ -89,9 +87,8 @@ body {
 }
 
 /* =========================================
-   ==========  STRENGTH FLOOR CSS ==========
-   ========================================= */
-
+   STRENGTH FLOOR
+========================================= */
 .strength-screen {
   width: 100%;
   min-height: 100vh;
@@ -159,9 +156,8 @@ body {
 .strength-back-btn:active { background-color: #111; border-color: #666; transform: scale(0.98); }
 
 /* =========================================
-   ==========  MACHINE SCREEN CSS ==========
-   ========================================= */
-
+   MACHINE SCREEN
+========================================= */
 .machine-screen.modern {
   padding: 20px;
   display: flex;
@@ -186,22 +182,53 @@ body {
   font-size: 15px;
 }
 
-/* Cards */
-.card-section,
-.suggested-box,
-.timer-card,
-.mode-toggle {
-  background: white;
-  padding: 16px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+/* =========================================
+   MACHINE CARD (clean + modern)
+========================================= */
+.machine-card {
+  position: relative;
+  display: block;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 22px 20px;
+  margin: 0 0 22px 0;
+  box-shadow: 0px 2px 6px rgba(0, 40, 80, 0.18);
+  will-change: transform, box-shadow;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    background 0.25s ease;
 }
 
-/* Tempo accordion */
+/* Title spacing */
+.machine-card h1.machine-title {
+  margin: 0 0 6px 0;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #0a0a0a;
+}
+
+.machine-card .machine-subtitle {
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+  color: #4a4a4a;
+}
+
+/* Section spacing */
+.machine-card .card-section,
+.machine-card .info-row,
+.machine-card .suggested-box,
+.machine-card .sets-grid,
+.machine-card .timer-card {
+  margin-bottom: 16px;
+}
+
+/* Accordion */
 .accordion-header {
   font-weight: 600;
-  color: #0a4cff;
+  padding: 8px 0;
   cursor: pointer;
+  color: #0a4cff;
 }
 
 .accordion-body {
@@ -209,50 +236,39 @@ body {
   color: #333;
 }
 
-/* Info rows */
-.info-row { font-size: 15px; color: #333; }
-.info-row.strong { font-weight: 700; color: #0a4cff; }
-
-/* Set inputs */
-.sets-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* Suggested box */
+.suggested-box {
+  background: #f5f8ff;
+  border-radius: 12px;
+  padding: 12px 14px;
 }
 
+/* Set rows */
 .set-row-modern {
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
 
 .set-row-modern input {
   flex: 1;
-  padding: 14px;
-  font-size: 16px;
+  padding: 10px;
   border-radius: 10px;
-  border: 1px solid #cdd7ff;
-  background: #ffffff;
-  color: #333;
+  border: 1px solid #d0d7e2;
+  font-size: 1rem;
 }
 
 /* Timer */
-.timer-display-modern {
-  font-size: 32px;
-  font-weight: 700;
+.timer-card {
+  background: #f7f7f7;
+  border-radius: 14px;
+  padding: 14px;
   text-align: center;
-  color: #0a4cff;
-  margin-bottom: 10px;
 }
 
-.timer-btn-modern {
-  width: 100%;
-  padding: 14px;
-  background: #0a4cff;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
+.timer-display-modern {
+  font-size: 1.6rem;
   font-weight: 600;
+  margin-bottom: 10px;
 }
 
 /* Toggles */
@@ -289,9 +305,8 @@ body {
 }
 
 /* =========================================
-   ==========  HISTORY SCREENS  ============
-   ========================================= */
-
+   HISTORY SCREENS
+========================================= */
 .history-screen {
   padding: 20px;
   color: #f0f6ff;
@@ -335,9 +350,8 @@ body {
 }
 
 /* =========================================
-   ==========  CARDIO STUDIO CSS ===========
-   ========================================= */
-
+   CARDIO STUDIO
+========================================= */
 .cardio-screen {
   max-width: 400px;
   margin: 0 auto;
@@ -378,7 +392,6 @@ body {
   font-size: 1.4rem;
 }
 
-/* Cardio machine input rows */
 .input-row {
   width: 90%;
   margin: 10px auto;
@@ -415,9 +428,8 @@ body {
 }
 
 /* =========================================
-   ==========  NUTRITION GUIDE CSS =========
-   ========================================= */
-
+   NUTRITION GUIDE
+========================================= */
 .nutrition-screen {
   padding: 20px;
   color: #cce4ff;
@@ -445,37 +457,10 @@ body {
   font-size: 1.1em;
   color: #88c0ff;
 }
-/* BASELINE — lighter, cooler, tighter */
-.card {
-  transform: scale(1) translateY(0);
-  box-shadow: 0px 2px 6px rgba(0, 40, 80, 0.18);
-  transition: transform 0.28s ease, box-shadow 0.28s ease;
-}
 
-/* LIFT — same nudge height, tighter scale, micro ease-out */
-.card.lift {
-  transform: translateY(-6px) scale(1.015);
-  transition: transform 0.18s cubic-bezier(0.15, 0.85, 0.35, 1),
-              box-shadow 0.18s cubic-bezier(0.15, 0.85, 0.35, 1);
-  box-shadow: 0px 6px 14px rgba(0, 40, 80, 0.28);
-}
-
-/* RETURN — same duration, mirrored micro ease-out */
-.card.returning {
-  transform: translateY(0) scale(1);
-  transition: transform 0.32s cubic-bezier(0.15, 0.85, 0.35, 1),
-              box-shadow 0.32s cubic-bezier(0.15, 0.85, 0.35, 1);
-}
-
-/* SHADOW SOFTEN — delay unchanged, faster soften */
-.card.shadow-soften {
-  box-shadow: 0px 2px 6px rgba(0, 40, 80, 0.18);
-  transition: box-shadow 0.22s ease;
-}
-/* ============================================
-   CALMING RESET — BASELINE STATE
-   (cooler, lighter, tighter shadow)
-============================================ */
+/* =========================================
+   RESET ANIMATION (FINAL, CLEAN)
+========================================= */
 .card {
   transform: translateY(0) scale(1);
   box-shadow: 0px 2px 6px rgba(0, 40, 80, 0.18);
@@ -484,163 +469,6 @@ body {
     box-shadow 0.28s ease;
 }
 
-
-/* ============================================
-   LIFT PHASE
-   (nudge height + tighter scale + micro ease-out)
-============================================ */
-.card.lift {
-  transform: translateY(-6px) scale(1.015);
-  box-shadow: 0px 6px 14px rgba(0, 40, 80, 0.28);
-  transition:
-    transform 0.18s cubic-bezier(0.15, 0.85, 0.35, 1),
-    box-shadow 0.18s cubic-bezier(0.15, 0.85, 0.35, 1);
-}
-
-
-/* ============================================
-   RETURN PHASE
-   (smooth descent + mirrored micro ease-out)
-============================================ */
-.card.returning {
-  transform: translateY(0) scale(1);
-  transition:
-    transform 0.32s cubic-bezier(0.15, 0.85, 0.35, 1),
-    box-shadow 0.32s cubic-bezier(0.15, 0.85, 0.35, 1);
-}
-
-
-/* ============================================
-   SHADOW SOFTEN
-   (delay unchanged, faster soften)
-============================================ */
-.card.shadow-soften {
-  box-shadow: 0px 2px 6px rgba(0, 40, 80, 0.18);
-  transition: box-shadow 0.22s ease;
-}
-
-
-/* ============================================
-   RESET BUTTON — MODERN STYLE
-============================================ */
-.reset-button-modern {
-  margin-top: 18px;
-  width: 100%;
-  padding: 14px 0;
-  background: #0a4cff;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.reset-button-modern:hover {
-  background: #003be0;
-}
-
-.reset-button-modern:active {
-  background: #002fb8;
-}
-/* ============================================
-   MACHINE CARD — MODERN, CLEAN, ATHLETIC
-============================================ */
-.machine-card {
-  position: relative;
-  display: block;
-
-  background: #ffffff;
-  border-radius: 18px;
-
-  padding: 22px 20px;
-  margin: 0 0 22px 0;
-
-  box-shadow: 0px 2px 6px rgba(0, 40, 80, 0.18);
-  will-change: transform, box-shadow;
-
-  /* Smooth baseline transitions */
-  transition:
-    transform 0.28s ease,
-    box-shadow 0.28s ease,
-    background 0.25s ease;
-}
-
-/* Title + subtitle spacing inside card */
-.machine-card h1.machine-title {
-  margin: 0 0 6px 0;
-  font-size: 1.45rem;
-  font-weight: 700;
-  color: #0a0a0a;
-}
-
-.machine-card .machine-subtitle {
-  margin-bottom: 14px;
-  font-size: 0.95rem;
-  color: #4a4a4a;
-}
-
-/* Section spacing inside card */
-.machine-card .card-section,
-.machine-card .info-row,
-.machine-card .suggested-box,
-.machine-card .sets-grid,
-.machine-card .timer-card {
-  margin-bottom: 16px;
-}
-
-/* Make accordion headers feel tappable */
-.accordion-header {
-  font-weight: 600;
-  padding: 8px 0;
-  cursor: pointer;
-  color: #0a4cff;
-}
-
-/* Suggested box styling */
-.suggested-box {
-  background: #f5f8ff;
-  border-radius: 12px;
-  padding: 12px 14px;
-}
-
-/* Set rows */
-.set-row-modern {
-  display: flex;
-  gap: 10px;
-}
-
-.set-row-modern input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #d0d7e2;
-  font-size: 1rem;
-}
-
-/* Timer card */
-.timer-card {
-  background: #f7f7f7;
-  border-radius: 14px;
-  padding: 14px;
-  text-align: center;
-}
-
-.timer-display-modern {
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-/* ============================================
-   RESET ANIMATION STATES (works with .machine-card)
-============================================ */
-.card {
-  transform: translateY(0) scale(1);
-  box-shadow: 0px 2px 6px rgba(0, 40, 80, 0.18);
-}
-
 .card.lift {
   transform: translateY(-6px) scale(1.015);
   box-shadow: 0px 6px 14px rgba(0, 40, 80, 0.28);
@@ -661,23 +489,19 @@ body {
   transition: box-shadow 0.22s ease;
 }
 
-/* ============================================
-   RESET BUTTON — MODERN BLUE
-============================================ */
+/* =========================================
+   RESET BUTTON
+========================================= */
 .reset-button-modern {
   width: 100%;
   padding: 14px 0;
   margin-top: 10px;
-
   background: #0a4cff;
   color: white;
-
   border: none;
   border-radius: 12px;
-
   font-size: 1.1rem;
   font-weight: 600;
-
   cursor: pointer;
   transition: background 0.2s ease;
 }
