@@ -1,32 +1,4 @@
-/* =========================================
-   CALMING RESET MOTION (GLOBAL FUNCTION)
-   — MUST BE ABOVE IMPORTS —
-========================================= */
-function runResetMotion(card) {
-  // LIFT
-  card.classList.add('lift');
 
-  // QUICK-BEAT PEAK PAUSE
-  setTimeout(() => {
-    card.classList.remove('lift');
-    card.classList.add('returning');
-
-    // SHADOW SOFTEN DELAY
-    setTimeout(() => {
-      card.classList.add('shadow-soften');
-
-      // CLEANUP
-      setTimeout(() => {
-        card.classList.remove('returning', 'shadow-soften');
-      }, 260);
-
-    }, 90);
-
-  }, 110);
-}
-
-// ⭐ EXPOSE GLOBALLY BEFORE IMPORTS
-window.runResetMotion = runResetMotion;
 
 
 /* =========================================
