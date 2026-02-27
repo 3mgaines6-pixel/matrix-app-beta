@@ -45,11 +45,14 @@ export function Machine(id) {
   resetBtn.className = "reset-button-modern";
   resetBtn.textContent = "Reset";
 
-  resetBtn.onclick = () => {
+  resetBtn.onclick = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
   console.log("RESET CLICKED");
   setTimeout(() => console.log("AFTER 200ms:", card.className), 200);
   window.runResetMotion(card);
 };
+
 
 
 
