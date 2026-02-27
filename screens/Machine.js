@@ -46,8 +46,10 @@ export function Machine(id) {
   resetBtn.textContent = "Reset";
 
   resetBtn.onclick = () => {
-  window.runResetMotion(card);   // ⭐ call through window
+  console.log("RESET TARGET:", card, card.className);
+  window.runResetMotion(card);
 };
+
 
 
   /* -------------------------------
