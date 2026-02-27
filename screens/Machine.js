@@ -38,21 +38,7 @@ export function Machine(id) {
     renderLogButton(rotatedId, suggested, setWrapper)
   );
 
-  /* -------------------------------
-     RESET BUTTON
-  -------------------------------- */
-  const resetBtn = document.createElement("button");
-  resetBtn.className = "reset-button-modern";
-  resetBtn.textContent = "Reset";
-
-  resetBtn.onclick = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  console.log("RESET CLICKED");
-  setTimeout(() => console.log("AFTER 200ms:", card.className), 200);
-  window.runResetMotion(card);
-};
-
+  
 
 
 
@@ -61,7 +47,7 @@ export function Machine(id) {
   -------------------------------- */
   const closeBtn = renderCloseButton();
 
-  container.append(card, resetBtn, closeBtn);
+  container.append(card,  closeBtn);
   return container;
 }
 
