@@ -1,12 +1,8 @@
-
-
-
 /* =========================================
    IMPORT SCREENS (ORDER MATTERS)
 ========================================= */
 import { Splash } from "./screens/Splash.js?v=3";
 import { GymFloor } from "./screens/GymFloor.js?v=3";
-import { StrengthFloor } from "./screens/StrengthFloor.js";
 import { StrengthStudio } from "./screens/StrengthStudio.js?v=3";
 
 import { StrengthHistory } from "./screens/StrengthHistory.js?v=3";
@@ -28,9 +24,8 @@ import { CardioHistory } from "./screens/CardioHistory.js?v=3";
    SCREEN REGISTRY
 ========================================= */
 window.SCREENS = {
-  StrengthFloor,
+  StrengthStudio,
   Machine,
-   StrengthStudio,
 
   StrengthHistory,
   CardioStudio,
@@ -62,9 +57,8 @@ export function renderScreen(screenName, data) {
   switch (screenName) {
     case "Splash": screen = Splash(); break;
     case "GymFloor": screen = GymFloor(); break;
-    case "StrengthFloor": screen = StrengthFloor(); break;
-  case "StrengthStudio": screen = StrengthStudio(); break;
-     case "StrengthHistory": screen = StrengthHistory(); break;
+    case "StrengthStudio": screen = StrengthStudio(); break;
+    case "StrengthHistory": screen = StrengthHistory(); break;
     case "CardioStudio": screen = CardioStudio(); break;
     case "StretchStudio": screen = StretchStudio(); break;
     case "Machine": screen = Machine(data); break;
@@ -79,12 +73,7 @@ export function renderScreen(screenName, data) {
     case "NutritionGuide": screen = NutritionGuide(); break;
 
     default:
-      if (screenName.startsWith("Machine-")) {
-        const id = Number(screenName.split("-")[1]);
-        screen = Machine(id);
-      } else {
-        screen = GymFloor();
-      }
+      screen = GymFloor();
   }
 
   app.innerHTML = "";
@@ -100,3 +89,6 @@ window.renderScreen = renderScreen;
 document.addEventListener("DOMContentLoaded", () => {
   renderScreen("Splash");
 });
+
+
+
