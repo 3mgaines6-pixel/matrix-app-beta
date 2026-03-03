@@ -1,23 +1,23 @@
 /* =========================================
    IMPORT SCREENS (ORDER MATTERS)
 ========================================= */
-import { Splash } from "./screens/Splash.js?v=3";
-import { GymFloor } from "./screens/GymFloor.js?v=3";
-import { StrengthStudio } from "./screens/StrengthStudio.js?v=3";
+import { Splash } from "./screens/Splash.js?v=4";
+import { GymFloor } from "./screens/GymFloor.js?v=4";
+import { StrengthStudio } from "./screens/StrengthStudio.js?v=4";
 
-import { StrengthHistory } from "./screens/StrengthHistory.js?v=3";
-import { Machine } from "./screens/Machine.js?v=3";
-import { CardioStudio } from "./screens/CardioStudio.js?v=3";
-import { StretchStudio } from "./screens/StretchStudio.js?v=3";
-import { Summary } from "./screens/Summary.js?v=3";
-import { WeeklyOverview } from "./screens/WeeklyOverview.js?v=3";
-import { MatrixTreadmill } from "./screens/MatrixTreadmill.js?v=3";
-import { MatrixCycle } from "./screens/MatrixCycle.js?v=3";
-import { MatrixElliptical } from "./screens/MatrixElliptical.js?v=3";
-import { NutritionGuide } from "./screens/NutritionGuide.js?v=3";
-import { SpinClass } from "./screens/SpinClass.js?v=3";
-import { CoreClass } from "./screens/CoreClass.js?v=3";
-import { CardioHistory } from "./screens/CardioHistory.js?v=3";
+import { StrengthHistory } from "./screens/StrengthHistory.js?v=4";
+import { Machine } from "./screens/Machine.js?v=4";
+import { CardioStudio } from "./screens/CardioStudio.js?v=4";
+import { StretchStudio } from "./screens/StretchStudio.js?v=4";
+import { Summary } from "./screens/Summary.js?v=4";
+import { WeeklyOverview } from "./screens/WeeklyOverview.js?v=4";
+import { MatrixTreadmill } from "./screens/MatrixTreadmill.js?v=4";
+import { MatrixCycle } from "./screens/MatrixCycle.js?v=4";
+import { MatrixElliptical } from "./screens/MatrixElliptical.js?v=4";
+import { NutritionGuide } from "./screens/NutritionGuide.js?v=4";
+import { SpinClass } from "./screens/SpinClass.js?v=4";
+import { CoreClass } from "./screens/CoreClass.js?v=4";
+import { CardioHistory } from "./screens/CardioHistory.js?v=4";
 
 
 /* =========================================
@@ -89,6 +89,3 @@ window.renderScreen = renderScreen;
 document.addEventListener("DOMContentLoaded", () => {
   renderScreen("Splash");
 });
-
-
-
