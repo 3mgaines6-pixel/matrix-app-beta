@@ -28,7 +28,7 @@ export function StrengthStudio() {
   rotationLabel.textContent = `Block ${rot.block} • ${rot.mode} • ${rot.range}`;
   wrapper.appendChild(rotationLabel);
 
-  /* DAY BUTTONS */
+  /* DAY SELECTOR */
   const dayButtons = document.createElement("div");
   dayButtons.className = "day-selector";
 
@@ -81,7 +81,8 @@ export function StrengthStudio() {
       btn.className = "machine-btn";
       btn.textContent = `#${rotatedId} ${meta.name}`;
 
-      btn.onclick = () => window.renderScreen(`Machine-${rotatedId}`);
+      /* FIXED NAVIGATION — THIS IS THE IMPORTANT PART */
+      btn.onclick = () => window.renderScreen("Machine", rotatedId);
 
       machineList.appendChild(btn);
     });
