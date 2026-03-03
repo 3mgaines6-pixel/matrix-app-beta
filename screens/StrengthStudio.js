@@ -15,37 +15,32 @@ export function StrengthStudio() {
   wrapper.className = "strength-wrapper";
   container.appendChild(wrapper);
 
-  const title = document.createElement("h1");
-  title.className = "strength-title";
-  title.textContent = "Strength Floor";
-  wrapper.appendChild(title);
+  /* HEADER */
+  const header = document.createElement("div");
+  header.className = "strength-header";
+  header.textContent = "Strength Studio";
+  wrapper.appendChild(header);
 
+  /* ROTATION LABEL */
   const rot = getRotationInfo();
   const rotationLabel = document.createElement("div");
-  rotationLabel.style.textAlign = "center";
-  rotationLabel.style.opacity = "0.7";
-  rotationLabel.style.marginBottom = "10px";
-  rotationLabel.style.fontSize = "14px";
-  rotationLabel.textContent = `Rotation Block ${rot.block} • ${rot.mode} • ${rot.range}`;
+  rotationLabel.className = "rotation-label";
+  rotationLabel.textContent = `Block ${rot.block} • ${rot.mode} • ${rot.range}`;
   wrapper.appendChild(rotationLabel);
 
-  const backBtn = document.createElement("button");
-  backBtn.className = "strength-back-btn";
-  backBtn.textContent = "Return to Gym Floor";
-  backBtn.onclick = () => window.renderScreen("GymFloor");
-
+  /* DAY BUTTONS */
   const dayButtons = document.createElement("div");
-  dayButtons.className = "strength-day-buttons";
+  dayButtons.className = "day-selector";
 
   const days = Object.keys(WEEKLY_SCHEDULE);
 
   days.forEach(day => {
     const btn = document.createElement("button");
-    btn.className = "strength-btn";
+    btn.className = "day-btn";
     btn.textContent = day;
 
     if (manualDaySelection === day) {
-      btn.style.background = "rgba(0, 120, 255, 0.6)";
+      btn.classList.add("active");
     }
 
     btn.onclick = () => {
@@ -58,18 +53,12 @@ export function StrengthStudio() {
     dayButtons.appendChild(btn);
   });
 
-  const machineList = document.createElement("div");
-  machineList.className = "strength-machine-buttons";
-
-  wrapper.appendChild(backBtn);
   wrapper.appendChild(dayButtons);
+
+  /* MACHINE LIST */
+  const machineList = document.createElement("div");
+  machineList.className = "machine-list";
   wrapper.appendChild(machineList);
-/* Strength History Button */
-const historyBtn = document.createElement("button");
-historyBtn.className = "strength-btn"; // or cardio-btn if you reuse that style
-historyBtn.textContent = "📅 Strength History";
-historyBtn.onclick = () => window.renderScreen("StrengthHistory");
-wrapper.appendChild(historyBtn);
 
   const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
   const startingDay = manualDaySelection || today;
@@ -89,8 +78,9 @@ wrapper.appendChild(historyBtn);
       if (!meta) return;
 
       const btn = document.createElement("button");
-      btn.className = "strength-btn";
+      btn.className = "machine-btn";
       btn.textContent = `#${rotatedId} ${meta.name}`;
+
       btn.onclick = () => window.renderScreen(`Machine-${rotatedId}`);
 
       machineList.appendChild(btn);
@@ -100,12 +90,21 @@ wrapper.appendChild(historyBtn);
   function highlightSelectedDay(container, selectedDay) {
     const buttons = container.querySelectorAll("button");
     buttons.forEach(btn => {
-      btn.style.background =
-        btn.textContent === selectedDay
-          ? "rgba(0, 120, 255, 0.6)"
-          : "rgba(255,255,255,0.1)";
+      if (btn.textContent === selectedDay) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
     });
   }
+
+  /* RETURN BUTTON */
+  const returnBtn = document.createElement("button");
+  returnBtn.className = "return-btn";
+  returnBtn.textContent = "Back to Gym Floor";
+  returnBtn.onclick = () => window.renderScreen("GymFloor");
+
+  wrapper.appendChild(returnBtn);
 
   return container;
 }
