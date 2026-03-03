@@ -628,3 +628,104 @@ body {
   box-shadow: 0px 4px 12px rgba(10, 76, 255, 0.18);
 }
 
+/* ==========================================
+   STRENGTH STUDIO — BLUE THEME
+========================================== */
+
+.strength-screen {
+  background: #f5f8ff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.strength-wrapper {
+  width: 100%;
+  max-width: 500px;
+  padding-bottom: 40px;
+}
+
+/* HEADER */
+.strength-header {
+  width: 100%;
+  padding: 22px 0;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, #5fa8ff 0%, #0a4cff 100%);
+  box-shadow: 0px 4px 12px rgba(10, 76, 255, 0.18);
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+/* ROTATION LABEL */
+.rotation-label {
+  text-align: center;
+  opacity: 0.7;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #0a4cff;
+}
+
+/* DAY SELECTOR */
+.day-selector {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.day-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: white;
+  color: #0a4cff;
+  font-weight: 600;
+  box-shadow: 0px 4px 12px rgba(10, 76, 255, 0.18);
+}
+
+.day-btn.active {
+  background: #0a4cff;
+  color: white;
+}
+
+/* MACHINE BUTTONS */
+.machine-btn {
+  width: 90%;
+  padding: 16px 0;
+  margin: 12px auto;
+  background: white;
+  color: #0a4cff;
+  border: 2px solid #0a4cff;
+  border-radius: 14px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  display: block;
+  box-shadow: 0px 4px 12px rgba(10, 76, 255, 0.18);
+  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.machine-btn:hover {
+  background: #0a4cff;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* RETURN BUTTON */
+.return-btn {
+  width: 90%;
+  padding: 16px 0;
+  margin: 30px auto;
+  background: #0a4cff;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  display: block;
+  box-shadow: 0px 4px 12px rgba(10, 76, 255, 0.18);
+}
