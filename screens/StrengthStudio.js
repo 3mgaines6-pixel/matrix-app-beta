@@ -2,19 +2,19 @@ import { WEEKLY_SCHEDULE } from "../data/weeklySchedule.js";
 import { MACHINES } from "../data/machines.js";
 import { getRotationInfo, getRotatedMachine } from "../data/rotation.js";
 
-/* =========================================
+/* ============================================================
    REMEMBER USER'S SELECTED DAY
-========================================= */
-let manualDaySelection = localStorage.getItem("selectedDay") || null;
+============================================================ */
+let manualDaySelection = localStorage.getItem("manualDaySelection");
 
-/* =========================================
+/* ============================================================
    EMOJIS
-========================================= */
+============================================================ */
 const MACHINE_EMOJIS = {
-  15: "🦵",
-  115: "🦵",
-  22: "🦿",
-  122: "🦿",
+  15: "🏋️",
+  115: "🏋️",
+  22: "🦵",
+  122: "🦵",
   6: "💪",
   106: "💪",
   9: "🏋️",
@@ -54,7 +54,7 @@ export function StrengthStudio() {
   const dayButtons = document.createElement("div");
   dayButtons.className = "day-selector";
 
-  const days = Object.keys(WEEKLY_SCHEDULE); // ["Mon","Tue","Wed","Thur","Fri"]
+  const days = Object.keys(WEEKLY_SCHEDULE);
 
   days.forEach(day => {
     const btn = document.createElement("button");
@@ -67,7 +67,7 @@ export function StrengthStudio() {
 
     btn.onclick = () => {
       manualDaySelection = day;
-      localStorage.setItem("selectedDay", day);
+      localStorage.setItem("manualDaySelection", day);
       renderMachineList(day);
       highlightSelectedDay(dayButtons, day);
     };
@@ -82,18 +82,13 @@ export function StrengthStudio() {
   machineList.className = "machine-list";
   wrapper.appendChild(machineList);
 
-  /* =========================================
-     FIXED DAY DETECTION
-     Converts "Mon." → "Mon", "Thu" → "Thur"
-  ========================================= */
+  /* FIX DAY FORMAT */
   let today = new Date().toLocaleDateString("en-US", { weekday: "short" }).replace(".", "");
+  if (today === "Thu") today = "Thur";
 
-  if (today === "Thu") today = "Thur"; // match your schedule key
-
-  // If saved day is invalid, clear it
   if (!WEEKLY_SCHEDULE[manualDaySelection]) {
     manualDaySelection = null;
-    localStorage.removeItem("selectedDay");
+    localStorage.removeItem("manualDaySelection");
   }
 
   const startingDay = manualDaySelection || today;
@@ -105,10 +100,7 @@ export function StrengthStudio() {
     machineList.innerHTML = "";
 
     const ids = WEEKLY_SCHEDULE[day];
-    if (!ids) {
-      machineList.innerHTML = `<div style="text-align:center; opacity:0.6; margin-top:20px;">No machines for ${day}</div>`;
-      return;
-    }
+    if (!ids) return;
 
     ids.forEach(id => {
       const rotatedId = getRotatedMachine(id);
@@ -121,8 +113,7 @@ export function StrengthStudio() {
       btn.className = "machine-btn";
       btn.textContent = `${emoji} #${rotatedId} ${meta.name}`;
 
-      /* CORRECT NAVIGATION */
-      btn.onclick = () => window.renderScreen("Machine", rotatedId);
+      btn.onclick = () => window.renderScreen("Machine", { id: rotatedId });
 
       machineList.appendChild(btn);
     });
