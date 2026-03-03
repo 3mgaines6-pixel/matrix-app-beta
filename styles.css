@@ -1,28 +1,41 @@
 /* =========================================
-   SPLASH SCREEN
+   GLOBAL RESET + APP BACKGROUND
 ========================================= */
-body {
-  background: rgba(0,0,0,0.85);
+html, body {
   margin: 0;
   padding: 0;
+  background: #f5f8ff;
+  height: 100%;
+  font-family: system-ui, sans-serif;
 }
 
+#app {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================
+   SPLASH SCREEN — BLUE THEME
+========================================= */
 .splash-screen {
   width: 100%;
   height: 100vh;
-  background: #f2f2f2;
+  background: linear-gradient(135deg, #cce4ff 0%, #5fa8ff 40%, #0a4cff 100%);
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeIn 0.8s ease-out;
 }
 
 .splash-door {
   width: 180px;
   height: 300px;
-  background: #d9d9d9;
-  border: 8px solid #333;
-  border-radius: 6px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 22px rgba(10, 76, 255, 0.35);
   position: relative;
 }
 
@@ -30,7 +43,7 @@ body {
   content: "";
   width: 22px;
   height: 22px;
-  background: #333;
+  background: #0a4cff;
   border-radius: 50%;
   position: absolute;
   right: 25px;
@@ -38,26 +51,10 @@ body {
   transform: translateY(-50%);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0 }
-  to { opacity: 1 }
-}
-
-/* ================================
-   GYM FLOOR — BLUE THEME
-================================ */
-
-.gym-floor-screen {
-  background: #f5f8ff;
-  min-height: 100vh;
-  padding-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* HEADER */
-.gym-header {
+/* =========================================
+   HEADER — UNIFIED BLUE THEME
+========================================= */
+.header-blue {
   width: 100%;
   padding: 22px 0;
   text-align: center;
@@ -70,7 +67,18 @@ body {
   border-bottom-right-radius: 14px;
 }
 
-/* SECTION LABELS */
+/* =========================================
+   GYM FLOOR — BLUE THEME
+========================================= */
+.gym-floor-screen {
+  background: #f5f8ff;
+  min-height: 100vh;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .section-title {
   font-size: 1.3rem;
   font-weight: 700;
@@ -78,10 +86,8 @@ body {
   text-align: center;
   margin-top: 28px;
   margin-bottom: 12px;
-  text-shadow: 0px 1px 3px rgba(255, 255, 255, 0.8);
 }
 
-/* CARD WRAPPERS */
 .gym-card {
   width: 90%;
   background: white;
@@ -91,7 +97,6 @@ body {
   box-shadow: 0px 4px 12px rgba(10, 76, 255, 0.18);
 }
 
-/* BUTTONS */
 .gym-btn {
   width: 90%;
   padding: 16px 0;
@@ -108,530 +113,12 @@ body {
   transition: transform 0.15s ease, background 0.2s ease;
 }
 
-.gym-btn:hover {
-  background: #003be0;
-  transform: translateY(-2px);
-}
-
-.gym-btn:active {
-  background: #002fb8;
-  transform: translateY(0px);
-}
-
-/* DIVIDERS */
-.blue-divider {
-  width: 60%;
-  height: 3px;
-  background: #0a4cff;
-  border-radius: 3px;
-  margin: 20px auto;
-}
-
+.gym-btn:hover { background: #003be0; transform: translateY(-2px); }
+.gym-btn:active { background: #002fb8; transform: translateY(0px); }
 
 /* =========================================
-   STRENGTH FLOOR
-========================================= */
-.strength-screen {
-  width: 100%;
-  min-height: 100vh;
-  background: rgba(0,0,0,0.85);
-  padding: 20px 0;
-  color: white;
-  display: flex;
-  justify-content: center;
-}
-
-.strength-wrapper {
-  width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 0 16px;
-  box-sizing: border-box;
-}
-
-.strength-title {
-  text-align: center;
-  font-size: 32px;
-  margin-bottom: 20px;
-}
-
-.strength-day-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.strength-machine-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.strength-btn {
-  padding: 14px;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.1);
-  color: white;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-}
-
-.strength-back-btn {
-  width: 100%;
-  margin: 10px 0 20px 0;
-  padding: 12px 20px;
-  background-color: #222;
-  color: #fff;
-  border: 2px solid #555;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  text-align: center;
-  transition: all 0.2s ease;
-}
-
-.strength-back-btn:hover { background-color: #444; border-color: #888; }
-.strength-back-btn:active { background-color: #111; border-color: #666; transform: scale(0.98); }
-
-/* =========================================
-   MACHINE SCREEN
-========================================= */
-.machine-screen.modern {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background: #f7faff;
-  min-height: 100vh;
-  max-width: 420px;
-  margin: 0 auto;
-}
-
-.machine-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #0a4cff;
-  text-align: center;
-}
-
-.machine-subtitle {
-  text-align: center;
-  color: #555;
-  font-size: 15px;
-}
-
-/* =========================================
-   MACHINE CARD (modern + animation-safe)
-========================================= */
-.machine-card {
-  position: relative;
-  isolation: isolate;        /* ⭐ REQUIRED */
-  transform: translateZ(0);  /* ⭐ REQUIRED */
-  display: block;
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 22px 20px;
-  margin: 0 0 22px 0;
-  box-shadow: 0px 2px 6px rgba(0, 40, 80, 0.18);
-  will-change: transform, box-shadow;
-  transition:
-    transform 0.28s ease,
-    box-shadow 0.28s ease,
-    background 0.25s ease;
-}
-
-.machine-card h1.machine-title {
-  margin: 0 0 6px 0;
-  font-size: 1.45rem;
-  font-weight: 700;
-  color: #0a0a0a;
-}
-
-.machine-card .machine-subtitle {
-  margin-bottom: 14px;
-  font-size: 0.95rem;
-  color: #4a4a4a;
-}
-
-.machine-card .card-section,
-.machine-card .info-row,
-.machine-card .suggested-box,
-.machine-card .sets-grid,
-.machine-card .timer-card {
-  margin-bottom: 16px;
-}
-
-.accordion-header {
-  font-weight: 600;
-  padding: 8px 0;
-  cursor: pointer;
-  color: #0a4cff;
-}
-
-.accordion-body {
-  margin-top: 8px;
-  color: #333;
-}
-
-.suggested-box {
-  background: #f5f8ff;
-  border-radius: 12px;
-  padding: 12px 14px;
-}
-
-.set-row-modern {
-  display: flex;
-  gap: 10px;
-}
-
-.set-row-modern input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #d0d7e2;
-  font-size: 1rem;
-}
-
-.timer-card {
-  background: #f7f7f7;
-  border-radius: 14px;
-  padding: 14px;
-  text-align: center;
-}
-
-.timer-display-modern {
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.pill-toggle,
-.mode-select {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #cdd7ff;
-  background: white;
-  font-size: 16px;
-}
-
-.log-btn-modern,
-.close-btn-modern {
-  width: 100%;
-  padding: 14px;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.log-btn-modern {
-  background: #0a4cff;
-  color: white;
-  border: none;
-}
-
-.close-btn-modern {
-  background: #e6ecff;
-  color: #0a4cff;
-  border: none;
-}
-
-/* =========================================
-   HISTORY
-========================================= */
-.history-screen {
-  padding: 20px;
-  color: #f0f6ff;
-}
-
-.history-title {
-  text-align: center;
-  color: #88c0ff;
-  margin-bottom: 20px;
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.history-date {
-  background: #1e3a5f;
-  color: #88c0ff;
-  padding: 10px 12px;
-  border-radius: 8px;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.history-row {
-  background: #0f172a;
-  padding: 12px 14px;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  color: #f0f6ff;
-  font-size: 1rem;
-  line-height: 1.4;
-  border-left: 3px solid #88c0ff;
-}
-
-.empty-history {
-  text-align: center;
-  color: #88c0ff;
-  margin-top: 20px;
-  font-size: 1.1rem;
-}
-
-/* =========================================
-   CARDIO
-========================================= */
-.cardio-screen {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-  color: #cce4ff;
-}
-
-.cardio-title {
-  font-size: 2rem;
-  margin-bottom: 25px;
-  color: #88c0ff;
-}
-
-.cardio-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 10px 0 20px 0;
-}
-
-.cardio-btn {
-  width: 90%;
-  margin: 10px auto;
-  padding: 14px;
-  background: #88c0ff;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.cardio-btn .icon {
-  font-size: 1.4rem;
-}
-
-.input-row {
-  width: 90%;
-  margin: 10px auto;
-  text-align: left;
-}
-
-.input-row label {
-  display: block;
-  font-size: 1rem;
-  margin-bottom: 4px;
-  color: #f0f6ff;
-  font-weight: 600;
-}
-
-.input-row input {
-  background: #1e1e1e;
-  color: #f0f6ff;
-  border: 1px solid #88c0ff;
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-.cardio-save-btn,
-.log-btn {
-  width: 90%;
-  padding: 14px;
-  margin-top: 15px;
-  background: #1a2e4a;
-  color: #cce4ff;
-  border: 1px solid #88c0ff;
-  border-radius: 10px;
-  font-size: 1.2rem;
-}
-
-/* =========================================
-   NUTRITION
-========================================= */
-.nutrition-screen {
-  padding: 20px;
-  color: #cce4ff;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.nutrition-screen h2 {
-  color: #66aaff;
-  margin-top: 20px;
-}
-
-.nutrition-input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: 1px solid #66aaff;
-  background: #0d1b2a;
-  color: white;
-}
-
-.nutrition-result {
-  margin: 10px 0;
-  font-size: 1.1em;
-  color: #88c0ff;
-}
-
-/* =========================================
-   RESET ANIMATION (FINAL, AUTHORITATIVE)
-========================================= */
-.card {
-  transform: translateY(0) scale(1);
-  box-shadow: 0px 2px 6px rgba(0, 40, 80, 0.18);
-  transition:
-    transform 0.28s ease,
-    box-shadow 0.28s ease;
-}
-
-.card.lift {
-  transform: translateY(-6px) scale(1.015);
-  box-shadow: 0px 6px 14px rgba(0, 40, 80, 0.28);
-  transition:
-    transform 0.18s cubic-bezier(0.15, 0.85, 0.35, 1),
-    box-shadow 0.18s cubic-bezier(0.15, 0.85, 0.35, 1);
-}
-
-.card.returning {
-  transform: translateY(0) scale(1);
-  transition:
-    transform 0.32s cubic-bezier(0.15, 0.85, 0.35, 1),
-    box-shadow 0.32s cubic-bezier(0.15, 0.85, 0.35, 1);
-}
-
-.card.shadow-soften {
-  box-shadow: 0px 2px 6px rgba(0, 40, 80, 0.18);
-  transition: box-shadow 0.22s ease;
-}
-
-/* ==========================================
    STRENGTH STUDIO — BLUE THEME
-========================================== */
-
-.strength-screen {
-  background: #f5f8ff;
-  min-height: 100vh;
-  padding-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* HEADER */
-.strength-header {
-  width: 100%;
-  padding: 22px 0;
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: white;
-  background: linear-gradient(135deg, #5fa8ff 0%, #0a4cff 100%);
-  box-shadow: 0px 4px 12px rgba(10, 76, 255, 0.18);
-  border-bottom-left-radius: 14px;
-  border-bottom-right-radius: 14px;
-}
-
-/* DAY SELECTOR */
-.day-selector {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 20px 0;
-}
-
-.day-btn {
-  padding: 10px 16px;
-  border-radius: 10px;
-  border: none;
-  background: white;
-  color: #0a4cff;
-  font-weight: 600;
-  box-shadow: 0px 4px 12px rgba(10, 76, 255, 0.18);
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.day-btn.active {
-  background: #0a4cff;
-  color: white;
-}
-
-/* MACHINE BUTTONS */
-.machine-btn {
-  width: 90%;
-  padding: 16px 0;
-  margin: 12px auto;
-  background: white;
-  color: #0a4cff;
-  border: 2px solid #0a4cff;
-  border-radius: 14px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  text-align: center;
-  display: block;
-  box-shadow: 0px 4px 12px rgba(10, 76, 255, 0.18);
-  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
-}
-
-.machine-btn:hover {
-  background: #0a4cff;
-  color: white;
-  transform: translateY(-2px);
-}
-
-.machine-btn:active {
-  transform: translateY(0px);
-}
-
-/* TRASH ICON */
-.trash-icon {
-  float: right;
-  font-size: 1.2rem;
-  color: #0a4cff;
-  margin-right: 12px;
-  cursor: pointer;
-}
-
-/* RETURN BUTTON */
-.return-btn {
-  width: 90%;
-  padding: 16px 0;
-  margin: 30px auto;
-  background: #0a4cff;
-  color: white;
-  border: none;
-  border-radius: 14px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  text-align: center;
-  display: block;
-  box-shadow: 0px 4px 12px rgba(10, 76, 255, 0.18);
-}
-
-/* ==========================================
-   STRENGTH STUDIO — BLUE THEME
-========================================== */
-
+========================================= */
 .strength-screen {
   background: #f5f8ff;
   min-height: 100vh;
@@ -645,21 +132,10 @@ body {
   padding-bottom: 40px;
 }
 
-/* HEADER */
 .strength-header {
-  width: 100%;
-  padding: 22px 0;
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: white;
-  background: linear-gradient(135deg, #5fa8ff 0%, #0a4cff 100%);
-  box-shadow: 0px 4px 12px rgba(10, 76, 255, 0.18);
-  border-bottom-left-radius: 14px;
-  border-bottom-right-radius: 14px;
+  composes: header-blue;
 }
 
-/* ROTATION LABEL */
 .rotation-label {
   text-align: center;
   opacity: 0.7;
@@ -728,4 +204,85 @@ body {
   text-align: center;
   display: block;
   box-shadow: 0px 4px 12px rgba(10, 76, 255, 0.18);
+}
+
+/* =========================================
+   MACHINE SCREEN — MODERN BLUE THEME
+========================================= */
+.machine-screen.modern {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #f7faff;
+  min-height: 100vh;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.machine-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0a4cff;
+  text-align: center;
+}
+
+.machine-subtitle {
+  text-align: center;
+  color: #555;
+  font-size: 15px;
+}
+
+/* MACHINE CARD */
+.machine-card {
+  position: relative;
+  isolation: isolate;
+  transform: translateZ(0);
+  display: block;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 22px 20px;
+  margin: 0 0 22px 0;
+  box-shadow: 0px 2px 6px rgba(0, 40, 80, 0.18);
+  will-change: transform, box-shadow;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, background 0.25s ease;
+}
+
+.machine-card h1.machine-title {
+  margin: 0 0 6px 0;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #0a0a0a;
+}
+
+.machine-card .machine-subtitle {
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+  color: #4a4a4a;
+}
+
+/* =========================================
+   CARDIO / NUTRITION / HISTORY — BLUE THEME
+========================================= */
+.cardio-screen,
+.nutrition-screen,
+.history-screen {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #0a4cff;
+}
+
+.cardio-title,
+.history-title {
+  text-align: center;
+  color: #0a4cff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.nutrition-screen h2 {
+  color: #0a4cff;
+  margin-top: 20px;
 }
