@@ -388,3 +388,48 @@ html, body {
   font-size: 1.2rem;
   font-weight: 700;
 }
+.cardio-screen {
+  width: 100%;
+  padding: 20px 0;
+}
+
+.cardio-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardio-header {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e88e5;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.cardio-btn {
+  width: 90%;
+  margin: 8px 0;
+  padding: 16px;
+  background: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.cardio-return-btn {
+  width: 90%;
+  margin: 25px 0 10px 0;
+  padding: 16px;
+  background: #0d47a1;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+}
