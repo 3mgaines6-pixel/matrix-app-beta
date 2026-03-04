@@ -108,64 +108,63 @@ export function Machine(id) {
   closeBtn.onclick = () => window.renderScreen("StrengthStudio");
   wrapper.appendChild(closeBtn);
 
-/* ============================================================
-   TIMER ENGINE
-============================================================ */
-let timerInterval = null;
-let timeLeft = 120;
+  /* ============================================================
+     TIMER ENGINE
+  ============================================================ */
+  let timerInterval = null;
+  let timeLeft = 120;
 
-function updateTimer() {
-  const mins = Math.floor(timeLeft / 60);
-  const secs = timeLeft % 60;
-  timer.textContent = `${mins}:${secs.toString().padStart(2, "0")}`;
-}
+  function updateTimer() {
+    const mins = Math.floor(timeLeft / 60);
+    const secs = timeLeft % 60;
+    timer.textContent = `${mins}:${secs.toString().padStart(2, "0")}`;
+  }
 
-startBtn.onclick = () => {
-  clearInterval(timerInterval);
-  timeLeft = 120;
-  updateTimer();
-
-  timerInterval = setInterval(() => {
-    timeLeft--;
+  startBtn.onclick = () => {
+    clearInterval(timerInterval);
+    timeLeft = 120;
     updateTimer();
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-    }
-  }, 1000);
-};
 
-/* ============================================================
-   LOGGING ENGINE
-============================================================ */
-logBtn.onclick = () => {
-  const rows = wrapper.querySelectorAll(".machine-row");
-  const historyKey = `machine-${id}-history`;
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      updateTimer();
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+      }
+    }, 1000);
+  };
 
-  const entry = [];
+  /* ============================================================
+     LOGGING ENGINE
+  ============================================================ */
+  logBtn.onclick = () => {
+    const rows = wrapper.querySelectorAll(".machine-row");
+    const historyKey = `machine-${id}-history`;
 
-  rows.forEach(row => {
-    const inputs = row.querySelectorAll("input");
-    const reps = inputs[0].value.trim();
-    const weight = inputs[1].value.trim();
-    if (reps && weight) {
-      entry.push({ reps, weight });
-    }
-  });
+    const entry = [];
 
-  if (entry.length === 0) return;
+    rows.forEach(row => {
+      const inputs = row.querySelectorAll("input");
+      const reps = inputs[0].value.trim();
+      const weight = inputs[1].value.trim();
+      if (reps && weight) {
+        entry.push({ reps, weight });
+      }
+    });
 
-  const history = JSON.parse(localStorage.getItem(historyKey)) || [];
-  history.push({
-    date: new Date().toLocaleDateString(),
-    sets: entry
-  });
+    if (entry.length === 0) return;
 
-  localStorage.setItem(historyKey, JSON.stringify(history));
+    const history = JSON.parse(localStorage.getItem(historyKey)) || [];
+    history.push({
+      date: new Date().toLocaleDateString(),
+      sets: entry
+    });
 
-const lastSet = entry[entry.length - 1];
-last.textContent = `Last: ${lastSet.reps} reps @ ${lastSet.weight}`;
+    localStorage.setItem(historyKey, JSON.stringify(history));
 
+    const lastSet = entry[entry.length - 1];
+    last.textContent = `Last: ${lastSet.reps} reps @ ${lastSet.weight}`;
+  }; // ← closes logBtn.onclick correctly
 
-return container;
-}
-
+  return container;
+} // ← closes Machine() correctly
