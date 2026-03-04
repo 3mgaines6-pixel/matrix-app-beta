@@ -284,3 +284,31 @@ html, body {
   color: #0a4cff;
   margin-top: 20px;
 }
+
+.strength-sub-btn {
+  width: 90%;
+  margin: 10px auto;
+  padding: 14px;
+  background: #1e88e5;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  display: block;
+}
+
+.return-btn {
+  width: 90%;
+  margin: 25px auto 10px auto;
+  padding: 14px;
+  background: #0d47a1;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  display: block;
+}
