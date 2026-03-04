@@ -22,7 +22,7 @@ export function Machine(id) {
   subtitle.textContent = `${meta.muscles} • ${meta.type.toUpperCase()} • ${meta.reps}`;
   wrapper.appendChild(subtitle);
 
-  /* TEMPO SECTION (HIDEABLE) */
+  /* TEMPO SECTION */
   const tempoSection = document.createElement("div");
   tempoSection.className = "tempo-section";
 
@@ -164,12 +164,11 @@ export function Machine(id) {
 
     const lastSet = entry[entry.length - 1];
     last.textContent = `Last: ${lastSet.reps} reps @ ${lastSet.weight}`;
-  }; // ← closes logBtn.onclick correctly
 
-// SAVE LAST SET PERSISTENTLY
-meta.last = `${lastSet.reps} reps @ ${lastSet.weight}`;
-localStorage.setItem("machines", JSON.stringify(MACHINES));
+    // SAVE LAST SET PERSISTENTLY
+    meta.last = `${lastSet.reps} reps @ ${lastSet.weight}`;
+    localStorage.setItem("machines", JSON.stringify(MACHINES));
+  };
 
-  
   return container;
-} // ← closes Machine() correctly
+}
