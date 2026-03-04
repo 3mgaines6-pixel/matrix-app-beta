@@ -166,5 +166,10 @@ export function Machine(id) {
     last.textContent = `Last: ${lastSet.reps} reps @ ${lastSet.weight}`;
   }; // ← closes logBtn.onclick correctly
 
+// SAVE LAST SET PERSISTENTLY
+meta.last = `${lastSet.reps} reps @ ${lastSet.weight}`;
+localStorage.setItem("machines", JSON.stringify(MACHINES));
+
+  
   return container;
 } // ← closes Machine() correctly
