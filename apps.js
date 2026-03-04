@@ -1,3 +1,12 @@
+import { MACHINES } from "./data/machines.js";
+
+// LOAD SAVED MACHINE DATA (Last, base, etc.)
+const savedMachines = JSON.parse(localStorage.getItem("machines"));
+if (savedMachines) {
+  Object.assign(MACHINES, savedMachines);
+}
+
+
 /* =========================================
    IMPORT SCREENS (ORDER MATTERS)
 ========================================= */
