@@ -43,118 +43,15 @@ export function StrengthStudio() {
   header.textContent = "Strength Studio";
   wrapper.appendChild(header);
 
-  /* ROTATION LABEL */
+  /* ROTATION LABEL — NOW SHOWS WEEK */
   const rot = getRotationInfo();
   const rotationLabel = document.createElement("div");
   rotationLabel.className = "rotation-label";
-  rotationLabel.textContent = `Block ${rot.block} • ${rot.mode} • ${rot.range}`;
+  rotationLabel.textContent = `Block ${rot.block} • Week ${rot.week} of ${rot.range} • ${rot.mode}`;
   wrapper.appendChild(rotationLabel);
 
   /* DAY SELECTOR */
   const dayButtons = document.createElement("div");
   dayButtons.className = "day-selector";
 
-  const days = Object.keys(WEEKLY_SCHEDULE);
-
-  days.forEach(day => {
-    const btn = document.createElement("button");
-    btn.className = "day-btn";
-    btn.textContent = day;
-
-    if (manualDaySelection === day) {
-      btn.classList.add("active");
-    }
-
-    btn.onclick = () => {
-      manualDaySelection = day;
-      localStorage.setItem("manualDaySelection", day);
-      renderMachineList(day);
-      highlightSelectedDay(dayButtons, day);
-    };
-
-    dayButtons.appendChild(btn);
-  });
-
-  wrapper.appendChild(dayButtons);
-
-  /* MACHINE LIST */
-  const machineList = document.createElement("div");
-  machineList.className = "machine-list";
-  wrapper.appendChild(machineList);
-
-  /* FIX DAY FORMAT */
-  let today = new Date().toLocaleDateString("en-US", { weekday: "short" }).replace(".", "");
-  if (today === "Thu") today = "Thur";
-
-  if (!WEEKLY_SCHEDULE[manualDaySelection]) {
-    manualDaySelection = null;
-    localStorage.removeItem("manualDaySelection");
-  }
-
-  const startingDay = manualDaySelection || today;
-
-  renderMachineList(startingDay);
-  highlightSelectedDay(dayButtons, startingDay);
-
-  function renderMachineList(day) {
-    machineList.innerHTML = "";
-
-    const ids = WEEKLY_SCHEDULE[day];
-    if (!ids) return;
-
-    ids.forEach(id => {
-      const rotatedId = getRotatedMachine(id);
-      const meta = MACHINES[rotatedId];
-      if (!meta) return;
-
-      const emoji = MACHINE_EMOJIS[rotatedId] || "🏋️";
-
-      const btn = document.createElement("button");
-      btn.className = "machine-btn";
-      btn.textContent = `${emoji} #${rotatedId} ${meta.name}`;
-
-      /* FIXED: pass ID directly */
-      btn.onclick = () => window.renderScreen("Machine", rotatedId);
-
-      machineList.appendChild(btn);
-    });
-  }
-
-  function highlightSelectedDay(container, selectedDay) {
-    const buttons = container.querySelectorAll("button");
-    buttons.forEach(btn => {
-      if (btn.textContent === selectedDay) {
-        btn.classList.add("active");
-      } else {
-        btn.classList.remove("active");
-      }
-    });
-  }
-
-  /* ============================================================
-     ADDED BUTTONS (Option 1 clean layout)
-  ============================================================ */
-
-  /* HISTORY BUTTON */
-  const historyBtn = document.createElement("button");
-  historyBtn.className = "strength-sub-btn";
-  historyBtn.textContent = "Strength History";
-  historyBtn.onclick = () => window.renderScreen("StrengthHistory");
-  wrapper.appendChild(historyBtn);
-
-  /* WEEKLY OVERVIEW BUTTON */
-  const weeklyBtn = document.createElement("button");
-  weeklyBtn.className = "strength-sub-btn";
-  weeklyBtn.textContent = "Weekly Overview";
-  weeklyBtn.onclick = () => window.renderScreen("WeeklyOverview");
-  wrapper.appendChild(weeklyBtn);
-
-  /* RETURN BUTTON (kept at bottom) */
-  const returnBtn = document.createElement("button");
-  returnBtn.className = "return-btn";
-  returnBtn.textContent = "Back to Gym Floor";
-  returnBtn.onclick = () => window.renderScreen("GymFloor");
-  wrapper.appendChild(returnBtn);
-
-  return container;
-}
+  const
