@@ -54,13 +54,10 @@ export function getRotationInfo() {
   const block = rotationBlock;
   const isEven = block % 2 === 0;
 
-  // Calculate the current 4‑week block range
   const startWeek = (block - 1) * 4 + 1;
   const endWeek = block * 4;
 
-  // Calculate the current week number inside the block (1–4)
-  // Example: block 1 = weeks 1–4 → always week 1 for now
-  // If you want real calendar-based week tracking, I can add that too.
+  // FIX: week must exist or StrengthStudio crashes
   const week = startWeek;
 
   return {
