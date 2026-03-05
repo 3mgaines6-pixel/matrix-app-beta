@@ -11,7 +11,7 @@ window.onerror = function (msg, url, line, col, error) {
 ========================================= */
 import { MACHINES } from "./data/machines.js";
 
-// LOAD SAVED MACHINE DATA (Last, base, etc.)
+// LOAD SAVED MACHINE DATA
 const savedMachines = JSON.parse(localStorage.getItem("machines"));
 if (savedMachines) {
   Object.assign(MACHINES, savedMachines);
@@ -19,46 +19,7 @@ if (savedMachines) {
 
 
 /* =========================================
-   DEFINE renderScreen BEFORE IMPORTING SCREENS
-========================================= */
-export function renderScreen(screenName, data) {
-  const app = document.getElementById("app");
-  if (!app) return;
-
-  let screen;
-
-  switch (screenName) {
-    case "Splash": screen = Splash(); break;
-    case "GymFloor": screen = GymFloor(); break;
-    case "StrengthStudio": screen = StrengthStudio(); break;
-    case "StrengthHistory": screen = StrengthHistory(); break;
-    case "CardioStudio": screen = CardioStudio(); break;
-    case "StretchStudio": screen = StretchStudio(); break;
-    case "Machine": screen = Machine(data); break;
-    case "MatrixTreadmill": screen = MatrixTreadmill(); break;
-    case "MatrixCycle": screen = MatrixCycle(); break;
-    case "MatrixElliptical": screen = MatrixElliptical(); break;
-    case "SpinClass": screen = SpinClass(); break;
-    case "CoreClass": screen = CoreClass(); break;
-    case "CardioHistory": screen = CardioHistory(); break;
-    case "Summary": screen = Summary(); break;
-    case "WeeklyOverview": screen = WeeklyOverview(); break;
-    case "NutritionGuide": screen = NutritionGuide(); break;
-    case "Backup": screen = Backup(); break;
-    default:
-      screen = GymFloor();
-  }
-
-  app.innerHTML = "";
-  app.appendChild(screen);
-}
-
-// Make it available globally BEFORE screens import
-window.renderScreen = renderScreen;
-
-
-/* =========================================
-   IMPORT SCREENS (SAFE NOW)
+   IMPORT SCREENS FIRST (IMPORTANT)
 ========================================= */
 import { Splash } from "./screens/Splash.js";
 import { GymFloor } from "./screens/GymFloor.js";
@@ -110,6 +71,44 @@ window.SCREENS = {
   Rowing: null,
   OutdoorWalk: null
 };
+
+
+/* =========================================
+   DEFINE renderScreen AFTER IMPORTS
+========================================= */
+export function renderScreen(screenName, data) {
+  const app = document.getElementById("app");
+  if (!app) return;
+
+  let screen;
+
+  switch (screenName) {
+    case "Splash": screen = Splash(); break;
+    case "GymFloor": screen = GymFloor(); break;
+    case "StrengthStudio": screen = StrengthStudio(); break;
+    case "StrengthHistory": screen = StrengthHistory(); break;
+    case "CardioStudio": screen = CardioStudio(); break;
+    case "StretchStudio": screen = StretchStudio(); break;
+    case "Machine": screen = Machine(data); break;
+    case "MatrixTreadmill": screen = MatrixTreadmill(); break;
+    case "MatrixCycle": screen = MatrixCycle(); break;
+    case "MatrixElliptical": screen = MatrixElliptical(); break;
+    case "SpinClass": screen = SpinClass(); break;
+    case "CoreClass": screen = CoreClass(); break;
+    case "CardioHistory": screen = CardioHistory(); break;
+    case "Summary": screen = Summary(); break;
+    case "WeeklyOverview": screen = WeeklyOverview(); break;
+    case "NutritionGuide": screen = NutritionGuide(); break;
+    case "Backup": screen = Backup(); break;
+    default:
+      screen = GymFloor();
+  }
+
+  app.innerHTML = "";
+  app.appendChild(screen);
+}
+
+window.renderScreen = renderScreen;
 
 
 /* =========================================
