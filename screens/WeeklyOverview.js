@@ -4,31 +4,58 @@ export function WeeklyOverview() {
   const container = document.createElement("div");
   container.className = "weekly-screen";
 
-  /* ============================
-     TITLE
-  ============================ */
+  /* TITLE */
   const title = document.createElement("h1");
   title.className = "weekly-title";
   title.textContent = "This Week's Training";
   container.appendChild(title);
 
-  /* ============================
-     WEEK X OF 1–4 HEADER
-  ============================ */
+  /* WEEK X OF 1–4 */
   const today = new Date();
   const startOfYear = new Date(today.getFullYear(), 0, 1);
   const weekNumber = Math.ceil(((today - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7);
-
   const blockWeek = ((weekNumber - 1) % 4) + 1;
 
   const blockLabel = document.createElement("div");
   blockLabel.className = "weekly-block-label";
   blockLabel.textContent = `Week ${blockWeek} of 4`;
   container.appendChild(blockLabel);
+/* ============================
+   LAST WORKOUT DATE
+============================ */
+let lastWorkout = 0;
 
-  /* ============================
-     WEEK FILTER
-  ============================ */
+Object.keys(MACHINES).forEach(id => {
+  const key = `machine-${id}-history`;
+  const raw = localStorage.getItem(key);
+  if (!raw) return;
+
+  const history = JSON.parse(raw);
+
+  history.forEach(entry => {
+    if (!entry.date) return;
+
+    const t = typeof entry.date === "number"
+      ? entry.date
+      : new Date(entry.date).getTime();
+
+    if (t > lastWorkout) lastWorkout = t;
+  });
+});
+
+const lastWorkoutLabel = document.createElement("div");
+lastWorkoutLabel.className = "weekly-last-workout";
+
+if (lastWorkout === 0) {
+  lastWorkoutLabel.textContent = "Last workout: none yet";
+} else {
+  const d = new Date(lastWorkout);
+  lastWorkoutLabel.textContent = `Last workout: ${d.toLocaleDateString()}`;
+}
+
+container.appendChild(lastWorkoutLabel);
+
+  /* WEEK FILTER */
   const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
 
   let weeklySets = 0;
@@ -36,9 +63,7 @@ export function WeeklyOverview() {
 
   const machineBreakdown = {};
 
-  /* ============================
-     LOOP THROUGH ALL MACHINES
-  ============================ */
+  /* LOOP THROUGH MACHINES */
   Object.keys(MACHINES).forEach(id => {
     const key = `machine-${id}-history`;
     const raw = localStorage.getItem(key);
@@ -47,11 +72,18 @@ export function WeeklyOverview() {
     const history = JSON.parse(raw);
 
     history
-      // 🔥 FIXED: convert date string → timestamp
-      .filter(entry => new Date(entry.date).getTime() >= oneWeekAgo)
+      .filter(entry => {
+        if (!entry.date) return false;
+        const t = typeof entry.date === "number"
+          ? entry.date
+          : new Date(entry.date).getTime();
+        return t >= oneWeekAgo;
+      })
       .forEach(entry => {
-        entry.reps.forEach((r, i) => {
-          const vol = r * entry.weight[i];
+        if (!Array.isArray(entry.sets)) return;
+
+        entry.sets.forEach(set => {
+          const vol = set.reps * set.weight;
           weeklySets++;
           weeklyVolume += vol;
 
@@ -69,9 +101,7 @@ export function WeeklyOverview() {
       });
   });
 
-  /* ============================
-     WEEKLY TOTALS CARD
-  ============================ */
+  /* WEEKLY TOTALS */
   const totalsCard = document.createElement("div");
   totalsCard.className = "weekly-card";
 
@@ -85,9 +115,7 @@ export function WeeklyOverview() {
 
   container.appendChild(totalsCard);
 
-  /* ============================
-     PER-MACHINE BREAKDOWN
-  ============================ */
+  /* PER-MACHINE BREAKDOWN */
   const breakdownHeader = document.createElement("h2");
   breakdownHeader.textContent = "Per-Machine Breakdown";
   breakdownHeader.className = "weekly-subtitle";
@@ -102,7 +130,6 @@ export function WeeklyOverview() {
     const row = document.createElement("div");
     row.className = "weekly-row";
 
-    // 🔥 SHOW MACHINE NUMBER + NAME
     row.innerHTML = `
       <div class="weekly-machine-name">#${id} — ${m.name}</div>
       <div class="weekly-machine-stats">
@@ -115,9 +142,7 @@ export function WeeklyOverview() {
 
   container.appendChild(breakdownList);
 
-  /* ============================
-     BACK BUTTON
-  ============================ */
+  /* BACK BUTTON */
   const backBtn = document.createElement("button");
   backBtn.className = "weekly-back-btn";
   backBtn.textContent = "Return to Gym Floor";
