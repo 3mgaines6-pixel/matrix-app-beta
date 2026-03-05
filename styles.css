@@ -1,11 +1,11 @@
 /* =========================================
-   GLOBAL LAYOUT
+   GLOBAL BASE
 ========================================= */
 body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #f4f7fb;
+  background: #eef2f7;
   color: #1a1a1a;
 }
 
@@ -15,182 +15,120 @@ h1, h2, h3 {
 }
 
 /* =========================================
-   BLUE HEADER STYLE
+   GLOBAL CARD + SHADOW SYSTEM
 ========================================= */
-.weekly-title,
-.history-header,
-.machine-title {
-  background: linear-gradient(135deg, #0d47a1, #1565c0);
-  color: white;
-  text-align: center;
-  padding: 18px;
-  font-size: 24px;
-  font-weight: 700;
-  border-radius: 0 0 12px 12px;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-/* =========================================
-   SCREEN WRAPPERS
-========================================= */
-.weekly-screen,
-.history-screen,
-.machine-screen {
-  padding: 16px;
-}
-
-/* =========================================
-   WEEKLY OVERVIEW
-========================================= */
-.weekly-block-label,
-.weekly-last-workout {
-  text-align: center;
-  font-size: 16px;
-  margin-bottom: 12px;
-  color: #0d47a1;
-  font-weight: 600;
-}
-
-/* Weekly Totals Card */
-.weekly-card {
+.card {
   background: white;
-  padding: 16px;
-  border-radius: 12px;
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: 0px 6px 18px rgba(10, 40, 80, 0.15);
   margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(13, 71, 161, 0.15);
 }
 
-.weekly-card h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-  color: #0d47a1;
+/* =========================================
+   GLOBAL BUTTON SYSTEM
+========================================= */
+.primary-btn,
+.secondary-btn,
+.nav-btn {
+  width: 100%;
+  padding: 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 22px;
+  color: white;
+  background: linear-gradient(180deg, #1a4cff, #0036c9);
+  box-shadow: 0px 6px 18px rgba(10, 40, 80, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  margin-top: 18px;
 }
 
-.weekly-totals {
+.primary-btn:active,
+.secondary-btn:active,
+.nav-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0px 4px 12px rgba(10, 40, 80, 0.25);
+}
+
+/* Secondary button (white text on blue) */
+.secondary-btn {
+  background: linear-gradient(180deg, #0d47a1, #0036c9);
+}
+
+/* Navigation button (lighter) */
+.nav-btn {
+  background: linear-gradient(180deg, #4f7dff, #1a4cff);
+}
+
+/* =========================================
+   HEADER SYSTEM
+========================================= */
+.header-title {
+  text-align: center;
+  padding: 26px 0 20px 0;
+  background: linear-gradient(180deg, #1a4cff, #0036c9);
+  color: white;
+  font-size: 26px;
+  font-weight: 700;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+  margin-bottom: 24px;
+  box-shadow: 0px 6px 18px rgba(10, 40, 80, 0.25);
+}
+
+/* =========================================
+   PILL SELECTOR (Days of Week)
+========================================= */
+.pill-selector {
   display: flex;
   justify-content: space-between;
+  padding: 0 16px;
+  margin-bottom: 20px;
+}
+
+.pill-btn {
+  flex: 1;
+  margin: 0 4px;
+  padding: 12px 0;
+  border-radius: 22px;
+  border: none;
+  background: #d9e3ff;
+  color: #0036c9;
+  font-weight: 600;
+  transition: 0.15s ease;
+}
+
+.pill-btn.active {
+  background: linear-gradient(180deg, #1a4cff, #0036c9);
+  color: white;
+  box-shadow: 0px 4px 12px rgba(10, 40, 80, 0.25);
+}
+
+/* =========================================
+   MACHINE LIST
+========================================= */
+.machine-card {
+  background: white;
+  padding: 16px;
+  border-radius: 22px;
+  box-shadow: 0px 6px 18px rgba(10, 40, 80, 0.15);
   font-size: 18px;
-}
-
-/* Per-Machine Breakdown */
-.weekly-subtitle {
-  font-size: 20px;
-  margin-bottom: 10px;
-  color: #0d47a1;
-  text-align: center;
-}
-
-.weekly-list {
+  font-weight: 600;
+  margin-bottom: 16px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 12px;
 }
 
-.weekly-row {
-  background: white;
-  padding: 14px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(13, 71, 161, 0.12);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.weekly-machine-name {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.weekly-machine-stats {
-  font-size: 16px;
-  color: #0d47a1;
-  font-weight: 600;
-}
-
 /* =========================================
-   STRENGTH HISTORY
+   GYMFLOOR (already correct)
 ========================================= */
-.history-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.history-machine-label {
-  font-size: 18px;
-  font-weight: 700;
-  color: #0d47a1;
-  margin-top: 12px;
-}
-
-.history-date {
-  font-size: 15px;
-  color: #555;
-  margin-left: 4px;
-}
-
-.history-row {
-  background: white;
-  padding: 10px 14px;
-  border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(13, 71, 161, 0.12);
-  font-size: 15px;
-}
-
-/* =========================================
-   BUTTONS
-========================================= */
-button {
-  width: 100%;
-  padding: 14px;
-  background: #1565c0;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 18px;
-  font-weight: 600;
-  margin-top: 20px;
-  box-shadow: 0 4px 12px rgba(13, 71, 161, 0.25);
-  transition: 0.2s;
-}
-
-button:active {
-  transform: scale(0.97);
-  background: #0d47a1;
-}
-
-/* =========================================
-   EMPTY STATES
-========================================= */
-.history-empty,
-.weekly-empty {
-  text-align: center;
-  font-size: 16px;
-  color: #777;
-  margin-top: 20px;
-}
-
-/* =========================================
-   MOBILE RESPONSIVE
-========================================= */
-@media (max-width: 480px) {
-  .weekly-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-  }
-
-  button {
-    font-size: 17px;
-  }
-}
-/* Background image */
 .gymfloor-screen {
   position: relative;
   height: 100vh;
   width: 100%;
-  background-image: url("weightplate.jpg"); /* your weight-plate image */
+  background-image: url("weightplate.jpg");
   background-size: cover;
   background-position: center;
   display: flex;
@@ -198,7 +136,6 @@ button:active {
   align-items: center;
 }
 
-/* Soft blue overlay */
 .gymfloor-overlay {
   position: absolute;
   inset: 0;
@@ -206,7 +143,6 @@ button:active {
   backdrop-filter: blur(2px);
 }
 
-/* Header */
 .gymfloor-header {
   position: relative;
   width: 100%;
@@ -222,10 +158,8 @@ button:active {
   color: white;
   font-size: 24px;
   font-weight: 700;
-  margin: 0;
 }
 
-/* Button container */
 .gymfloor-buttons {
   position: relative;
   z-index: 2;
@@ -237,7 +171,6 @@ button:active {
   gap: 18px;
 }
 
-/* Gradient blue buttons with soft glow + 22px radius */
 .gymfloor-btn {
   width: 100%;
   padding: 16px 0;
