@@ -4,10 +4,27 @@ export function WeeklyOverview() {
   const container = document.createElement("div");
   container.className = "weekly-screen";
 
+  /* ============================
+     TITLE
+  ============================ */
   const title = document.createElement("h1");
   title.className = "weekly-title";
   title.textContent = "This Week's Training";
   container.appendChild(title);
+
+  /* ============================
+     WEEK X OF 1–4 HEADER
+  ============================ */
+  const today = new Date();
+  const startOfYear = new Date(today.getFullYear(), 0, 1);
+  const weekNumber = Math.ceil(((today - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7);
+
+  const blockWeek = ((weekNumber - 1) % 4) + 1;
+
+  const blockLabel = document.createElement("div");
+  blockLabel.className = "weekly-block-label";
+  blockLabel.textContent = `Week ${blockWeek} of 4`;
+  container.appendChild(blockLabel);
 
   /* ============================
      WEEK FILTER
@@ -30,7 +47,8 @@ export function WeeklyOverview() {
     const history = JSON.parse(raw);
 
     history
-      .filter(entry => entry.date >= oneWeekAgo)
+      // 🔥 FIXED: convert date string → timestamp
+      .filter(entry => new Date(entry.date).getTime() >= oneWeekAgo)
       .forEach(entry => {
         entry.reps.forEach((r, i) => {
           const vol = r * entry.weight[i];
@@ -83,12 +101,15 @@ export function WeeklyOverview() {
 
     const row = document.createElement("div");
     row.className = "weekly-row";
+
+    // 🔥 SHOW MACHINE NUMBER + NAME
     row.innerHTML = `
-      <div class="weekly-machine-name">${m.name}</div>
+      <div class="weekly-machine-name">#${id} — ${m.name}</div>
       <div class="weekly-machine-stats">
         ${m.sets} sets • ${m.volume} lbs
       </div>
     `;
+
     breakdownList.appendChild(row);
   });
 
