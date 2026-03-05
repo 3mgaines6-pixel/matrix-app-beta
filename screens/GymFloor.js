@@ -1,4 +1,5 @@
-import "./styles.css";
+import "../styles.css";
+
 
 export function GymFloor() {
   const div = document.createElement("div");
