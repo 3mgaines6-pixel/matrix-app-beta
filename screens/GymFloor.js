@@ -1,7 +1,8 @@
 import React from "react";
 import "./styles.css";
 
-export default function GymFloor({ navigate }) {
+export function GymFloor() { ... }
+
   return (
     <div className="gymfloor-screen">
       <div className="gymfloor-overlay" />
