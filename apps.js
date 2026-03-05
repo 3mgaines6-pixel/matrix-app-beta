@@ -13,6 +13,7 @@ if (savedMachines) {
 import { Splash } from "./screens/Splash.js";
 import { GymFloor } from "./screens/GymFloor.js";
 import { StrengthStudio } from "./screens/StrengthStudio.js";
+import { Backup } from "./screens/Backup.js";
 
 import { StrengthHistory } from "./screens/StrengthHistory.js";
 import { Machine } from "./screens/Machine.js";
@@ -37,6 +38,7 @@ window.SCREENS = {
 
   StrengthHistory,
   CardioStudio,
+  CardioHistory,
   StretchStudio,
   GymFloor,
   Splash,
@@ -47,6 +49,12 @@ window.SCREENS = {
 
   SpinClass,
   CoreClass,
+
+  Summary,
+  WeeklyOverview,
+  NutritionGuide,
+
+  Backup,   // ← NEW SCREEN YOU ARE ADDING
 
   Rowing: null,
   OutdoorWalk: null
@@ -79,7 +87,7 @@ export function renderScreen(screenName, data) {
     case "Summary": screen = Summary(); break;
     case "WeeklyOverview": screen = WeeklyOverview(); break;
     case "NutritionGuide": screen = NutritionGuide(); break;
-
+    case "Backup": screen = Backup(); break;
     default:
       screen = GymFloor();
   }
