@@ -1,3 +1,8 @@
+window.onerror = function (msg, url, line, col, error) {
+  alert("ERROR: " + msg + "\n" + url + ":" + line);
+};
+
+
 import { MACHINES } from "./data/machines.js";
 
 // LOAD SAVED MACHINE DATA (Last, base, etc.)
