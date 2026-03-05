@@ -1,5 +1,5 @@
 import React from "react";
-import "./GymFloor.css";
+import "./styles.css";
 
 export default function GymFloor({ navigate }) {
   return (
