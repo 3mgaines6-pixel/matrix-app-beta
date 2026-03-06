@@ -8,6 +8,10 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+body, button, input {
+  line-height: 1.4;
+}
+
 body {
   background: #0d0d0d url('images/gym-dark.jpg') center/cover no-repeat fixed;
   color: #fff;
@@ -15,7 +19,7 @@ body {
 }
 
 /* ---------------------------------------------------------
-   BLUE GRADIENT HEADER (used on all screens)
+   BLUE GRADIENT HEADER (GLOBAL)
 --------------------------------------------------------- */
 .header {
   background: linear-gradient(180deg, #1a4cff, #0036c9);
@@ -31,56 +35,89 @@ body {
 }
 
 /* ---------------------------------------------------------
-   MODERN BUTTON SYSTEM
+   BUTTON SYSTEM (GLOBAL)
 --------------------------------------------------------- */
-.button {
-  background: linear-gradient(180deg, #1a4cff, #0036c9);
-  color: white;
+.btn-base {
+  width: 90%;
+  max-width: 420px;
   padding: 16px;
-  border-radius: 18px;
-  text-align: center;
+  border-radius: 16px;
   font-size: 18px;
-  font-weight: 600;
-  margin: 10px 0;
+  font-weight: 700;
+  text-align: center;
+  margin: 12px auto;
   box-shadow: 0 6px 14px rgba(0,0,0,0.35);
-  transition: transform 0.1s ease;
+  transition: transform 0.15s ease;
 }
 
-.button:active {
-  transform: scale(0.97);
+.btn-base:active {
+  transform: scale(0.96);
+}
+
+.button,
+.cardio-button,
+.gym-button,
+.return-btn {
+  composes: btn-base;
+}
+
+/* Blue buttons */
+.button,
+.cardio-button {
+  background: linear-gradient(180deg, #1a4cff, #0036c9);
+  color: white;
+}
+
+/* White buttons */
+.gym-button,
+.return-btn {
+  background: rgba(255,255,255,0.9);
+  color: #0036c9;
 }
 
 /* ---------------------------------------------------------
-   CARD LAYOUT (used on Machine, Strength Studio, History)
+   CARD SYSTEM (GLOBAL)
 --------------------------------------------------------- */
-.card {
-  background: white;
-  color: #000;
+.card-base {
+  background: rgba(255,255,255,0.9);
+  color: #111;
   padding: 18px;
   border-radius: 18px;
-  margin: 16px;
+  width: 90%;
+  max-width: 420px;
+  margin: 12px auto;
   box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  backdrop-filter: blur(6px);
+}
+
+.card,
+.machine-card,
+.history-card,
+.weekly-card {
+  composes: card-base;
 }
 
 /* ---------------------------------------------------------
    MACHINE SCREEN INPUTS
 --------------------------------------------------------- */
 .machine-input {
-  width: 100%;
+  width: 90%;
+  max-width: 420px;
   padding: 14px;
   font-size: 22px;
   border-radius: 14px;
   border: 2px solid #d0d0d0;
-  margin-bottom: 14px;
+  margin: 0 auto 14px auto;
+  background: rgba(255,255,255,0.95);
 }
 
 .machine-label {
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin: 6px 0 4px 4px;
 }
 
-/* Coaching bar at top */
+/* Coaching bar */
 .coaching-bar {
   background: #ffffff;
   color: #0036c9;
@@ -88,7 +125,7 @@ body {
   text-align: center;
   font-weight: 700;
   border-bottom: 2px solid #0036c9;
-  margin: 0 0 12px 0;
+  margin-bottom: 12px;
 }
 
 /* Heavy jump warning */
@@ -99,136 +136,49 @@ body {
   text-align: center;
   font-weight: 700;
   border-radius: 12px;
-  margin: 12px 16px;
+  margin: 12px auto;
+  width: 90%;
+  max-width: 420px;
 }
 
 /* ---------------------------------------------------------
-   TIMER BUTTON (minimal)
+   TIMER BUTTON
 --------------------------------------------------------- */
 .timer-button {
+  composes: btn-base;
   background: linear-gradient(180deg, #1a4cff, #0036c9);
-  color: white;
-  padding: 16px;
-  border-radius: 18px;
-  text-align: center;
   font-size: 26px;
-  font-weight: 700;
-  margin: 10px 0;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
 }
 
 /* ---------------------------------------------------------
-   GYM FLOOR (weight‑plate background)
+   GYM FLOOR
 --------------------------------------------------------- */
 .gym-floor {
   background: url('images/gym-dark.jpg') center/cover no-repeat;
   padding: 20px;
 }
 
-
-.gym-button {
-  background: rgba(255,255,255,0.9);
-  color: #0036c9;
-  padding: 18px;
-  border-radius: 18px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 700;
-  margin: 12px 0;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
-}
-
 /* ---------------------------------------------------------
-   CARDIO STUDIO (vertical gradient buttons)
+   STRENGTH STUDIO — MACHINE LIST
 --------------------------------------------------------- */
-.cardio-button {
-  background: linear-gradient(180deg, #1a4cff, #0036c9);
-  color: white;
-  padding: 18px;
-  border-radius: 18px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 700;
-  margin: 12px 16px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
-}
-
-/* ---------------------------------------------------------
-   STRENGTH STUDIO (pill selector + machine cards)
---------------------------------------------------------- */
-.pill-selector {
-  display: flex;
-  justify-content: center;
-  margin: 12px 0;
-}
-
-.pill {
-  padding: 10px 20px;
-  border-radius: 30px;
-  background: #e0e0e0;
-  margin: 0 6px;
-  font-weight: 600;
-}
-
-.pill.active {
-  background: #0036c9;
-  color: white;
-}
-
-/* Machine cards */
-.machine-card {
-  background: white;
-  color: #000;
-  padding: 18px;
-  border-radius: 18px;
-  margin: 16px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-  font-size: 20px;
-  font-weight: 600;
-}
-
-/* ---------------------------------------------------------
-   SPLASH SCREEN
---------------------------------------------------------- */
-.splash-door {
-  width: 160px;
-  height: 260px;
-  background: white;
-  border-radius: 12px;
-  margin: 160px auto 0 auto;
-  box-shadow: 0 0 40px rgba(0, 122, 255, 0.6);
-}
-
-.fade-out {
-  animation: fadeOut 0.8s ease forwards;
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; }
-}
-
-/* =========================================
-   STRENGTH STUDIO — CLEAN CARD LAYOUT
-========================================= */
-
 .machine-list {
   display: flex;
   flex-direction: column;
   gap: 14px;
   padding: 10px 0;
-  align-items: center; /* center the cards */
+  align-items: center;
 }
 
 .machine-button {
   width: 90%;
-  max-width: 420px; /* prevents stretching */
+  max-width: 420px;
   background: rgba(255,255,255,0.9);
   color: #111;
   padding: 16px;
   border-radius: 12px;
   font-size: 18px;
   font-weight: 600;
-  text-align: left; /* number + name read naturally */
+  text-align: left;
   cursor: pointer;
   border: 1px solid rgba(255,255,255,0.3);
   backdrop-filter: blur(4px);
@@ -238,38 +188,12 @@ body {
 .machine-button:hover {
   transform: scale(1.03);
   background: rgba(255,255,255,1);
-}
-/* =========================================
-   RETURN BUTTON — GLOBAL STYLE
-========================================= */
-
-.return-btn {
-  width: 90%;
-  max-width: 420px;
-  margin: 20px auto 10px auto;
-  padding: 14px;
-  background: rgba(255,255,255,0.9);
-  color: #111;
-  border-radius: 12px;
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-  cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.3);
-  backdrop-filter: blur(4px);
-  display: block;
-  transition: transform 0.15s ease, background 0.15s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
-.return-btn:hover {
-  transform: scale(1.03);
-  background: rgba(255,255,255,1);
-}
-
-/* =========================================
-   BLUE THEME — HISTORY + WEEKLY
-========================================= */
-
+/* ---------------------------------------------------------
+   HISTORY + WEEKLY SCREENS
+--------------------------------------------------------- */
 .history-screen,
 .weekly-screen {
   padding: 20px;
@@ -279,37 +203,10 @@ body {
   color: #fff;
 }
 
-/* Header */
 .history-screen .header,
 .weekly-screen .header {
-  background: linear-gradient(180deg, #0a4cff, #003bb8);
-  padding: 16px;
   border-radius: 14px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: 700;
-  color: white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-}
-
-/* White cards */
-.history-card,
-.weekly-card {
-  background: rgba(255,255,255,0.9);
-  color: #111;
-  padding: 16px;
-  border-radius: 14px;
-  width: 90%;
-  max-width: 420px;
-  margin: 0 auto;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-.history-card:hover,
-.weekly-card:hover {
-  transform: scale(1.03);
+  margin-bottom: 12px;
 }
 
 /* Titles inside cards */
@@ -328,36 +225,30 @@ body {
 
 /* Summary box */
 .weekly-summary {
-  background: rgba(255,255,255,0.9);
-  color: #111;
-  padding: 16px;
-  border-radius: 14px;
-  width: 90%;
-  max-width: 420px;
-  margin: 0 auto;
+  composes: card-base;
   text-align: center;
   font-size: 18px;
   font-weight: 600;
 }
 
-/* Return button */
-.return-btn {
-  width: 90%;
-  max-width: 420px;
-  margin: 20px auto 10px auto;
-  padding: 14px;
-  background: rgba(255,255,255,0.9);
-  color: #111;
-  border-radius: 14px;
-  font-size: 18px;
+/* ---------------------------------------------------------
+   UTILITY CLASSES (for future screens)
+--------------------------------------------------------- */
+.section-title {
+  font-size: 20px;
   font-weight: 700;
-  text-align: center;
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  transition: transform 0.15s ease;
+  margin: 12px 0 4px 8px;
 }
 
-.return-btn:hover {
-  transform: scale(1.03);
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+  margin: 12px 0;
+}
+
+.scroll-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 40px;
 }
