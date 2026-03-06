@@ -3,6 +3,7 @@
 ========================================= */
 import { MACHINES } from "../data/machines.js";
 
+
 export default function Machine(data) {
   const machineName = data?.name;
   const machine = MACHINES[machineName];
@@ -13,7 +14,8 @@ export default function Machine(data) {
   /* HEADER */
   const header = document.createElement("div");
   header.className = "header";
-  header.textContent = machineName;
+  header.textContent = `${machineID} — ${MACHINES[machineID].name}`;
+
   container.appendChild(header);
 
   /* LAST SESSION INFO */
