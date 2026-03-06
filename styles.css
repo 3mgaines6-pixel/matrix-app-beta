@@ -121,9 +121,10 @@ body {
    GYM FLOOR (weight‑plate background)
 --------------------------------------------------------- */
 .gym-floor {
-  background: url('images/weight-plate-bg.png') center/cover no-repeat;
+  background: url('images/gym-dark.jpg') center/cover no-repeat;
   padding: 20px;
 }
+
 
 .gym-button {
   background: rgba(255,255,255,0.9);
