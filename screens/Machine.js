@@ -20,13 +20,23 @@ export default function Machine(data) {
   const history = JSON.parse(localStorage.getItem("history") || "{}");
   const sets = history[machineID] || [];
 
-  /* LAST SESSION */
+  /* LAST SESSION (ALL SETS FROM MOST RECENT WORKOUT) */
   const last = document.createElement("div");
   last.className = "last-session";
 
   if (sets.length > 0) {
-    const lastSet = sets[sets.length - 1];
-    last.textContent = `Last: ${lastSet.weight} lbs × ${lastSet.reps} reps`;
+    // Most recent date
+    const lastDate = sets[sets.length - 1].date;
+
+    // All sets from that session
+    const lastSessionSets = sets.filter(s => s.date === lastDate);
+
+    let text = "Last Session:\n";
+    lastSessionSets.forEach(s => {
+      text += `${s.weight} lbs × ${s.reps} reps\n`;
+    });
+
+    last.textContent = text.trim();
   } else {
     last.textContent = "No history yet";
   }
@@ -61,25 +71,33 @@ export default function Machine(data) {
       return;
     }
 
-    // Ensure machine history array exists
+    // Ensure machine history exists
     if (!history[machineID]) {
       history[machineID] = [];
     }
 
     // Add new set
+    const now = new Date().toISOString();
     history[machineID].push({
       weight: w,
       reps: r,
-      date: new Date().toISOString()
+      date: now
     });
 
     // Save back to localStorage
     localStorage.setItem("history", JSON.stringify(history));
 
-    alert("Set saved!");
-
     // Update last session display
-    last.textContent = `Last: ${w} lbs × ${r} reps`;
+    const lastSessionSets = history[machineID].filter(s => s.date === now);
+
+    let text = "Last Session:\n";
+    lastSessionSets.forEach(s => {
+      text += `${s.weight} lbs × ${s.reps} reps\n`;
+    });
+
+    last.textContent = text.trim();
+
+    alert("Set saved!");
   };
 
   container.appendChild(saveBtn);
