@@ -3,10 +3,9 @@
 ========================================= */
 import { MACHINES } from "../data/machines.js";
 
-
 export default function Machine(data) {
-  const machineName = data?.name;
-  const machine = MACHINES[machineName];
+  const machineName = data?.name;          // ID string (e.g., "7")
+  const machine = MACHINES[machineName];   // Machine metadata
 
   const container = document.createElement("div");
   container.className = "machine-screen";
@@ -14,7 +13,9 @@ export default function Machine(data) {
   /* HEADER */
   const header = document.createElement("div");
   header.className = "header";
-  header.textContent = `${machineID} — ${MACHINES[machineID].name}`;
+
+  // ⭐ FIXED: Use machineName (ID) + machine.name (label)
+  header.textContent = `${machineName} — ${machine.name}`;
 
   container.appendChild(header);
 
