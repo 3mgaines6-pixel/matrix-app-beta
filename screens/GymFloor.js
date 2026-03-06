@@ -1,28 +1,27 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+/* =========================================
+   GYM FLOOR (DOM VERSION)
+========================================= */
 
 export default function GymFloor() {
-  const navigate = useNavigate();
+  const container = document.createElement("div");
+  container.className = "gym-floor";
 
-  return (
-    <div className="gym-floor">
-      <div className="header">Welcome to Matt's Gym Floor</div>
+  const header = document.createElement("div");
+  header.className = "header";
+  header.textContent = "Welcome";
+  container.appendChild(header);
 
-      <div className="gym-button" onClick={() => navigate("/strengthstudio")}>
-        Strength Studio
-      </div>
+  function makeButton(label, screenName) {
+    const btn = document.createElement("div");
+    btn.className = "gym-button";
+    btn.textContent = label;
+    btn.onclick = () => window.renderScreen(screenName);
+    return btn;
+  }
 
-      <div className="gym-button" onClick={() => navigate("/cardiostudio")}>
-        Cardio Studio
-      </div>
+  container.appendChild(makeButton("Strength Studio", "StrengthStudio"));
+  container.appendChild(makeButton("Cardio Studio", "CardioStudio"));
+  container.appendChild(makeButton("Stretch Studio", "StretchStudio"));
 
-      <div className="gym-button" onClick={() => navigate("/stretchstudio")}>
-        Stretch Studio
-      </div>
-
-      <div className="gym-button" onClick={() => navigate("/nutrition")}>
-        Nutrition Guide
-      </div>
-    </div>
-  );
+  return container;
 }
