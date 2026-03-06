@@ -1,95 +1,77 @@
-export function SpinClass() {
+/* =========================================
+   SPIN CLASS (DOM VERSION)
+========================================= */
+
+export default function SpinClass() {
   const container = document.createElement("div");
-  container.className = "cardio-machine-screen";
+  container.className = "spin-class-screen";
 
-  /* ---------- TITLE ---------- */
-  const title = document.createElement("h1");
-  title.className = "cardio-machine-title";
-  title.textContent = "Spin Class";
-  container.appendChild(title);
+  /* HEADER */
+  const header = document.createElement("div");
+  header.className = "header";
+  header.textContent = "Spin Class";
+  container.appendChild(header);
 
-  /* ---------- LAST SESSION ---------- */
-  const last = document.createElement("div");
-  last.className = "last-session";
-
-  const lastData = JSON.parse(localStorage.getItem("spin_last"));
-  if (lastData) {
-    last.textContent = `Last: ${lastData.minutes} min • ${lastData.miles} miles • ${lastData.rpm} rpm`;
-  } else {
-    last.textContent = "Last: —";
-  }
-  container.appendChild(last);
-
-  /* ---------- INPUTS ---------- */
-  function makeInput(label, id, type = "number") {
-    const wrap = document.createElement("div");
-    wrap.className = "input-row";
-
-    const lbl = document.createElement("label");
-    lbl.textContent = label;
-
-    const input = document.createElement("input");
-    input.type = type;
-    input.id = id;
-
-    wrap.appendChild(lbl);
-    wrap.appendChild(input);
-    return wrap;
-  }
-
-  const minutesInput = makeInput("Minutes", "spin_minutes");
-  const milesInput = makeInput("Miles", "spin_miles");
-  const rpmInput = makeInput("Average RPM", "spin_rpm");
-
+  /* MINUTES INPUT */
+  const minutesInput = document.createElement("input");
+  minutesInput.type = "number";
+  minutesInput.className = "cardio-input";
+  minutesInput.placeholder = "Minutes";
   container.appendChild(minutesInput);
-  container.appendChild(milesInput);
+
+  /* DISTANCE INPUT */
+  const distanceInput = document.createElement("input");
+  distanceInput.type = "number";
+  distanceInput.className = "cardio-input";
+  distanceInput.placeholder = "Miles (optional)";
+  container.appendChild(distanceInput);
+
+  /* RPM INPUT */
+  const rpmInput = document.createElement("input");
+  rpmInput.type = "number";
+  rpmInput.className = "cardio-input";
+  rpmInput.placeholder = "Avg RPM (optional)";
   container.appendChild(rpmInput);
 
-  /* ---------- LOG BUTTON ---------- */
-  const logBtn = document.createElement("button");
-  logBtn.className = "log-btn";
-  logBtn.textContent = "Log Session";
+  /* SAVE BUTTON */
+  const saveBtn = document.createElement("div");
+  saveBtn.className = "save-button";
+  saveBtn.textContent = "Save Spin Class";
 
-  logBtn.onclick = () => {
-    const minutes = parseFloat(minutesInput.querySelector("input").value);
-    const miles = parseFloat(milesInput.querySelector("input").value);
-    const rpm = parseFloat(rpmInput.querySelector("input").value);
+  saveBtn.onclick = () => {
+    const minutes = Number(minutesInput.value);
+    const miles = Number(distanceInput.value);
+    const rpm = Number(rpmInput.value);
 
-    if (!minutes || !miles || !rpm) {
-      alert("Please enter minutes, miles, and rpm.");
+    if (!minutes) {
+      alert("Enter minutes");
       return;
     }
 
     const entry = {
       type: "spin",
       minutes,
-      miles,
-      rpm,
-      date: Date.now()
+      miles: miles || null,
+      rpm: rpm || null,
+      date: new Date().toISOString()
     };
 
-    /* Save last session */
-    localStorage.setItem("spin_last", JSON.stringify(entry));
+    // Save to localStorage
+    const history = JSON.parse(localStorage.getItem("cardioHistory")) || [];
+    history.push(entry);
+    localStorage.setItem("cardioHistory", JSON.stringify(history));
 
-    /* Save to cardio history */
-    const history = JSON.parse(localStorage.getItem("cardio_history")) || [];
-    history.unshift(entry);
-    localStorage.setItem("cardio_history", JSON.stringify(history));
-
-    alert("Session logged!");
-    window.renderScreen("CardioStudio");
+    alert("Spin class saved!");
   };
 
-  container.appendChild(logBtn);
+  container.appendChild(saveBtn);
 
-  /* ---------- RETURN BUTTON ---------- */
-  const backBtn = document.createElement("button");
-  backBtn.className = "log-btn";
-  backBtn.textContent = "← Back to Cardio Studio";
-  backBtn.style.marginTop = "12px";
+  /* BACK BUTTON */
+  const backBtn = document.createElement("div");
+  backBtn.className = "back-button";
+  backBtn.textContent = "← Back";
   backBtn.onclick = () => window.renderScreen("CardioStudio");
   container.appendChild(backBtn);
 
   return container;
 }
-
