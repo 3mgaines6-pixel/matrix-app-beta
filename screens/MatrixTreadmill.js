@@ -1,80 +1,42 @@
-export function MatrixTreadmill() {
+/* =========================================
+   MATRIX TREADMILL (DOM VERSION)
+========================================= */
 
+export default function MatrixTreadmill() {
   const container = document.createElement("div");
   container.className = "cardio-machine-screen";
 
-  /* ---------- TITLE ---------- */
-  const title = document.createElement("h1");
-  title.className = "cardio-machine-title";
-  title.textContent = "Matrix Treadmill";
-  container.appendChild(title);
+  /* HEADER */
+  const header = document.createElement("div");
+  header.className = "header";
+  header.textContent = "Matrix Treadmill";
+  container.appendChild(header);
 
-  /* ---------- LAST SESSION ---------- */
-  const last = document.createElement("div");
-  last.className = "last-session";
+  /* TIME INPUT */
+  const timeInput = document.createElement("input");
+  timeInput.type = "number";
+  timeInput.className = "cardio-input";
+  timeInput.placeholder = "Minutes";
+  container.appendChild(timeInput);
 
-  const lastData = JSON.parse(localStorage.getItem("treadmill_last"));
-  if (lastData) {
-    last.textContent = `Last: ${lastData.minutes} min • ${lastData.miles} miles • ${lastData.mph} mph • ${lastData.incline}% incline`;
-  } else {
-    last.textContent = "Last: —";
-  }
-  container.appendChild(last);
+  /* DISTANCE INPUT */
+  const distanceInput = document.createElement("input");
+  distanceInput.type = "number";
+  distanceInput.className = "cardio-input";
+  distanceInput.placeholder = "Miles";
+  container.appendChild(distanceInput);
 
-  /* ---------- INPUTS ---------- */
-  function makeInput(label, id, type = "number") {
-    const wrap = document.createElement("div");
-    wrap.className = "input-row";
+  /* SAVE BUTTON */
+  const saveBtn = document.createElement("div");
+  saveBtn.className = "save-button";
+  saveBtn.textContent = "Save Cardio";
 
-    const lbl = document.createElement("label");
-    lbl.textContent = label;
+  saveBtn.onclick = () => {
+    const minutes = Number(timeInput.value);
+    const miles = Number(distanceInput.value);
 
-    const input = document.createElement("input");
-    input.type = type;
-    input.id = id;
-
-    wrap.appendChild(lbl);
-    wrap.appendChild(input);
-    return wrap;
-  }
-
-  const minutesInput = makeInput("Minutes", "minutes");
-  const milesInput = makeInput("Miles", "miles");
-  const mphInput = makeInput("MPH (auto)", "mph");
-  const inclineInput = makeInput("Incline %", "incline");
-
-  container.appendChild(minutesInput);
-  container.appendChild(milesInput);
-  container.appendChild(mphInput);
-  container.appendChild(inclineInput);
-
-  /* ---------- AUTO-CALCULATE MPH ---------- */
-  milesInput.querySelector("input").addEventListener("input", updateMPH);
-  minutesInput.querySelector("input").addEventListener("input", updateMPH);
-
-  function updateMPH() {
-    const minutes = parseFloat(minutesInput.querySelector("input").value);
-    const miles = parseFloat(milesInput.querySelector("input").value);
-
-    if (minutes > 0 && miles > 0) {
-      const mph = (miles / (minutes / 60)).toFixed(1);
-      mphInput.querySelector("input").value = mph;
-    }
-  }
-
-  /* ---------- LOG BUTTON ---------- */
-  const logBtn = document.createElement("button");
-  logBtn.className = "log-btn";
-  logBtn.textContent = "Log Session";
-
-  logBtn.onclick = () => {
-    const minutes = parseFloat(minutesInput.querySelector("input").value);
-    const miles = parseFloat(milesInput.querySelector("input").value);
-    const mph = parseFloat(mphInput.querySelector("input").value);
-    const incline = parseFloat(inclineInput.querySelector("input").value);
-
-    if (!minutes || !miles || !mph) {
-      alert("Please enter minutes, miles, and mph.");
+    if (!minutes && !miles) {
+      alert("Enter minutes or miles");
       return;
     }
 
@@ -82,33 +44,25 @@ export function MatrixTreadmill() {
       type: "treadmill",
       minutes,
       miles,
-      mph,
-      incline: incline || 0,
-      date: Date.now()
+      date: new Date().toISOString()
     };
 
-    /* Save last session */
-    localStorage.setItem("treadmill_last", JSON.stringify(entry));
+    // Save to localStorage
+    const history = JSON.parse(localStorage.getItem("cardioHistory")) || [];
+    history.push(entry);
+    localStorage.setItem("cardioHistory", JSON.stringify(history));
 
-    /* Save to cardio history */
-    const history = JSON.parse(localStorage.getItem("cardio_history")) || [];
-    history.unshift(entry);
-    localStorage.setItem("cardio_history", JSON.stringify(history));
-
-    alert("Session logged!");
-    window.renderScreen("CardioStudio");
+    alert("Cardio saved!");
   };
 
-  container.appendChild(logBtn);
-/* ---------- RETURN BUTTON ---------- */
-const backBtn = document.createElement("button");
-backBtn.className = "log-btn"; // reuse your blue button style
-backBtn.textContent = "← Back to Cardio Studio";
-backBtn.style.marginTop = "10px";
+  container.appendChild(saveBtn);
 
-backBtn.onclick = () => window.renderScreen("CardioStudio");
-
-container.appendChild(backBtn);
+  /* BACK BUTTON */
+  const backBtn = document.createElement("div");
+  backBtn.className = "back-button";
+  backBtn.textContent = "← Back";
+  backBtn.onclick = () => window.renderScreen("CardioStudio");
+  container.appendChild(backBtn);
 
   return container;
 }
