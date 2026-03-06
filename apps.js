@@ -21,24 +21,25 @@ if (savedMachines) {
 /* =========================================
    IMPORT SCREENS (Backup removed)
 ========================================= */
-import { Splash } from "./screens/Splash.js";
-import { GymFloor } from "./screens/GymFloor.js";
-import { StrengthStudio } from "./screens/StrengthStudio.js";
-// import { Backup } from "./screens/Backup.js";   <-- REMOVED
+import Splash from "./screens/Splash.js";
+import GymFloor from "./screens/GymFloor.js";
+import StrengthStudio from "./screens/StrengthStudio.js";
+// import Backup from "./screens/Backup.js";   <-- REMOVED
 
-import { StrengthHistory } from "./screens/StrengthHistory.js";
-import { Machine } from "./screens/Machine.js";
-import { CardioStudio } from "./screens/CardioStudio.js";
-import { StretchStudio } from "./screens/StretchStudio.js";
-import { Summary } from "./screens/Summary.js";
-import { WeeklyOverview } from "./screens/WeeklyOverview.js";
-import { MatrixTreadmill } from "./screens/MatrixTreadmill.js";
-import { MatrixCycle } from "./screens/MatrixCycle.js";
-import { MatrixElliptical } from "./screens/MatrixElliptical.js";
-import { NutritionGuide } from "./screens/NutritionGuide.js";
-import { SpinClass } from "./screens/SpinClass.js";
-import { CoreClass } from "./screens/CoreClass.js";
-import { CardioHistory } from "./screens/CardioHistory.js";
+import StrengthHistory from "./screens/StrengthHistory.js";
+import Machine from "./screens/Machine.js";
+import CardioStudio from "./screens/CardioStudio.js";
+import StretchStudio from "./screens/StretchStudio.js";
+import Summary from "./screens/Summary.js";
+import WeeklyOverview from "./screens/WeeklyOverview.js";
+import MatrixTreadmill from "./screens/MatrixTreadmill.js";
+import MatrixCycle from "./screens/MatrixCycle.js";
+import MatrixElliptical from "./screens/MatrixElliptical.js";
+import NutritionGuide from "./screens/NutritionGuide.js";
+import SpinClass from "./screens/SpinClass.js";
+import CoreClass from "./screens/CoreClass.js";
+import CardioHistory from "./screens/CardioHistory.js";
+
 
 
 /* =========================================
