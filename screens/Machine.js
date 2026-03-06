@@ -1,6 +1,7 @@
 /* =========================================
    MACHINE SCREEN (DOM VERSION)
 ========================================= */
+import { MACHINES } from "../data/machines.js";
 
 export default function Machine(data) {
   const machineName = data?.name;
