@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+/* =========================================
+   SPLASH SCREEN (DOM VERSION)
+========================================= */
 
-export default function Splash() {
-  const navigate = useNavigate();
-  const [fade, setFade] = useState(false);
+export function Splash() {
+  const container = document.createElement("div");
+  container.className = "splash-container";
 
-  useEffect(() => {
-    const timer1 = setTimeout(() => setFade(true), 900);   // start fade
-    const timer2 = setTimeout(() => navigate("/gymfloor"), 1700); // go to Gym Floor
+  const door = document.createElement("div");
+  door.className = "splash-door";
 
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
-  }, [navigate]);
+  container.appendChild(door);
 
-  return (
-    <div className={`splash-container ${fade ? "fade-out" : ""}`}>
-      <div className="splash-door"></div>
-    </div>
-  );
+  // Fade out
+  setTimeout(() => {
+    container.classList.add("fade-out");
+  }, 900);
+
+  // Navigate to GymFloor
+  setTimeout(() => {
+    window.renderScreen("GymFloor");
+  }, 1700);
+
+  return container;
 }
