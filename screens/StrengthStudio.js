@@ -35,6 +35,15 @@ console.log("Keys:", Object.keys(MACHINES));
 
     list.appendChild(btn);
   });
+  // Return button
+  const backBtn = document.createElement("button");
+  backBtn.className = "return-btn";
+  backBtn.textContent = "Return to Gym Floor";
+  backBtn.onclick = () => window.renderScreen("GymFloor");
+  container.appendChild(backBtn);
 
   return container;
 }
+
+
+
