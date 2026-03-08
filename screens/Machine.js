@@ -18,6 +18,22 @@ export default function Machine(data) {
   header.textContent = `${machineID} — ${machine.name}`;
   container.appendChild(header);
 
+  /* COACHING CUE BAR */
+  const cue = document.createElement("div");
+  cue.className = "coaching-cue";
+
+  // Pull cues from machine metadata if available
+  const cues = machine.cues || [
+    "Control the negative",
+    "Stay tight and smooth",
+    "Drive through the full range"
+  ];
+
+  // Pick one cue at random
+  cue.textContent = cues[Math.floor(Math.random() * cues.length)];
+
+  container.appendChild(cue);
+
   /* LOAD FULL HISTORY */
   const history = JSON.parse(localStorage.getItem("history") || "{}");
   const sets = history[machineID] || [];
