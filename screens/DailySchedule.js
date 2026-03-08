@@ -15,8 +15,8 @@ export default function DailySchedule() {
   header.textContent = "Today's Workout";
   container.appendChild(header);
 
-  /* DETERMINE TODAY */
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+  /* CORRECT DAY MAPPING */
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const today = days[new Date().getDay()];
 
   /* LOAD TODAY'S MACHINES */
@@ -34,7 +34,7 @@ export default function DailySchedule() {
     list.appendChild(empty);
   }
 
-  /* LOAD HISTORY TO MARK COMPLETED MACHINES */
+  /* LOAD HISTORY TO MARK COMPLETION */
   const history = JSON.parse(localStorage.getItem("history") || "{}");
 
   todayList.forEach((id) => {
