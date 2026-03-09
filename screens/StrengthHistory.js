@@ -1,67 +1,43 @@
-/* =========================================
-   STRENGTH HISTORY (DOM VERSION)
-========================================= */
-
 import { MACHINES } from "../data/machines.js";
 
 export default function StrengthHistory() {
   const container = document.createElement("div");
-  container.className = "history-screen";
+  container.className = "weekly-screen";
 
-  /* HEADER */
   const header = document.createElement("div");
   header.className = "header";
   header.textContent = "Strength History";
   container.appendChild(header);
 
-  /* LOAD FULL HISTORY */
   const history = JSON.parse(localStorage.getItem("history") || "{}");
 
   const list = document.createElement("div");
   list.className = "scroll-list";
   container.appendChild(list);
 
-  const machineIDs = Object.keys(history);
-
-  /* EMPTY STATE */
-  if (machineIDs.length === 0) {
-    const empty = document.createElement("div");
-    empty.className = "card-base";
-    empty.style.textAlign = "center";
-    empty.style.fontSize = "18px";
-    empty.textContent = "No strength workouts logged yet";
-    list.appendChild(empty);
-  }
-
-  /* MACHINE CARDS */
-  machineIDs.forEach((id) => {
+  Object.keys(history).forEach((id) => {
     const machine = MACHINES[id];
     if (!machine) return;
 
-    const sets = history[id] || [];
-
     const card = document.createElement("div");
     card.className = "card-base";
-    card.style.cursor = "pointer";
+
+    const sets = history[id];
+    const last = sets[sets.length - 1];
 
     card.innerHTML = `
-      <div class="history-title">${id} — ${machine.name}</div>
-      <div class="history-sub">${sets.length} total sets logged</div>
+      <div class="weekly-title">${id} — ${machine.emoji} ${machine.name}</div>
+      <div class="weekly-sub">${last.weight} lbs × ${last.reps} reps</div>
     `;
-
-    card.onclick = () => {
-      window.renderScreen("MachineHistory", { id });
-    };
 
     list.appendChild(card);
   });
 
-  /* BACK BUTTON */
-  const backBtn = document.createElement("button");
-  backBtn.className = "return-btn";
-  backBtn.textContent = "Return to Gym Floor";
-  backBtn.onclick = () => window.renderScreen("GymFloor");
-  container.appendChild(backBtn);
+  const back = document.createElement("div");
+  back.className = "gym-button";
+  back.textContent = "← Back to Strength Studio";
+  back.onclick = () => window.renderScreen("StrengthStudio");
+  container.appendChild(back);
 
   return container;
 }
