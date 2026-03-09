@@ -2,7 +2,7 @@
    NUTRITION GUIDE — AUTO PROTEIN (P3) + H2O CALCULATOR
 ========================================================== */
 
-import { WEEKLY_SCHEDULE } from "../data/weekly.js";
+import { WEEKLY } from "../data/weekly.js";
 
 export default function NutritionGuide() {
   const container = document.createElement("div");
@@ -21,7 +21,7 @@ export default function NutritionGuide() {
   --------------------------------*/
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const today = dayNames[new Date().getDay()];
-  const todayList = WEEKLY_SCHEDULE[today] || [];
+  const todayList = WEEKLY[today] || [];
 
   let intensity = "REST";
 
