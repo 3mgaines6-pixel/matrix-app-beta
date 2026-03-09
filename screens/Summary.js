@@ -2,6 +2,8 @@
    SUMMARY SCREEN (DOM VERSION)
 ========================================= */
 
+import { MACHINES } from "../data/machines.js";
+
 export default function Summary() {
   const container = document.createElement("div");
   container.className = "summary-screen";
