@@ -1,4 +1,7 @@
-/* GLOBAL */
+/* =========================================
+   GLOBAL
+========================================= */
+
 body {
   margin: 0;
   background: #f2f4f7;
@@ -11,9 +14,18 @@ body {
   min-height: 100vh;
 }
 
-/* BACKGROUNDS */
+/* =========================================
+   BACKGROUNDS
+========================================= */
+
 .gymfloor-bg {
-  background: url("https://images.unsplash.com/photo-1599058917212-d750089bc07c") center/cover no-repeat;
+  background: url("https://images.unsplash.com/photo-1599058917212-d750089bc07c")
+    center/cover no-repeat;
+}
+
+.strength-bg {
+  background: url("https://images.unsplash.com/photo-1599058917212-d750089bc07c")
+    center/cover no-repeat;
 }
 
 .cardio-bg-dark {
@@ -21,10 +33,14 @@ body {
       rgba(0,0,0,0.55),
       rgba(0,0,0,0.55)
     ),
-    url("https://images.unsplash.com/photo-1599058917212-d750089bc07c") center/cover no-repeat;
+    url("https://images.unsplash.com/photo-1599058917212-d750089bc07c")
+    center/cover no-repeat;
 }
 
-/* HEADER */
+/* =========================================
+   HEADER
+========================================= */
+
 .header {
   background: linear-gradient(180deg, #0a4bff, #0036c7);
   color: white;
@@ -37,7 +53,26 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
-/* BLUE BUTTONS */
+/* =========================================
+   BLUE PILL BADGE (BP1)
+========================================= */
+
+.badge {
+  display: inline-block;
+  background: #0a4bff;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 auto 16px auto;
+  text-align: center;
+}
+
+/* =========================================
+   BLUE BUTTONS
+========================================= */
+
 .button {
   background: linear-gradient(180deg, #0a4bff, #0036c7);
   color: white;
@@ -56,7 +91,10 @@ body {
   transform: scale(0.97);
 }
 
-/* WHITE BUTTONS */
+/* =========================================
+   WHITE BUTTONS
+========================================= */
+
 .gym-button {
   background: white;
   color: #0a4bff;
@@ -75,7 +113,10 @@ body {
   transform: scale(0.97);
 }
 
-/* CARDS */
+/* =========================================
+   CARDS
+========================================= */
+
 .card-base {
   background: white;
   padding: 14px;
@@ -96,7 +137,10 @@ body {
   margin-top: 4px;
 }
 
-/* INPUTS */
+/* =========================================
+   INPUTS
+========================================= */
+
 .input-box {
   width: 100%;
   padding: 12px;
@@ -106,7 +150,10 @@ body {
   font-size: 18px;
 }
 
-/* CUE BAR */
+/* =========================================
+   CUE BAR
+========================================= */
+
 .cue-bar {
   background: #e8f0ff;
   color: #0036c7;
@@ -116,4 +163,60 @@ body {
   font-size: 16px;
   font-weight: 500;
   border-left: 5px solid #0a4bff;
+}
+
+/* =========================================
+   WARNING BAR
+========================================= */
+
+.warning-bar {
+  background: #ffe5e5;
+  color: #b30000;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border-left: 5px solid #ff0000;
+}
+
+/* =========================================
+   SET HISTORY
+========================================= */
+
+.set-history {
+  margin-top: 20px;
+}
+
+.set-item {
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-set {
+  color: #b30000;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* =========================================
+   DELETE ALL BUTTON
+========================================= */
+
+.delete-all {
+  background: #ff4d4d;
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 20px;
+  cursor: pointer;
 }
