@@ -13,7 +13,7 @@ export default function StrengthStudio() {
   container.appendChild(header);
 
   /* -------------------------------
-     WEEK + BLOCK BADGE (W2 + BP1)
+     WEEK + BLOCK BADGE
   --------------------------------*/
   const week = parseInt(localStorage.getItem("week") || "1");
   const block = week <= 2 ? "PRIMARY" : "SWAP";
@@ -28,13 +28,15 @@ export default function StrengthStudio() {
   --------------------------------*/
   Object.keys(MACHINES).forEach((id) => {
     const machine = MACHINES[id];
+    if (!machine) return; // safety guard
 
     const btn = document.createElement("div");
     btn.className = "button";
-    btn.textContent = `${machine.emoji} ${machine.name}`;
+    btn.textContent = `${id} — ${machine.emoji} ${machine.name}`;
+
+    // 🔥 FIXED: pass the ID into Machine screen
     btn.onclick = () => {
-      localStorage.setItem("currentMachine", id);
-      window.renderScreen("Machine");
+      window.renderScreen("Machine", id);
     };
 
     container.appendChild(btn);
