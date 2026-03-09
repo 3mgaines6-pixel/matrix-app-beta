@@ -1,6 +1,6 @@
 /* ==========================================================
-   FINAL MACHINE DEFINITIONS — MATCHES REAL GYM + WEEKLY PLAN
-   Includes: handle toggle + tempo toggle support
+   FINAL MACHINE DEFINITIONS — ORIGINAL NUMBERING RESTORED
+   Heavy/Light pairs match real gym flow
 ========================================================== */
 
 export const MACHINES = {
@@ -64,19 +64,23 @@ export const MACHINES = {
   },
 
   "7": {
-    emoji: "🦿",
-    name: "Seated Leg Curl",
-    cue: "Slow return, full stretch each rep.",
-    group: "Hamstrings",
-    suggestedLight: 45
+    emoji: "🔥",
+    name: "Chest Press (Heavy)",
+    cue: "Brace core and control the lowering phase.",
+    group: "Chest",
+    tempoOptions: ["Normal", "Slow"],
+    suggestedHeavy: 120
   },
 
   "8": {
-    emoji: "📏",
-    name: "Leg Extension",
-    cue: "Pause at the top for quad activation.",
-    group: "Quads",
-    suggestedLight: 55
+    emoji: "🦅",
+    name: "Lat Pulldown",
+    cue: "Pull to collarbone and avoid leaning back.",
+    group: "Back",
+    handlePositions: ["Inner", "Outer"],
+    defaultHandle: "Inner",
+    tempoOptions: ["Normal", "Slow"],
+    suggestedHeavy: 110
   },
 
   "9": {
@@ -90,23 +94,19 @@ export const MACHINES = {
   },
 
   "10": {
-    emoji: "🔥",
-    name: "Chest Press (Heavy)",
-    cue: "Brace core and control the lowering phase.",
-    group: "Chest",
-    tempoOptions: ["Normal", "Slow"],
-    suggestedHeavy: 120
+    emoji: "🦿",
+    name: "Prone Leg Curl",
+    cue: "Smooth tempo, full stretch.",
+    group: "Hamstrings",
+    suggestedLight: 40
   },
 
   "11": {
-    emoji: "🦅",
-    name: "Lat Pulldown",
-    cue: "Pull to collarbone and avoid leaning back.",
-    group: "Back",
-    handlePositions: ["Inner", "Outer"],
-    defaultHandle: "Inner",
-    tempoOptions: ["Normal", "Slow"],
-    suggestedHeavy: 110
+    emoji: "📏",
+    name: "Leg Extension",
+    cue: "Pause at the top for quad activation.",
+    group: "Quads",
+    suggestedLight: 55
   },
 
   "12": {
