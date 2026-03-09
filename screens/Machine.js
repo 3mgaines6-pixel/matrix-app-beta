@@ -23,32 +23,24 @@ export default function Machine(id) {
   const container = document.createElement("div");
   container.className = "screen strength-bg";
 
-  /* -------------------------------
-     HEADER
-  --------------------------------*/
+  /* HEADER */
   const header = document.createElement("div");
   header.className = "header";
   header.textContent = `${id} — ${machine.emoji} ${machine.name}`;
   container.appendChild(header);
 
-  /* -------------------------------
-     COACHING CUE BAR
-  --------------------------------*/
+  /* COACHING CUE BAR */
   const cue = document.createElement("div");
   cue.className = "cue-bar";
   cue.textContent = machine.cue || "Focus on controlled reps and full ROM.";
   container.appendChild(cue);
 
-  /* -------------------------------
-     LOAD HISTORY
-  --------------------------------*/
+  /* LOAD HISTORY */
   const history = JSON.parse(localStorage.getItem("history") || "{}");
   const sets = history[id] || [];
   const last = sets[sets.length - 1];
 
-  /* -------------------------------
-     LAST SESSION CARD
-  --------------------------------*/
+  /* LAST SESSION CARD */
   const lastCard = document.createElement("div");
   lastCard.className = "card-base";
 
@@ -59,22 +51,18 @@ export default function Machine(id) {
       <div class="weekly-sub">${last.weight} lbs × ${last.reps} reps — ${date}</div>
     `;
   } else {
-    lastCard.innerHTML = `
-      <div class="weekly-title">No previous sets</div>
-    `;
+    lastCard.innerHTML = `<div class="weekly-title">No previous sets</div>`;
   }
 
   container.appendChild(lastCard);
 
-  /* -------------------------------
-     SUGGESTED WEIGHT (AUTO + OVERRIDE)
-  --------------------------------*/
+  /* SUGGESTED WEIGHT */
   let suggested = null;
 
   if (machine.suggestedHeavy || machine.suggestedLight) {
     suggested = machine.suggestedHeavy || machine.suggestedLight;
   } else if (last) {
-    if (last.reps < 6) suggested = last.weight;          // maintain
+    if (last.reps < 6) suggested = last.weight;
     else if (last.reps <= 10) suggested = last.weight + 5;
     else suggested = last.weight + 10;
   }
@@ -89,9 +77,7 @@ export default function Machine(id) {
     container.appendChild(suggestCard);
   }
 
-  /* -------------------------------
-     HEAVY WEIGHT WARNING
-  --------------------------------*/
+  /* HEAVY WEIGHT WARNING */
   function checkWarning(w) {
     if (!suggested) return null;
     if (w > suggested + 20) {
@@ -100,9 +86,7 @@ export default function Machine(id) {
     return null;
   }
 
-  /* -------------------------------
-     INPUTS
-  --------------------------------*/
+  /* INPUTS */
   const weight = document.createElement("input");
   weight.className = "input-box";
   weight.placeholder = "Weight (lbs)";
@@ -114,9 +98,7 @@ export default function Machine(id) {
   container.appendChild(weight);
   container.appendChild(reps);
 
-  /* -------------------------------
-     WARNING BAR (dynamic)
-  --------------------------------*/
+  /* WARNING BAR */
   const warningBar = document.createElement("div");
 
   weight.oninput = () => {
@@ -132,9 +114,7 @@ export default function Machine(id) {
     }
   };
 
-  /* -------------------------------
-     SAVE SET BUTTON
-  --------------------------------*/
+  /* SAVE SET BUTTON */
   const save = document.createElement("div");
   save.className = "button";
   save.textContent = "Save Set";
@@ -156,9 +136,7 @@ export default function Machine(id) {
 
   container.appendChild(save);
 
-  /* -------------------------------
-     SET HISTORY LIST
-  --------------------------------*/
+  /* SET HISTORY LIST */
   if (sets.length > 0) {
     const list = document.createElement("div");
     list.className = "set-history";
@@ -169,9 +147,7 @@ export default function Machine(id) {
 
       const date = new Date(s.date).toLocaleDateString();
 
-      item.innerHTML = `
-        <div>${s.weight} lbs × ${s.reps} reps — ${date}</div>
-      `;
+      item.innerHTML = `<div>${s.weight} lbs × ${s.reps} reps — ${date}</div>`;
 
       const del = document.createElement("div");
       del.className = "delete-set";
@@ -205,9 +181,7 @@ export default function Machine(id) {
     container.appendChild(delAll);
   }
 
-  /* -------------------------------
-     NEXT MACHINE BUTTON
-  --------------------------------*/
+  /* NEXT MACHINE BUTTON */
   const next = document.createElement("div");
   next.className = "button";
   next.textContent = "Next Machine →";
@@ -229,9 +203,7 @@ export default function Machine(id) {
 
   container.appendChild(next);
 
-  /* -------------------------------
-     BACK BUTTON
-  --------------------------------*/
+  /* BACK BUTTON */
   const back = document.createElement("div");
   back.className = "gym-button";
   back.textContent = "← Back";
