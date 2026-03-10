@@ -1,85 +1,83 @@
-/* ============================================================
-   STRENGTH STUDIO — Daily Training Hub
-============================================================ */
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { M } from "../data/MACHINES.js";
+import { WEEKLY } from "../data/WEEKLY.js";
+import "./StrengthStudio.css";
 
-import { MACHINES } from "../data/machines.js";
-import { WEEKLY } from "../data/weekly.js";
+// ------------------------------------------------------------
+// Helpers
+// ------------------------------------------------------------
+
+// Get today's weekday key ("Mon", "Tue", etc.)
+function getTodayName() {
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[new Date().getDay()];
+}
+
+// Determine if this is a primary or swap week
+function getWeekType() {
+  const weekNumber = Math.ceil(new Date().getDate() / 7);
+  return weekNumber === 3 || weekNumber === 4 ? "swap" : "primary";
+}
+
+// Find machine object by its real Matrix number
+function findMachineByNumber(num) {
+  return Object.values(M).find(m => m.number === num);
+}
+
+// Apply swap logic for Weeks 3–4
+function applySwap(machine) {
+  switch (machine.number) {
+    case 12: return M.PLC;      // Seated Leg Curl → Prone Leg Curl
+    case 7:  return M.CHEST_L;  // Heavy Chest → Light Chest
+    case 15: return M.PRESS_L;  // Heavy Leg Press → Light Leg Press
+    default: return machine;
+  }
+}
+
+// ------------------------------------------------------------
+// Component
+// ------------------------------------------------------------
 
 export default function StrengthStudio() {
-  const container = document.createElement("div");
-  container.className = "screen strength-bg";
+  const navigate = useNavigate();
 
-  const header = document.createElement("div");
-  header.className = "header";
-  header.textContent = "Strength Studio";
-  container.appendChild(header);
+  const today = getTodayName();
+  const weekType = getWeekType();
 
-  const history = JSON.parse(localStorage.getItem("history") || "{}");
+  // Machine numbers for today from WEEKLY.js
+  const machineNumbers = WEEKLY[today] || [];
 
-  const todayIndex = new Date().getDay();
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const today = days[todayIndex];
+  // Convert numbers → machine objects (with swap logic)
+  const machines = machineNumbers.map(num => {
+    let machine = findMachineByNumber(num);
+    if (!machine) return null; // safety fallback
+    if (weekType === "swap") machine = applySwap(machine);
+    return machine;
+  }).filter(Boolean); // remove nulls just in case
 
-  const todayTitle = document.createElement("div");
-  todayTitle.className = "weekly-title";
-  todayTitle.textContent = `Today's Workout — ${today}`;
-  container.appendChild(todayTitle);
+  return (
+    <div className="strength-screen">
 
-  const list = WEEKLY[today] || [];
+      {/* Back Button */}
+      <button className="back-btn" onClick={() => navigate("/")}>
+        ⬅ Back
+      </button>
 
-  list.forEach((id) => {
-    const m = MACHINES[id];
-    if (!m) return;
+      <h1 className="strength-title">Strength Studio</h1>
 
-    const card = document.createElement("div");
-    card.className = "card-base machine-card";
-
-    const sets = history[id] || [];
-    const last = sets[sets.length - 1];
-
-    const lastText = last
-      ? `Last: ${new Date(last.date).toLocaleDateString()}`
-      : "No history";
-
-    card.innerHTML = `
-      <div class="machine-row">
-        <div class="machine-info">
-          <div class="machine-name">${m.emoji} ${m.name}</div>
-          <div class="machine-sub">${lastText}</div>
-        </div>
-        <div class="tag ${m.type.toLowerCase()}">${m.type}</div>
+      <div className="machine-list">
+        {machines.map(m => (
+          <div key={m.id} className="machine-card">
+            <div className="machine-name">{m.name}</div>
+            <div className="machine-muscle">{m.muscle}</div>
+            <div className="machine-baseline">
+              Baseline: {m.baseline !== null ? `${m.baseline} lbs` : "—"}
+            </div>
+          </div>
+        ))}
       </div>
-    `;
 
-    card.onclick = () => window.renderScreen("Machine", id);
-
-    container.appendChild(card);
-  });
-
-  /* NAV BUTTONS */
-  const navWrap = document.createElement("div");
-  navWrap.className = "nav-wrap";
-
-  const weeklyBtn = document.createElement("div");
-  weeklyBtn.className = "button";
-  weeklyBtn.textContent = "Weekly Overview";
-  weeklyBtn.onclick = () => window.renderScreen("WeeklyOverview");
-
-  const historyBtn = document.createElement("div");
-  historyBtn.className = "button";
-  historyBtn.textContent = "Strength History";
-  historyBtn.onclick = () => window.renderScreen("StrengthHistory");
-
-  const scheduleBtn = document.createElement("div");
-  scheduleBtn.className = "button";
-  scheduleBtn.textContent = "Daily Schedule";
-  scheduleBtn.onclick = () => window.renderScreen("DailySchedule");
-
-  navWrap.appendChild(weeklyBtn);
-  navWrap.appendChild(historyBtn);
-  navWrap.appendChild(scheduleBtn);
-
-  container.appendChild(navWrap);
-
-  return container;
+    </div>
+  );
 }
