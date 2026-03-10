@@ -2,7 +2,8 @@
    MACHINE DATA — NUMBER-INDEXED WITH EMOJIS + CUES
 ============================================================ */
 
-export const MACHINES = {
+export const M = {
+
   1: {
     id: "CURL",
     number: 1,
