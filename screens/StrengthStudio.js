@@ -1,8 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
 import { M } from "../data/MACHINES.js";
 import { WEEKLY } from "../data/WEEKLY.js";
-import "./StrengthStudio.css";
 
 // ------------------------------------------------------------
 // Helpers
@@ -36,11 +33,11 @@ function applySwap(machine) {
 }
 
 // ------------------------------------------------------------
-// Component
+// MAIN RENDER FUNCTION
 // ------------------------------------------------------------
 
-export default function StrengthStudio() {
-  const navigate = useNavigate();
+export function renderStrengthStudio(root) {
+  root.innerHTML = ""; // clear screen
 
   const today = getTodayName();
   const weekType = getWeekType();
@@ -51,33 +48,68 @@ export default function StrengthStudio() {
   // Convert numbers → machine objects (with swap logic)
   const machines = machineNumbers.map(num => {
     let machine = findMachineByNumber(num);
-    if (!machine) return null; // safety fallback
+    if (!machine) return null;
     if (weekType === "swap") machine = applySwap(machine);
     return machine;
-  }).filter(Boolean); // remove nulls just in case
+  }).filter(Boolean);
 
-  return (
-    <div className="strength-screen">
+  // ------------------------------------------------------------
+  // Screen container
+  // ------------------------------------------------------------
+  const screen = document.createElement("div");
+  screen.className = "strength-screen";
 
-      {/* Back Button */}
-      <button className="back-btn" onClick={() => navigate("/")}>
-        ⬅ Back
-      </button>
+  // ------------------------------------------------------------
+  // Back button
+  // ------------------------------------------------------------
+  const backBtn = document.createElement("button");
+  backBtn.className = "back-btn";
+  backBtn.textContent = "⬅ Back";
+  backBtn.onclick = () => window.renderHome();
+  screen.appendChild(backBtn);
 
-      <h1 className="strength-title">Strength Studio</h1>
+  // ------------------------------------------------------------
+  // Title
+  // ------------------------------------------------------------
+  const title = document.createElement("h1");
+  title.className = "strength-title";
+  title.textContent = "Strength Studio";
+  screen.appendChild(title);
 
-      <div className="machine-list">
-        {machines.map(m => (
-          <div key={m.id} className="machine-card">
-            <div className="machine-name">{m.name}</div>
-            <div className="machine-muscle">{m.muscle}</div>
-            <div className="machine-baseline">
-              Baseline: {m.baseline !== null ? `${m.baseline} lbs` : "—"}
-            </div>
-          </div>
-        ))}
-      </div>
+  // ------------------------------------------------------------
+  // Machine list container
+  // ------------------------------------------------------------
+  const list = document.createElement("div");
+  list.className = "machine-list";
 
-    </div>
-  );
+  machines.forEach(m => {
+    const card = document.createElement("div");
+    card.className = "machine-card";
+
+    const name = document.createElement("div");
+    name.className = "machine-name";
+    name.textContent = m.name;
+
+    const muscle = document.createElement("div");
+    muscle.className = "machine-muscle";
+    muscle.textContent = m.muscle;
+
+    const baseline = document.createElement("div");
+    baseline.className = "machine-baseline";
+    baseline.textContent =
+      m.baseline !== null ? `Baseline: ${m.baseline} lbs` : "Baseline: —";
+
+    card.appendChild(name);
+    card.appendChild(muscle);
+    card.appendChild(baseline);
+
+    list.appendChild(card);
+  });
+
+  screen.appendChild(list);
+
+  // ------------------------------------------------------------
+  // Render to root
+  // ------------------------------------------------------------
+  root.appendChild(screen);
 }
