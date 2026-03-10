@@ -6,6 +6,7 @@ import { MACHINES } from "../data/machines.js";
 import { WEEKLY } from "../data/weekly.js";
 
 export default function Machine(id) {
+  id = Number(id); // ensure numeric ID
   const machine = MACHINES[id];
 
   if (!machine) {
@@ -108,11 +109,11 @@ export default function Machine(id) {
       suggested = last.reps > 20 ? last.weight + 2.5 : last.weight;
     }
   } else {
-    suggested = machine.baseWeight;
+    suggested = machine.baseline; // FIXED
   }
 
   /* SAFETY CAP */
-  if (suggested > last?.weight + 10) suggested = last.weight + 10;
+  if (last && suggested > last.weight + 10) suggested = last.weight + 10;
 
   const suggestCard = document.createElement("div");
   suggestCard.className = "card-base";
@@ -147,9 +148,9 @@ export default function Machine(id) {
     r.inputMode = "numeric";
     r.placeholder = "Reps";
 
-    /* GRIP TOGGLE */
+    /* GRIP TOGGLE — FIXED */
     let grip = null;
-    if (machine.grips) {
+    if (Array.isArray(machine.grips)) {
       grip = machine.grips[0];
       const gripBtn = document.createElement("div");
       gripBtn.className = "button small-btn";
@@ -318,7 +319,7 @@ export default function Machine(id) {
     container.appendChild(delAll);
   }
 
-  /* NEXT MACHINE */
+  /* NEXT MACHINE — FIXED */
   const next = document.createElement("div");
   next.className = "button";
   next.textContent = "Next Machine →";
@@ -328,7 +329,7 @@ export default function Machine(id) {
     const today = days[new Date().getDay()];
     const list = WEEKLY[today] || [];
 
-    const index = list.indexOf(id);
+    const index = list.indexOf(Number(id)); // FIXED
     const nextID = list[index + 1];
 
     if (nextID) {
