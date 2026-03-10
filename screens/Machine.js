@@ -1,5 +1,5 @@
 /* ============================================================
-   FULL MACHINE SCREEN — 3 SETS + TEMPO + AUTO TIMER + COACHING
+   MACHINE SCREEN — FIXED TEMPO, BASELINES, GRIPS, NUMERIC KEYPAD
 ============================================================ */
 
 import { MACHINES } from "../data/machines.js";
@@ -8,7 +8,6 @@ import { WEEKLY } from "../data/weekly.js";
 export default function Machine(id) {
   const machine = MACHINES[id];
 
-  /* SAFETY: Missing machine */
   if (!machine) {
     const error = document.createElement("div");
     error.className = "screen";
@@ -32,10 +31,18 @@ export default function Machine(id) {
   /* CUE BAR */
   const cue = document.createElement("div");
   cue.className = "cue-bar";
-  cue.textContent = machine.cue || "Control the movement and use full ROM.";
+  cue.textContent = machine.cue;
   container.appendChild(cue);
 
-  /* TEMPO SECTION (Layout A) */
+  /* TEMPO DEFAULTS */
+  let tempo =
+    machine.type === "Heavy"
+      ? "3-1-2"
+      : machine.type === "Core"
+      ? "2-2-2"
+      : "2-1-2";
+
+  /* TEMPO CARD */
   const tempoCard = document.createElement("div");
   tempoCard.className = "card-base";
 
@@ -45,13 +52,18 @@ export default function Machine(id) {
 
   const tempoToggle = document.createElement("div");
   tempoToggle.className = "button small-btn";
-  let tempo = "3-1-2";
   tempoToggle.textContent = tempo;
 
   tempoToggle.onclick = () => {
-    tempo = tempo === "3-1-2" ? "2-1-2" : tempo === "2-1-2" ? "3-0-3" : "3-1-2";
+    if (machine.type === "Heavy") {
+      tempo = tempo === "3-1-2" ? "2-1-2" : "3-1-2";
+    } else if (machine.type === "Light") {
+      tempo = tempo === "2-1-2" ? "3-1-2" : "2-1-2";
+    } else {
+      tempo = tempo === "2-2-2" ? "3-1-2" : "2-2-2";
+    }
     tempoToggle.textContent = tempo;
-    cue.textContent = `Tempo ${tempo} — control the eccentric.`;
+    cue.textContent = `Tempo ${tempo} — control the movement.`;
   };
 
   const tempoExplain = document.createElement("div");
@@ -63,12 +75,12 @@ export default function Machine(id) {
   tempoCard.appendChild(tempoExplain);
   container.appendChild(tempoCard);
 
-  /* LOAD HISTORY */
+  /* HISTORY */
   const history = JSON.parse(localStorage.getItem("history") || "{}");
   const sets = history[id] || [];
   const last = sets[sets.length - 1];
 
-  /* LAST SESSION CARD */
+  /* LAST SESSION */
   const lastCard = document.createElement("div");
   lastCard.className = "card-base";
 
@@ -76,7 +88,7 @@ export default function Machine(id) {
     const date = new Date(last.date).toLocaleDateString();
     lastCard.innerHTML = `
       <div class="weekly-title">Last Session</div>
-      <div class="weekly-sub">${last.weight} lbs × ${last.reps} reps — ${date}</div>
+      <div class="weekly-sub">${last.weight} lbs × ${last.reps} reps — ${date} ${last.grip ? "(" + last.grip + ")" : ""}</div>
     `;
   } else {
     lastCard.innerHTML = `<div class="weekly-title">No previous sets</div>`;
@@ -87,34 +99,30 @@ export default function Machine(id) {
   /* SUGGESTED WEIGHT */
   let suggested = null;
 
-  if (machine.suggestedHeavy || machine.suggestedLight) {
-    suggested = machine.suggestedHeavy || machine.suggestedLight;
-  } else if (last) {
-    if (last.reps < 6) suggested = last.weight;
-    else if (last.reps <= 10) suggested = last.weight + 5;
-    else suggested = last.weight + 10;
-  }
-
-  if (suggested) {
-    const suggestCard = document.createElement("div");
-    suggestCard.className = "card-base";
-    suggestCard.innerHTML = `
-      <div class="weekly-title">Suggested Weight</div>
-      <div class="weekly-sub">${suggested} lbs</div>
-    `;
-    container.appendChild(suggestCard);
-  }
-
-  /* HEAVY JUMP WARNING */
-  function checkWarning(w) {
-    if (!suggested) return null;
-    if (w > suggested + 20) {
-      return "⚠️ That jump is too heavy — reduce weight for joint safety.";
+  if (last) {
+    if (machine.type === "Heavy") {
+      suggested = last.reps < 6 ? last.weight : last.weight + 5;
+    } else if (machine.type === "Light") {
+      suggested = last.reps < 10 ? last.weight : last.weight + 2.5;
+    } else {
+      suggested = last.reps > 20 ? last.weight + 2.5 : last.weight;
     }
-    return null;
+  } else {
+    suggested = machine.baseWeight;
   }
 
-  /* THREE-SET BLOCK (Option B) */
+  /* SAFETY CAP */
+  if (suggested > last?.weight + 10) suggested = last.weight + 10;
+
+  const suggestCard = document.createElement("div");
+  suggestCard.className = "card-base";
+  suggestCard.innerHTML = `
+    <div class="weekly-title">Suggested Weight</div>
+    <div class="weekly-sub">${suggested} lbs</div>
+  `;
+  container.appendChild(suggestCard);
+
+  /* SET CARDS */
   const setInputs = [];
 
   function createSetCard(num) {
@@ -127,17 +135,39 @@ export default function Machine(id) {
 
     const w = document.createElement("input");
     w.className = "input-box";
+    w.type = "number";
+    w.inputMode = "decimal";
+    w.step = "0.5";
     w.placeholder = "Weight (lbs)";
+    w.value = suggested;
 
     const r = document.createElement("input");
     r.className = "input-box";
+    r.type = "number";
+    r.inputMode = "numeric";
     r.placeholder = "Reps";
+
+    /* GRIP TOGGLE */
+    let grip = null;
+    if (machine.grips) {
+      grip = machine.grips[0];
+      const gripBtn = document.createElement("div");
+      gripBtn.className = "button small-btn";
+      gripBtn.textContent = grip;
+
+      gripBtn.onclick = () => {
+        grip = grip === machine.grips[0] ? machine.grips[1] : machine.grips[0];
+        gripBtn.textContent = grip;
+      };
+
+      card.appendChild(gripBtn);
+    }
 
     card.appendChild(title);
     card.appendChild(w);
     card.appendChild(r);
 
-    setInputs.push({ w, r });
+    setInputs.push({ w, r, grip });
     return card;
   }
 
@@ -150,10 +180,10 @@ export default function Machine(id) {
 
   setInputs.forEach(({ w }) => {
     w.oninput = () => {
-      const msg = checkWarning(Number(w.value));
-      if (msg) {
+      const val = Number(w.value);
+      if (val > suggested + 20) {
         warningBar.className = "warning-bar";
-        warningBar.textContent = msg;
+        warningBar.textContent = "⚠️ That jump is too heavy — reduce weight for joint safety.";
         if (!container.contains(warningBar)) container.insertBefore(warningBar, tempoCard);
       } else {
         if (container.contains(warningBar)) container.removeChild(warningBar);
@@ -172,11 +202,16 @@ export default function Machine(id) {
 
     let anySaved = false;
 
-    setInputs.forEach(({ w, r }) => {
+    setInputs.forEach(({ w, r, grip }) => {
       const weight = Number(w.value);
       const reps = Number(r.value);
       if (weight && reps) {
-        h[id].push({ weight, reps, date: new Date().toISOString() });
+        h[id].push({
+          weight,
+          reps,
+          grip,
+          date: new Date().toISOString()
+        });
         anySaved = true;
       }
     });
@@ -191,7 +226,7 @@ export default function Machine(id) {
 
   container.appendChild(saveAll);
 
-  /* COACHING CARD */
+  /* COACH CARD */
   const coachCard = document.createElement("div");
   coachCard.className = "card-base coach-card";
   coachCard.style.display = "none";
@@ -210,7 +245,7 @@ export default function Machine(id) {
 
   container.appendChild(coachCard);
 
-  /* REST TIMER (AUTO: 60s Light/Core, 90s Heavy) */
+  /* REST TIMER */
   const timer = document.createElement("div");
   timer.className = "timer-display";
   timer.style.display = "none";
@@ -235,7 +270,7 @@ export default function Machine(id) {
     }, 1000);
   }
 
-  /* HISTORY LIST + DELETE */
+  /* HISTORY LIST */
   if (sets.length > 0) {
     const list = document.createElement("div");
     list.className = "set-history";
@@ -245,9 +280,8 @@ export default function Machine(id) {
       item.className = "set-item";
 
       const date = new Date(s.date).toLocaleDateString();
-      item.innerHTML = `<div>${s.weight} lbs × ${s.reps} reps — ${date}</div>`;
+      item.innerHTML = `<div>${s.weight} lbs × ${s.reps} reps — ${date} ${s.grip ? "(" + s.grip + ")" : ""}</div>`;
 
-      /* Trash icon delete */
       const del = document.createElement("div");
       del.className = "delete-set";
       del.textContent = "🗑";
@@ -258,7 +292,6 @@ export default function Machine(id) {
         window.renderScreen("Machine", id);
       };
 
-      /* Long-press delete */
       item.onmousedown = () => {
         item._pressTimer = setTimeout(() => del.onclick(), 600);
       };
@@ -270,7 +303,6 @@ export default function Machine(id) {
 
     container.appendChild(list);
 
-    /* DELETE ALL */
     const delAll = document.createElement("div");
     delAll.className = "delete-all";
     delAll.textContent = "Delete All Sets";
