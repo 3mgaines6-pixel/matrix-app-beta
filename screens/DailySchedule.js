@@ -1,10 +1,7 @@
-import { M } from "../data/MACHINES.js";
-import { WEEKLY } from "../data/WEEKLY.js";
+import { M } from "../data/machines.js";
+import { WEEKLY } from "../data/weekly.js";
 
-// ------------------------------------------------------------
 // Helpers
-// ------------------------------------------------------------
-
 function getTodayName() {
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   return days[new Date().getDay()];
@@ -28,35 +25,30 @@ function applySwap(machine) {
   }
 }
 
-// ------------------------------------------------------------
-// MAIN RENDER FUNCTION
-// ------------------------------------------------------------
-
-export function renderDailySchedule(root) {
-  root.innerHTML = "";
+// MAIN SCREEN
+export default function DailySchedule() {
+  const root = document.createElement("div");
+  root.className = "daily-screen";
 
   const today = getTodayName();
   const weekType = getWeekType();
   const machineNumbers = WEEKLY[today] || [];
 
-  const screen = document.createElement("div");
-  screen.className = "daily-screen";
-
   const backBtn = document.createElement("button");
   backBtn.className = "back-btn";
   backBtn.textContent = "⬅ Back";
-  backBtn.onclick = () => window.renderHome();
-  screen.appendChild(backBtn);
+  backBtn.onclick = () => window.renderScreen("GymFloor");
+  root.appendChild(backBtn);
 
   const title = document.createElement("h1");
   title.className = "daily-title";
   title.textContent = "Today's Workout";
-  screen.appendChild(title);
+  root.appendChild(title);
 
   const subtitle = document.createElement("h2");
   subtitle.className = "daily-subtitle";
   subtitle.textContent = today;
-  screen.appendChild(subtitle);
+  root.appendChild(subtitle);
 
   const list = document.createElement("div");
   list.className = "machine-list";
@@ -64,7 +56,6 @@ export function renderDailySchedule(root) {
   machineNumbers.forEach(num => {
     let machine = findMachineByNumber(num);
     if (!machine) return;
-
     if (weekType === "swap") machine = applySwap(machine);
 
     const card = document.createElement("div");
@@ -86,10 +77,9 @@ export function renderDailySchedule(root) {
     card.appendChild(name);
     card.appendChild(muscle);
     card.appendChild(baseline);
-
     list.appendChild(card);
   });
 
-  screen.appendChild(list);
-  root.appendChild(screen);
+  root.appendChild(list);
+  return root;
 }
