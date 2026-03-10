@@ -1,72 +1,48 @@
-/* ================================================
-   STRENGTH HISTORY — CLEAN CARDS + EMOJI + DATES
-================================================ */
-
 import { MACHINES } from "../data/machines.js";
 
 export default function StrengthHistory() {
-  const container = document.createElement("div");
-  container.className = "screen strength-bg";
+  const root = document.createElement("div");
+  root.className = "strength-screen";
 
-  /* -------------------------------
-     HEADER
-  --------------------------------*/
-  const header = document.createElement("div");
-  header.className = "header";
-  header.textContent = "Strength History";
-  container.appendChild(header);
+  // Title
+  const title = document.createElement("h1");
+  title.className = "strength-title";
+  title.textContent = "Strength History";
+  root.appendChild(title);
 
-  /* -------------------------------
-     LOAD HISTORY
-  --------------------------------*/
+  // Back button
+  const backBtn = document.createElement("div");
+  backBtn.className = "gym-button";
+  backBtn.textContent = "← Back";
+  backBtn.onclick = () => window.renderScreen("GymFloor");
+  root.appendChild(backBtn);
+
+  // Load history
   const history = JSON.parse(localStorage.getItem("history") || "{}");
-  const machineIDs = Object.keys(history);
 
-  if (machineIDs.length === 0) {
-    const empty = document.createElement("div");
-    empty.className = "card-base";
-    empty.innerHTML = `
-      <div class="weekly-title">No strength history yet</div>
-      <div class="weekly-sub">Your saved sets will appear here.</div>
-    `;
-    container.appendChild(empty);
-  }
-
-  /* -------------------------------
-     HISTORY CARDS
-  --------------------------------*/
-  machineIDs.forEach((id) => {
-    const machine = MACHINES[id];
-    const sets = history[id];
-
-    if (!machine || sets.length === 0) return;
+  // Loop through machines with history
+  Object.values(MACHINES).forEach(machine => {
+    const sets = history[machine.id];
+    if (!sets || sets.length === 0) return;
 
     const last = sets[sets.length - 1];
     const date = new Date(last.date).toLocaleDateString();
 
     const card = document.createElement("div");
-    card.className = "card-base";
+    card.className = "machine-card";
 
     card.innerHTML = `
-      <div class="weekly-title">${machine.emoji} ${machine.name}</div>
-      <div class="weekly-sub">
+      <div class="machine-name">${machine.emoji} ${machine.name}</div>
+      <div class="machine-baseline">
         Last: ${last.weight} lbs × ${last.reps} reps — ${date}
       </div>
     `;
 
-    card.onclick = () => window.renderScreen("Machine", id);
+    // FIX: Pass full machine object, not ID
+    card.onclick = () => window.renderScreen("Machine", machine);
 
-    container.appendChild(card);
+    root.appendChild(card);
   });
 
-  /* -------------------------------
-     BACK BUTTON
-  --------------------------------*/
-  const back = document.createElement("div");
-  back.className = "gym-button";
-  back.textContent = "← Back";
-  back.onclick = () => window.renderScreen("GymFloor");
-  container.appendChild(back);
-
-  return container;
+  return root;
 }
