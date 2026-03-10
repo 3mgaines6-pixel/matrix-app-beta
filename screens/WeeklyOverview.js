@@ -16,29 +16,27 @@ function findMachineByNumber(num) {
 
 function applySwap(machine) {
   switch (machine.number) {
-    case 12: return M.PLC;      // Seated Leg Curl → Prone Leg Curl
-    case 7:  return M.CHEST_L;  // Heavy Chest → Light Chest
-    case 15: return M.PRESS_L;  // Heavy Leg Press → Light Leg Press
+    case 12: return M.PLC;
+    case 7:  return M.CHEST_L;
+    case 15: return M.PRESS_L;
     default: return machine;
   }
 }
 
 // ------------------------------------------------------------
-// MAIN RENDER FUNCTION
+// MAIN SCREEN (DEFAULT EXPORT)
 // ------------------------------------------------------------
 
-export function renderWeeklyOverview(root) {
-  root.innerHTML = "";
+export default function WeeklyOverview() {
+  const root = document.createElement("div");
+  root.className = "weekly-screen";
 
   const weekType = getWeekType();
-
-  const screen = document.createElement("div");
-  screen.className = "weekly-screen";
 
   const title = document.createElement("h1");
   title.className = "weekly-title";
   title.textContent = "Weekly Overview";
-  screen.appendChild(title);
+  root.appendChild(title);
 
   // Loop through all days in WEEKLY.js
   Object.entries(WEEKLY).forEach(([day, machineNumbers]) => {
@@ -76,8 +74,8 @@ export function renderWeeklyOverview(root) {
     });
 
     dayCard.appendChild(list);
-    screen.appendChild(dayCard);
+    root.appendChild(dayCard);
   });
 
-  root.appendChild(screen);
+  return root;
 }
