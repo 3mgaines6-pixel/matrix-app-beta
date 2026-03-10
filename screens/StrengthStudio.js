@@ -21,15 +21,15 @@ function findMachineByNumber(num) {
 
 function applySwap(machine) {
   switch (machine.number) {
-    case 12: return MACHINES.PLC;      // Seated Leg Curl → Prone Leg Curl
-    case 7:  return MACHINES.CHEST_L;  // Chest Press Heavy → Light
-    case 15: return MACHINES.PRESS_L;  // Leg Press Heavy → Light
+    case 12: return MACHINES.PLC;
+    case 7:  return MACHINES.CHEST_L;
+    case 15: return MACHINES.PRESS_L;
     default: return machine;
   }
 }
 
 // ------------------------------------------------------------
-// MAIN SCREEN — DEFAULT EXPORT
+// MAIN SCREEN
 // ------------------------------------------------------------
 
 export default function StrengthStudio() {
@@ -40,7 +40,6 @@ export default function StrengthStudio() {
   const weekType = getWeekType();
   const machineNumbers = WEEKLY[today] || [];
 
-  // Build today's machine list
   const machines = machineNumbers
     .map(num => {
       let machine = findMachineByNumber(num);
@@ -53,7 +52,7 @@ export default function StrengthStudio() {
   // Back button
   const backBtn = document.createElement("button");
   backBtn.className = "back-btn";
-  backBtn.textContent = "⬅ Back";
+  backBtn.textContent = "← Back";
   backBtn.onclick = () => window.renderScreen("GymFloor");
   root.appendChild(backBtn);
 
@@ -63,21 +62,19 @@ export default function StrengthStudio() {
   title.textContent = "Strength Studio";
   root.appendChild(title);
 
-  // Machine list container
+  // Machine list
   const list = document.createElement("div");
   list.className = "machine-list";
 
-  // Build machine cards
   machines.forEach(m => {
     const card = document.createElement("div");
     card.className = "machine-card";
 
-    // Open Machine screen with full machine object
     card.onclick = () => window.renderScreen("Machine", m);
 
     const name = document.createElement("div");
     name.className = "machine-name";
-    name.textContent = `${m.number} • ${m.name}`;
+    name.textContent = `${m.number} • ${m.emoji} ${m.name}`;
 
     const muscle = document.createElement("div");
     muscle.className = "machine-muscle";
