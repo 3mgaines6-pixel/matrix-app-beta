@@ -1,136 +1,104 @@
-/* ==========================================================
-   FINAL MACHINE DEFINITIONS — ORIGINAL NUMBERING RESTORED
-   Heavy/Light pairs match real gym flow
-========================================================== */
-
 export const MACHINES = {
-
-  /* ============================
-     LOWER BODY
-  ============================ */
-
   "1": {
-    emoji: "💪",
-    name: "Dependent Curl",
-    cue: "Control the eccentric and keep elbows pinned.",
-    group: "Arms",
-    suggestedLight: 40
+    emoji: "🔥",
+    name: "Chest Press (Light)",
+    cue: "Drive elbows slightly down and forward.",
+    group: "Chest",
+    type: "Light",
+    baseWeight: 50,
+    grips: ["Inner", "Outer"]
   },
 
   "2": {
-    emoji: "🔩",
-    name: "Triceps Press",
-    cue: "Lock elbows at your sides and extend fully.",
-    group: "Arms",
-    suggestedLight: 35
+    emoji: "💪",
+    name: "Shoulder Press (Light)",
+    cue: "Keep elbows slightly in front of shoulders.",
+    group: "Shoulders",
+    type: "Light",
+    baseWeight: 45,
+    grips: ["Inner", "Outer"]
   },
 
   "3": {
-    emoji: "🧱",
-    name: "Ab Crunch",
-    cue: "Exhale as you crunch and keep ribs down.",
-    group: "Core",
-    suggestedLight: 40
+    emoji: "🏋️‍♂️",
+    name: "Lat Pulldown (Light)",
+    cue: "Pull elbows down toward ribs.",
+    group: "Back",
+    type: "Light",
+    baseWeight: 60
   },
 
   "4": {
-    emoji: "🧘",
-    name: "Back Extension",
-    cue: "Hinge at hips and avoid hyperextension.",
-    group: "Lower Back",
-    suggestedLight: 25
+    emoji: "🔗",
+    name: "Seated Row (Light)",
+    cue: "Squeeze shoulder blades together.",
+    group: "Back",
+    type: "Light",
+    baseWeight: 60
   },
 
   "5": {
-    emoji: "🏋️‍♂️",
-    name: "Seated Row",
-    cue: "Lead with elbows and squeeze shoulder blades.",
-    group: "Back",
-    handlePositions: ["Inner", "Outer"],
-    defaultHandle: "Inner",
-    tempoOptions: ["Normal", "Slow"],
-    suggestedHeavy: 90
+    emoji: "💥",
+    name: "Triceps Press (Light)",
+    cue: "Keep elbows tucked and press smoothly.",
+    group: "Arms",
+    type: "Light",
+    baseWeight: 70,
+    grips: ["Inner", "Outer"]
   },
 
   "6": {
-    emoji: "🛡️",
-    name: "Shoulder Press",
-    cue: "Drive straight up and avoid arching your back.",
-    group: "Shoulders",
-    handlePositions: ["Neutral", "Wide"],
-    defaultHandle: "Neutral",
-    tempoOptions: ["Normal", "Slow"],
-    suggestedLight: 55
+    emoji: "💪",
+    name: "Arm Curl",
+    cue: "Keep elbows pinned and avoid swinging.",
+    group: "Arms",
+    type: "Light",
+    baseWeight: 15
   },
 
   "7": {
-    emoji: "🔥",
-    name: "Chest Press (Heavy)",
-    cue: "Brace core and control the lowering phase.",
-    group: "Chest",
-    tempoOptions: ["Normal", "Slow"],
-    suggestedHeavy: 120
+    emoji: "🦿",
+    name: "Seated Leg Curl (Light)",
+    cue: "Control the return and squeeze hamstrings.",
+    group: "Hamstrings",
+    type: "Light",
+    baseWeight: 40
   },
 
   "8": {
-    emoji: "🦅",
-    name: "Lat Pulldown",
-    cue: "Pull to collarbone and avoid leaning back.",
-    group: "Back",
-    handlePositions: ["Inner", "Outer"],
-    defaultHandle: "Inner",
-    tempoOptions: ["Normal", "Slow"],
-    suggestedHeavy: 110
+    emoji: "↔️",
+    name: "Hip Adductor",
+    cue: "Control the inward movement.",
+    group: "Hips",
+    type: "Light",
+    baseWeight: 62.5
   },
 
   "9": {
-    emoji: "🪽",
-    name: "Pec Fly / Rear Delt",
-    cue: "Control the arc and squeeze at peak contraction.",
-    group: "Chest / Shoulders",
-    handlePositions: ["Inner", "Outer"],
-    defaultHandle: "Inner",
-    suggestedLight: 40
+    emoji: "➡️",
+    name: "Hip Abductor",
+    cue: "Drive outward smoothly.",
+    group: "Hips",
+    type: "Light",
+    baseWeight: 62.5
   },
 
   "10": {
-    emoji: "🦿",
-    name: "Prone Leg Curl",
-    cue: "Smooth tempo, full stretch.",
-    group: "Hamstrings",
-    suggestedLight: 40
+    emoji: "🧱",
+    name: "Ab Crunch (Core)",
+    cue: "Exhale as you crunch, slow return.",
+    group: "Core",
+    type: "Core",
+    baseWeight: 60
   },
 
   "11": {
-    emoji: "📏",
-    name: "Leg Extension",
-    cue: "Pause at the top for quad activation.",
-    group: "Quads",
-    suggestedLight: 55
-  },
-
-  "12": {
-    emoji: "🦿",
-    name: "Seated Leg Curl (Light)",
-    cue: "Smooth tempo, full stretch.",
-    group: "Hamstrings",
-    suggestedLight: 40
-  },
-
-  "13": {
-    emoji: "↔️",
-    name: "Hip Adductor",
-    cue: "Control the inward squeeze; avoid rocking.",
-    group: "Inner Thighs",
-    suggestedLight: 40
-  },
-
-  "14": {
-    emoji: "➡️",
-    name: "Hip Abductor",
-    cue: "Drive knees outward and pause briefly.",
-    group: "Glutes",
-    suggestedLight: 40
+    emoji: "🧍‍♂️",
+    name: "Back Extension",
+    cue: "Control the top and avoid hyperextension.",
+    group: "Back",
+    type: "Light",
+    baseWeight: 70
   },
 
   "15": {
@@ -138,25 +106,7 @@ export const MACHINES = {
     name: "Leg Press (Heavy)",
     cue: "Push through heels and avoid locking knees.",
     group: "Quads / Glutes",
-    tempoOptions: ["Normal", "Slow"],
-    suggestedHeavy: 270
-  },
-
-  "107": {
-    emoji: "🔥",
-    name: "Chest Press (Light)",
-    cue: "Smooth tempo, full range.",
-    group: "Chest",
-    tempoOptions: ["Normal", "Slow"],
-    suggestedLight: 80
-  },
-
-  "115": {
-    emoji: "🦵",
-    name: "Leg Press (Light)",
-    cue: "Controlled reps, knee‑safe depth.",
-    group: "Quads / Glutes",
-    tempoOptions: ["Normal", "Slow"],
-    suggestedLight: 180
+    type: "Heavy",
+    baseWeight: 130
   }
 };
