@@ -36,7 +36,7 @@ function applySwap(machine) {
 // MAIN RENDER FUNCTION
 // ------------------------------------------------------------
 
-export function renderStrengthStudio(root) {
+export default function StrengthStudio(root) {
   root.innerHTML = ""; // clear screen
 
   const today = getTodayName();
