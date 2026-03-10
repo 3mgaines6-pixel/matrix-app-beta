@@ -1,85 +1,95 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
 import { M } from "../data/MACHINES.js";
 import { WEEKLY } from "../data/WEEKLY.js";
-import "./DailySchedule.css";
 
 // ------------------------------------------------------------
 // Helpers
 // ------------------------------------------------------------
 
-// Get today's weekday key ("Mon", "Tue", etc.)
 function getTodayName() {
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   return days[new Date().getDay()];
 }
 
-// Determine if this is a primary or swap week
 function getWeekType() {
   const weekNumber = Math.ceil(new Date().getDate() / 7);
   return weekNumber === 3 || weekNumber === 4 ? "swap" : "primary";
 }
 
-// Convert machine number → machine object
 function findMachineByNumber(num) {
   return Object.values(M).find(m => m.number === num);
 }
 
-// Apply swap logic for Weeks 3–4
 function applySwap(machine) {
   switch (machine.number) {
-    case 12: return M.PLC;      // Seated Leg Curl → Prone Leg Curl
-    case 7:  return M.CHEST_L;  // Heavy Chest → Light Chest
-    case 15: return M.PRESS_L;  // Heavy Leg Press → Light Leg Press
+    case 12: return M.PLC;
+    case 7:  return M.CHEST_L;
+    case 15: return M.PRESS_L;
     default: return machine;
   }
 }
 
 // ------------------------------------------------------------
-// Component
+// MAIN RENDER FUNCTION
 // ------------------------------------------------------------
 
-export default function DailySchedule() {
-  const navigate = useNavigate();
+export function renderDailySchedule(root) {
+  root.innerHTML = "";
 
   const today = getTodayName();
   const weekType = getWeekType();
-
-  // Machine numbers for today from WEEKLY.js
   const machineNumbers = WEEKLY[today] || [];
 
-  // Convert numbers → machine objects (with swap logic)
-  const machines = machineNumbers.map(num => {
+  const screen = document.createElement("div");
+  screen.className = "daily-screen";
+
+  const backBtn = document.createElement("button");
+  backBtn.className = "back-btn";
+  backBtn.textContent = "⬅ Back";
+  backBtn.onclick = () => window.renderHome();
+  screen.appendChild(backBtn);
+
+  const title = document.createElement("h1");
+  title.className = "daily-title";
+  title.textContent = "Today's Workout";
+  screen.appendChild(title);
+
+  const subtitle = document.createElement("h2");
+  subtitle.className = "daily-subtitle";
+  subtitle.textContent = today;
+  screen.appendChild(subtitle);
+
+  const list = document.createElement("div");
+  list.className = "machine-list";
+
+  machineNumbers.forEach(num => {
     let machine = findMachineByNumber(num);
-    if (!machine) return null;
+    if (!machine) return;
+
     if (weekType === "swap") machine = applySwap(machine);
-    return machine;
-  }).filter(Boolean);
 
-  return (
-    <div className="daily-screen">
+    const card = document.createElement("div");
+    card.className = "machine-card";
 
-      {/* Back Button */}
-      <button className="back-btn" onClick={() => navigate("/")}>
-        ⬅ Back
-      </button>
+    const name = document.createElement("div");
+    name.className = "machine-name";
+    name.textContent = machine.name;
 
-      <h1 className="daily-title">Today's Workout</h1>
-      <h2 className="daily-subtitle">{today}</h2>
+    const muscle = document.createElement("div");
+    muscle.className = "machine-muscle";
+    muscle.textContent = machine.muscle;
 
-      <div className="machine-list">
-        {machines.map(m => (
-          <div key={m.id} className="machine-card">
-            <div className="machine-name">{m.name}</div>
-            <div className="machine-muscle">{m.muscle}</div>
-            <div className="machine-baseline">
-              Baseline: {m.baseline !== null ? `${m.baseline} lbs` : "—"}
-            </div>
-          </div>
-        ))}
-      </div>
+    const baseline = document.createElement("div");
+    baseline.className = "machine-baseline";
+    baseline.textContent =
+      machine.baseline !== null ? `Baseline: ${machine.baseline} lbs` : "Baseline: —";
 
-    </div>
-  );
+    card.appendChild(name);
+    card.appendChild(muscle);
+    card.appendChild(baseline);
+
+    list.appendChild(card);
+  });
+
+  screen.appendChild(list);
+  root.appendChild(screen);
 }
-``
