@@ -1,171 +1,197 @@
-export const M = {
-  CURL: {
+/* ============================================================
+   MACHINE DATA — NUMBER-INDEXED WITH EMOJIS + CUES
+============================================================ */
+
+export const MACHINES = {
+  1: {
     id: "CURL",
     number: 1,
-    name: "DEPENDENT CURL",
+    emoji: "💪",
+    name: "Dependent Curl",
     muscle: "Arms",
     type: "Light",
     baseline: 15,
-    grips: false
+    grips: false,
+    cue: "Elbows stay pinned — curl smooth, lower slower."
   },
 
-  TRI: {
+  2: {
     id: "TRI",
     number: 2,
-    name: "TRICEPS PRESS",
+    emoji: "🔗",
+    name: "Triceps Press",
     muscle: "Arms",
     type: "Light",
     baseline: 70,
-    grips: true
+    grips: true,
+    cue: "Lock shoulders down — extend without flaring elbows."
   },
 
-  ABS: {
+  3: {
     id: "ABS",
     number: 3,
-    name: "ABD CRUNCH",
+    emoji: "💥",
+    name: "Ab Crunch",
     muscle: "Core",
     type: "Core",
     baseline: 60,
-    grips: false
+    grips: false,
+    cue: "Ribs to hips — don’t pull with your neck."
   },
 
-  BACK: {
+  4: {
     id: "BACK",
     number: 4,
-    name: "BACK EXTENSION",
+    emoji: "🧱",
+    name: "Back Extension",
     muscle: "Lower Back",
     type: "Light",
     baseline: 70,
-    grips: false
+    grips: false,
+    cue: "Hinge smoothly — don’t overextend at the top."
   },
 
-  ROW: {
+  5: {
     id: "ROW",
     number: 5,
-    name: "SEATED ROW",
+    emoji: "🚣",
+    name: "Seated Row",
     muscle: "Mid Back",
     type: "Light",
     baseline: 60,
-    grips: false
+    grips: false,
+    cue: "Lead with elbows — squeeze shoulder blades together."
   },
 
-  SH: {
+  6: {
     id: "SH",
     number: 6,
-    name: "SHOULDER PRESS",
+    emoji: "🎯",
+    name: "Shoulder Press",
     muscle: "Shoulders",
     type: "Light",
     baseline: 45,
-    grips: true
+    grips: true,
+    cue: "Press up without shrugging — control the descent."
   },
 
-  CHEST: {
+  7: {
     id: "CHEST",
     number: 7,
-    name: "CHEST PRESS (HEAVY)",
+    emoji: "🏋️",
+    name: "Chest Press (Heavy)",
     muscle: "Chest",
     type: "Heavy",
     baseline: 70,
-    grips: true
+    grips: true,
+    cue: "Shoulders down, chest tall — smooth tempo."
   },
 
-  CHEST_L: {
-    id: "CHEST_L",
-    number: 107,
-    name: "CHEST PRESS (LIGHT)",
-    muscle: "Chest",
-    type: "Light",
-    baseline: 50,
-    grips: true
-  },
-
-  LAT: {
+  8: {
     id: "LAT",
     number: 8,
-    name: "LAT PULLDOWN",
+    emoji: "🧲",
+    name: "Lat Pulldown",
     muscle: "Back",
     type: "Light",
     baseline: 60,
-    grips: false
+    grips: false,
+    cue: "Pull elbows down — don’t lean back too far."
   },
 
-  PEC: {
+  9: {
     id: "PEC",
     number: 9,
-    name: "PEC FLY / REAR DELT",
+    emoji: "🌀",
+    name: "Pec Fly / Rear Delt",
     muscle: "Chest / Rear Delts",
     type: "Light",
     baseline: 50,
-    grips: false
+    grips: false,
+    cue: "Arms slightly bent — squeeze, then control the return."
   },
 
-  PLC: {
+  10: {
     id: "PLC",
     number: 10,
-    name: "PRONE LEG CURL",
+    emoji: "🔄",
+    name: "Prone Leg Curl",
     muscle: "Hamstrings",
     type: "Swap",
     baseline: null,
-    grips: false
+    grips: false,
+    cue: "Drive heels toward glutes — don’t swing the weight."
   },
 
-  LEGEXT: {
+  11: {
     id: "LEGEXT",
     number: 11,
-    name: "LEG EXTENSION",
+    emoji: "🦿",
+    name: "Leg Extension",
     muscle: "Quads",
     type: "Utility",
     baseline: null,
-    grips: false
+    grips: false,
+    cue: "Kick out smooth — pause at the top without locking."
   },
 
-  SLC: {
+  12: {
     id: "SLC",
     number: 12,
-    name: "SEATED LEG CURL",
+    emoji: "🔁",
+    name: "Seated Leg Curl",
     muscle: "Hamstrings",
     type: "Light",
     baseline: 40,
-    grips: false
+    grips: false,
+    cue: "Pull with hamstrings — control the return."
   },
 
-  ADD: {
+  13: {
     id: "ADD",
     number: 13,
-    name: "HIP ADDUCTOR",
+    emoji: "🦵",
+    name: "Hip Adductor",
     muscle: "Inner Thighs",
     type: "Light",
     baseline: 62.5,
-    grips: false
+    grips: false,
+    cue: "Squeeze inward — slow on the way out."
   },
 
-  ABD: {
+  14: {
     id: "ABD",
     number: 14,
-    name: "HIP ABDUCTOR",
+    emoji: "🍑",
+    name: "Hip Abductor",
     muscle: "Glutes",
     type: "Light",
     baseline: 62.5,
-    grips: false
+    grips: false,
+    cue: "Push out — keep hips stable and controlled."
   },
 
-  PRESS: {
+  15: {
     id: "PRESS",
     number: 15,
-    name: "LEG PRESS (HEAVY)",
+    emoji: "🦵",
+    name: "Leg Press (Heavy)",
     muscle: "Quads / Glutes",
     type: "Heavy",
     baseline: 130,
-    grips: false
+    grips: false,
+    cue: "Drive through heels — don’t lock knees."
   },
 
-  PRESS_L: {
+  115: {
     id: "PRESS_L",
     number: 115,
-    name: "LEG PRESS (LIGHT)",
+    emoji: "🦿",
+    name: "Leg Press (Light)",
     muscle: "Quads / Glutes",
     type: "Light",
     baseline: 80,
-    grips: false
+    grips: false,
+    cue: "Smooth reps — full control, no bouncing."
   }
 };
