@@ -6,13 +6,13 @@ import { WEEKLY } from "../data/weekly.js";
 
 export default function NutritionGuide() {
   const container = document.createElement("div");
-  container.className = "screen strength-bg";
+  container.className = "strength-screen"; // unified background
 
   /* -------------------------------
      HEADER
   --------------------------------*/
-  const header = document.createElement("div");
-  header.className = "header";
+  const header = document.createElement("h1");
+  header.className = "strength-title";
   header.textContent = "Nutrition Guide";
   container.appendChild(header);
 
@@ -61,10 +61,10 @@ export default function NutritionGuide() {
   }
 
   const proteinCard = document.createElement("div");
-  proteinCard.className = "card-base";
+  proteinCard.className = "machine-card";
   proteinCard.innerHTML = `
-    <div class="weekly-title">Today's Protein Target</div>
-    <div class="weekly-sub">${proteinLow}–${proteinHigh}g • ${label}</div>
+    <div class="machine-name">Today's Protein Target</div>
+    <div class="machine-baseline">${proteinLow}–${proteinHigh}g • ${label}</div>
   `;
   container.appendChild(proteinCard);
 
@@ -72,10 +72,10 @@ export default function NutritionGuide() {
      WHY THIS TARGET?
   --------------------------------*/
   const why = document.createElement("div");
-  why.className = "card-base";
+  why.className = "machine-card";
   why.innerHTML = `
-    <div class="weekly-title">Why this target?</div>
-    <div class="weekly-sub">
+    <div class="machine-name">Why this target?</div>
+    <div class="machine-baseline">
       Your protein adjusts automatically based on today's training load.
       Heavy days push muscle building. Moderate days support hybrid training.
       Light days maintain recovery. Rest days keep you lean and fueled.
@@ -87,10 +87,10 @@ export default function NutritionGuide() {
      H2O CALCULATOR
   --------------------------------*/
   const waterCard = document.createElement("div");
-  waterCard.className = "card-base";
+  waterCard.className = "machine-card";
   waterCard.innerHTML = `
-    <div class="weekly-title">Hydration Goal</div>
-    <div class="weekly-sub">Enter your bodyweight to calculate water intake.</div>
+    <div class="machine-name">Hydration Goal</div>
+    <div class="machine-baseline">Enter your bodyweight to calculate water intake.</div>
   `;
   container.appendChild(waterCard);
 
@@ -100,11 +100,11 @@ export default function NutritionGuide() {
   container.appendChild(weightInput);
 
   const waterResult = document.createElement("div");
-  waterResult.className = "weekly-sub";
+  waterResult.className = "machine-baseline";
   waterResult.style.marginTop = "10px";
 
   const calcWater = document.createElement("div");
-  calcWater.className = "button";
+  calcWater.className = "gym-button";
   calcWater.textContent = "Calculate Water Intake";
 
   calcWater.onclick = () => {
@@ -122,10 +122,10 @@ export default function NutritionGuide() {
      COACHING NOTE
   --------------------------------*/
   const coach = document.createElement("div");
-  coach.className = "card-base";
+  coach.className = "machine-card";
   coach.innerHTML = `
-    <div class="weekly-title">Coach's Note</div>
-    <div class="weekly-sub">
+    <div class="machine-name">Coach's Note</div>
+    <div class="machine-baseline">
       Stay consistent. Hydrate early. Hit your protein window.
       Your training is only as strong as your recovery.
     </div>
