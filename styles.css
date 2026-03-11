@@ -2,66 +2,113 @@
    GLOBAL BACKGROUNDS
 ============================================================ */
 
-/* Gym Entrance Hall — Main App / GymFloor */
+.gymfloor-bg,
+.strength-screen,
+.cardio-screen {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  animation: fadeIn 0.45s ease-out;
+}
+
+/* Gym Entrance */
 .gymfloor-bg {
   background-image: url("images/gym-entrance.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  padding: 20px;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Weight Plate — Strength Studio */
+/* Strength Studio */
 .strength-screen {
   background-image: url("images/weight-plate.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  padding: 20px;
-  position: relative;
   backdrop-filter: blur(2px);
+  z-index: 0;
 }
 
-/* Treadmill — Cardio Studio */
+/* Cardio Studio */
 .cardio-screen {
   background-image: url("images/treadmill.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  padding: 20px;
-  position: relative;
   backdrop-filter: blur(2px);
 }
 
-/* Optional readability overlay */
+/* Readability overlay */
+.gymfloor-bg::before,
 .strength-screen::before,
-.cardio-screen::before,
-.gymfloor-bg::before {
+.cardio-screen::before {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(10, 20, 60, 0.35);
   pointer-events: none;
-  border-radius: inherit;
+  z-index: 1;
 }
 
 /* ============================================================
-   CARD LAYOUT (Strength Studio + Machine.js)
+   TITLES (Readable Everywhere)
 ============================================================ */
 
-.machine-card {
+.strength-title,
+.header {
+  color: #1e4fff !important;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  text-shadow: 0 0 8px rgba(255,255,255,0.85);
+  display: inline-block;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 20;
+}
+
+/* ============================================================
+   CARD LAYOUT — OPTION C
+============================================================ */
+
+/* Strength Studio → frosted cards */
+.strength-screen .machine-card {
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 16px;
+  padding: 16px;
+  color: #1e4fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  position: relative;
+  z-index: 25;
+  animation: cardSlideUp 0.5s ease-out;
+}
+
+/* Machine.js, Nutrition, GymFloor → white cards */
+.machine-card:not(.strength-screen .machine-card),
+.gymfloor-button,
+.cue-bar {
   background: rgba(255, 255, 255, 0.92);
   border-radius: 22px;
   padding: 18px;
-  margin-bottom: 18px;
   box-shadow: 0 4px 12px rgba(100, 140, 255, 0.25);
   backdrop-filter: blur(4px);
   position: relative;
-  z-index: 2;
+  z-index: 10;
+}
+
+/* ============================================================
+   MACHINE LIST
+============================================================ */
+
+.machine-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 10px;
+  position: relative;
+  z-index: 20; /* ABOVE overlay */
 }
 
 /* ============================================================
@@ -75,19 +122,21 @@
   margin-bottom: 6px;
 }
 
+.machine-baseline {
+  font-size: 14px;
+  color: #1e4fff !important;
+  font-weight: 600;
+  text-shadow: 0 0 6px rgba(255,255,255,0.7);
+}
+
 .machine-muscle {
   font-size: 14px;
   color: #4a4a4a;
   margin-bottom: 4px;
 }
 
-.machine-baseline {
-  font-size: 14px;
-  color: #6a6a6a;
-}
-
 /* ============================================================
-   BUTTONS (Back, Tempo, Timer, Save, Delete)
+   BUTTONS
 ============================================================ */
 
 .gym-button,
@@ -102,11 +151,17 @@
   text-align: center;
   cursor: pointer;
   position: relative;
-  z-index: 2;
+  z-index: 20;
+  transition: background 0.25s ease, transform 0.15s ease;
 }
 
 .gym-button:hover {
   background: #16368c;
+}
+
+.gym-button:active,
+.back-btn:active {
+  transform: scale(0.96);
 }
 
 /* ============================================================
@@ -124,7 +179,7 @@
 }
 
 /* ============================================================
-   WEEKLY OVERVIEW ROWS
+   WEEKLY OVERVIEW
 ============================================================ */
 
 .weekly-item {
@@ -161,111 +216,9 @@
 }
 
 /* ============================================================
-   MACHINE HEADER + CUE BAR
+   HYDRATION BOX
 ============================================================ */
 
-.header {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1a3fa3;
-  margin-bottom: 12px;
-  position: relative;
-  z-index: 2;
-}
-
-.cue-bar {
-  background: rgba(255, 255, 255, 0.85);
-  padding: 12px;
-  border-radius: 14px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  color: #333;
-  box-shadow: 0 2px 6px rgba(100, 140, 255, 0.2);
-  position: relative;
-  z-index: 2;
-}
-.strength-screen,
-.cardio-screen,
-.gymfloor-bg {
-  animation: fadeIn 0.45s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.machine-card {
-  animation: cardSlideUp 0.5s ease-out;
-}
-
-@keyframes cardSlideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.machine-card:nth-child(1) { animation-delay: 0.05s; }
-.machine-card:nth-child(2) { animation-delay: 0.10s; }
-.machine-card:nth-child(3) { animation-delay: 0.15s; }
-.machine-card:nth-child(4) { animation-delay: 0.20s; }
-.machine-card:nth-child(5) { animation-delay: 0.25s; }
-.gym-button:active,
-.back-btn:active {
-  transform: scale(0.96);
-  transition: transform 0.08s ease-out;
-}
-.machine-card:active {
-  box-shadow: 0 0 18px rgba(100, 140, 255, 0.45);
-  transform: scale(0.98);
-  transition: 0.1s ease-out;
-}
-.gym-button {
-  transition: background 0.25s ease, transform 0.15s ease;
-}
-.cue-bar {
-  animation: fadeIn 0.6s ease-out;
-}
-.gymfloor-bg {
-  background-image: url("images/gym-entrance.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.gymfloor-button {
-  background: rgba(255, 255, 255, 0.92);
-  width: 90%;
-  max-width: 380px;
-  padding: 18px;
-  margin: 12px 0;
-  border-radius: 22px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 600;
-  color: #1a3fa3;
-  box-shadow: 0 4px 12px rgba(100, 140, 255, 0.25);
-  backdrop-filter: blur(4px);
-}
-.machine-baseline {
-  color: #1e4fff !important;
-  font-weight: 600;
-  text-shadow: 0 0 6px rgba(255,255,255,0.7);
-}
-.water-result-box {
-  background: white;
-  padding: 14px;
-  border-radius: 16px;
-  margin-top: 12px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #1e4fff;
-  text-align: center;
-  min-height: 28px; /* keeps shape even when empty */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
 .water-result-box {
   background: white;
   padding: 14px;
@@ -278,62 +231,23 @@
   min-height: 28px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
-.strength-title {
-  color: #1e4fff !important;      /* bright, readable blue */
-  font-weight: 700;
-  text-shadow: 0 0 8px rgba(255,255,255,0.85);
-}
-.strength-title {
-  color: #1e4fff !important;
-  font-weight: 700;
-  padding: 8px 18px;
-  border-radius: 14px;
 
-  /* The magic */
-  background: rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+/* ============================================================
+   ANIMATIONS
+============================================================ */
 
-  /* Optional glow for extra clarity */
-  text-shadow: 0 0 8px rgba(255,255,255,0.85);
-}
-/* Frosted-glass readable title */
-.strength-title {
-  color: #1e4fff !important;
-  font-weight: 700;
-  padding: 8px 18px;
-  border-radius: 14px;
-
-  background: rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-
-  text-shadow: 0 0 8px rgba(255,255,255,0.85);
-  display: inline-block;
-  margin-bottom: 12px;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Day selector row */
-.day-selector-row {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 16px;
+@keyframes cardSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.day-button {
-  padding: 8px 14px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.18);
-  color: #1e4fff;
-  font-weight: 600;
-  backdrop-filter: blur(4px);
-  cursor: pointer;
-}
-
-.day-selected {
-  background: rgba(255,255,255,0.35);
-  color: #003cff;
-  font-weight: 700;
-  box-shadow: 0 0 8px rgba(255,255,255,0.4);
-}
+.machine-card:nth-child(1) { animation-delay: 0.05s; }
+.machine-card:nth-child(2) { animation-delay: 0.10s; }
+.machine-card:nth-child(3) { animation-delay: 0.15s; }
+.machine-card:nth-child(4) { animation-delay: 0.20s; }
+.machine-card:nth-child(5) { animation-delay: 0.25s; }
