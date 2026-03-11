@@ -297,3 +297,43 @@
   /* Optional glow for extra clarity */
   text-shadow: 0 0 8px rgba(255,255,255,0.85);
 }
+/* Frosted-glass readable title */
+.strength-title {
+  color: #1e4fff !important;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  text-shadow: 0 0 8px rgba(255,255,255,0.85);
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+/* Day selector row */
+.day-selector-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.day-button {
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.18);
+  color: #1e4fff;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+
+.day-selected {
+  background: rgba(255,255,255,0.35);
+  color: #003cff;
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(255,255,255,0.4);
+}
