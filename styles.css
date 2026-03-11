@@ -266,3 +266,15 @@
   min-height: 28px; /* keeps shape even when empty */
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
+.water-result-box {
+  background: white;
+  padding: 14px;
+  border-radius: 16px;
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e4fff;
+  text-align: center;
+  min-height: 28px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
