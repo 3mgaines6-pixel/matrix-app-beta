@@ -249,3 +249,8 @@
   box-shadow: 0 4px 12px rgba(100, 140, 255, 0.25);
   backdrop-filter: blur(4px);
 }
+.machine-baseline {
+  color: #1e4fff !important;
+  font-weight: 600;
+  text-shadow: 0 0 6px rgba(255,255,255,0.7);
+}
