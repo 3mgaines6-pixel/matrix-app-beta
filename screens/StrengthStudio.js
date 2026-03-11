@@ -1,11 +1,12 @@
 import { MACHINES } from "../data/machines.js";
 import { WEEKLY } from "../data/weekly.js";
+
 export default function StrengthStudio() {
   const container = document.createElement("div");
   container.className = "strength-screen";
 
   /* -------------------------------
-     TITLE WITH FROSTED BACKDROP
+     TITLE
   --------------------------------*/
   const title = document.createElement("h1");
   title.className = "strength-title";
@@ -19,24 +20,25 @@ export default function StrengthStudio() {
   dayRow.className = "day-selector-row";
 
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
-  let selectedDay = new Date().getDay(); // 1–5 for Mon–Fri
 
-  // Convert JS day (0–6) to your training week (Mon–Fri)
-  if (selectedDay === 0 || selectedDay === 6) selectedDay = 1;
+  // Convert JS day (0–6) to our string keys
+  let jsDay = new Date().getDay(); // Sun=0, Mon=1, ..., Sat=6
+  if (jsDay === 0 || jsDay === 6) jsDay = 1; // Weekend → default to Monday
+  const selectedDayKey = days[jsDay - 1]; // Convert number → "Mon"
 
   days.forEach((d, index) => {
     const btn = document.createElement("div");
     btn.className = "day-button";
     btn.textContent = d;
 
-    if (index + 1 === selectedDay) {
+    if (d === selectedDayKey) {
       btn.classList.add("day-selected");
     }
 
     btn.onclick = () => {
       document.querySelectorAll(".day-button").forEach(b => b.classList.remove("day-selected"));
       btn.classList.add("day-selected");
-      loadDay(index + 1);
+      loadDay(d); // <-- USE STRING KEY
     };
 
     dayRow.appendChild(btn);
@@ -54,10 +56,10 @@ export default function StrengthStudio() {
   /* -------------------------------
      LOAD MACHINES FOR SELECTED DAY
   --------------------------------*/
-  function loadDay(dayNumber) {
+  function loadDay(dayKey) {
     list.innerHTML = "";
 
-    const todayMachines = WEEKLY[dayNumber] || [];
+    const todayMachines = WEEKLY[dayKey] || [];
 
     todayMachines.forEach(id => {
       const m = MACHINES[id];
@@ -77,7 +79,8 @@ export default function StrengthStudio() {
     });
   }
 
-  loadDay(selectedDay);
+  // Load today's day on startup
+  loadDay(selectedDayKey);
 
   /* -------------------------------
      BACK BUTTON
@@ -90,4 +93,3 @@ export default function StrengthStudio() {
 
   return container;
 }
-
