@@ -1,82 +1,93 @@
 import { MACHINES } from "../data/machines.js";
 import { WEEKLY } from "../data/weekly.js";
-
-function getTodayName() {
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  return days[new Date().getDay()];
-}
-
-function getWeekType() {
-  const weekNumber = Math.ceil(new Date().getDate() / 7);
-  return weekNumber <= 2 ? "primary" : "swap";
-}
-
-function findMachineByNumber(num) {
-  return Object.values(MACHINES).find(m => m.number === num);
-}
-
-function applySwap(machine) {
-  switch (machine.number) {
-    case 12: return MACHINES[10];   // Seated Leg Curl → Prone Leg Curl
-    case 7:  return MACHINES[107];  // Chest Heavy → Chest Light
-    case 15: return MACHINES[115];  // Leg Press Heavy → Light
-    default: return machine;
-  }
-}
-
 export default function StrengthStudio() {
-  const root = document.createElement("div");
-  root.className = "strength-screen";
+  const container = document.createElement("div");
+  container.className = "strength-screen";
 
+  /* -------------------------------
+     TITLE WITH FROSTED BACKDROP
+  --------------------------------*/
   const title = document.createElement("h1");
   title.className = "strength-title";
   title.textContent = "Strength Studio";
-  root.appendChild(title);
+  container.appendChild(title);
 
-  // BLOCK INDICATOR
-  const block = document.createElement("div");
-  block.className = "block-indicator";
+  /* -------------------------------
+     DAY SELECTOR BUTTONS
+  --------------------------------*/
+  const dayRow = document.createElement("div");
+  dayRow.className = "day-selector-row";
 
-  const weekNumber = Math.ceil(new Date().getDate() / 7);
-  const blockNumber = weekNumber <= 2 ? 1 : 2;
+  const days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+  let selectedDay = new Date().getDay(); // 1–5 for Mon–Fri
 
-  block.textContent =
-    blockNumber === 1
-      ? "Block 1 — Heavy Week"
-      : "Block 2 — Light Week (Swap Week Active)";
+  // Convert JS day (0–6) to your training week (Mon–Fri)
+  if (selectedDay === 0 || selectedDay === 6) selectedDay = 1;
 
-  root.appendChild(block);
+  days.forEach((d, index) => {
+    const btn = document.createElement("div");
+    btn.className = "day-button";
+    btn.textContent = d;
 
-  const today = getTodayName();
-  const weekType = getWeekType();
-  const machineNumbers = WEEKLY[today] || [];
-
-  const list = document.createElement("div");
-  list.className = "machine-list";
-
-  machineNumbers.forEach(num => {
-    let machine = findMachineByNumber(num);
-    if (!machine) return;
-
-    if (weekType === "swap") {
-      machine = applySwap(machine);
+    if (index + 1 === selectedDay) {
+      btn.classList.add("day-selected");
     }
 
-    const card = document.createElement("div");
-    card.className = "machine-card";
-    card.onclick = () => window.renderScreen("Machine", machine);
+    btn.onclick = () => {
+      document.querySelectorAll(".day-button").forEach(b => b.classList.remove("day-selected"));
+      btn.classList.add("day-selected");
+      loadDay(index + 1);
+    };
 
-    card.innerHTML = `
-      <div class="machine-name">${machine.number} • ${machine.emoji} ${machine.name}</div>
-      <div class="machine-muscle">${machine.muscle}</div>
-      <div class="machine-baseline">
-        Baseline: ${machine.baseline ? machine.baseline + " lbs" : "—"}
-      </div>
-    `;
-
-    list.appendChild(card);
+    dayRow.appendChild(btn);
   });
 
-  root.appendChild(list);
-  return root;
+  container.appendChild(dayRow);
+
+  /* -------------------------------
+     MACHINE LIST CONTAINER
+  --------------------------------*/
+  const list = document.createElement("div");
+  list.className = "machine-list";
+  container.appendChild(list);
+
+  /* -------------------------------
+     LOAD MACHINES FOR SELECTED DAY
+  --------------------------------*/
+  function loadDay(dayNumber) {
+    list.innerHTML = "";
+
+    const todayMachines = WEEKLY[dayNumber] || [];
+
+    todayMachines.forEach(id => {
+      const m = MACHINES[id];
+      if (!m) return;
+
+      const card = document.createElement("div");
+      card.className = "machine-card";
+
+      card.innerHTML = `
+        <div class="machine-name">${m.emoji} ${m.name}</div>
+        <div class="machine-baseline">${m.muscle}</div>
+        <div class="machine-baseline">Baseline: ${m.baseline} lbs</div>
+      `;
+
+      card.onclick = () => window.renderScreen("Machine", { id });
+      list.appendChild(card);
+    });
+  }
+
+  loadDay(selectedDay);
+
+  /* -------------------------------
+     BACK BUTTON
+  --------------------------------*/
+  const back = document.createElement("div");
+  back.className = "gym-button";
+  back.textContent = "← Back";
+  back.onclick = () => window.renderScreen("GymFloor");
+  container.appendChild(back);
+
+  return container;
 }
+
