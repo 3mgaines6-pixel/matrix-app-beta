@@ -17,7 +17,7 @@ export default function GymFloor() {
 
   root.appendChild(makeButton("🏋️ Strength Studio", "StrengthStudio"));
   root.appendChild(makeButton("🏃 Cardio Studio", "CardioStudio"));
-  root.appendChild(makeButton("🥗 Nutrition Guide", "Nutrition"));
+  root.appendChild(makeButton("🥗 Nutrition Guide", "NutritionGuide"));
   root.appendChild(makeButton("📅 Weekly Overview", "WeeklyOverview"));
   root.appendChild(makeButton("📈 Strength History", "StrengthHistory"));
 
