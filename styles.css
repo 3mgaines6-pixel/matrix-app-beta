@@ -588,3 +588,21 @@
 .back-btn {
   margin-top: 18px;
 }
+#gym-floor {
+  width: 100%;
+  height: 100%;
+  background-image: url("images/gym-entrance.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+/* DS1 overlay for readability */
+#gym-floor::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45); /* soft dark overlay */
+  backdrop-filter: blur(2px);
+}
