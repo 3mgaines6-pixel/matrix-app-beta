@@ -1,3 +1,5 @@
+console.log("StrengthStudio version:", "PATCH-3");
+
 import { MACHINES } from "../data/machines.js";
 import { WEEKLY } from "../data/weekly.js";
 
