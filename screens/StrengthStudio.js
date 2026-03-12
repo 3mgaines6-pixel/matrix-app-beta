@@ -2,12 +2,12 @@ import { MACHINES } from "../data/machines.js";
 import { WEEKLY } from "../data/weekly.js";
 
 export default function StrengthStudio() {
-  // Your app never passes { day }, so we read it from localStorage
+  // Read selected day from localStorage
   const day = localStorage.getItem("selectedDay") || "mon";
 
-  const root = document.getElementById("strength-root");
-  if (!root) return;
-  root.innerHTML = "";
+  // Create root container (your router REQUIRES this)
+  const root = document.createElement("div");
+  root.id = "strength-root";
 
   /* -----------------------------------------
      CONFIG: 5 MACHINES (M5)
@@ -18,7 +18,6 @@ export default function StrengthStudio() {
 
   const dayConfig = WEEKLY[day];
   const machineIds = (dayConfig?.machines || []).slice(0, 5);
-
 
   /* -----------------------------------------
      HELPERS
@@ -79,7 +78,6 @@ export default function StrengthStudio() {
     goBtn.textContent = complete ? "Edit" : "Start";
 
     goBtn.onclick = () => {
-      // Route to Machine screen using /strength/:number
       window.location.href = `/strength/${index + 1}`;
     };
 
@@ -105,7 +103,7 @@ export default function StrengthStudio() {
   root.appendChild(banner);
 
   /* -----------------------------------------
-     COMPLETE DAY BUTTON (LOCKED UNTIL ALL 5 DONE)
+     COMPLETE DAY BUTTON
   ----------------------------------------- */
   const completeBtn = document.createElement("div");
   completeBtn.className = "studio-complete-btn";
@@ -114,7 +112,6 @@ export default function StrengthStudio() {
     completeBtn.textContent = "Complete Day";
     completeBtn.classList.add("enabled");
     completeBtn.onclick = () => {
-      // Let Machine.js handle S3 reset + history save on its own Complete Day
       window.location.href = "/strength/complete";
     };
   } else {
@@ -134,4 +131,6 @@ export default function StrengthStudio() {
     window.location.href = "/";
   };
   root.appendChild(backBtn);
+
+  return root;
 }
