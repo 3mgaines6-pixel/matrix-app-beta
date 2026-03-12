@@ -5,7 +5,7 @@ export default function StrengthStudio() {
   // Read selected day from localStorage
   const day = localStorage.getItem("selectedDay") || "mon";
 
-  // Create root container (your router REQUIRES this)
+  // Create root container (router requires this)
   const root = document.createElement("div");
   root.id = "strength-root";
 
