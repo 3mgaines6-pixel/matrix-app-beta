@@ -2,16 +2,11 @@ import { MACHINES } from "../data/machines.js";
 import { WEEKLY } from "../data/weekly.js";
 
 export default function StrengthStudio() {
-  // Read selected day from localStorage
   const day = localStorage.getItem("selectedDay") || "mon";
 
-  // Create root container (router requires this)
   const root = document.createElement("div");
   root.id = "strength-root";
 
-  /* -----------------------------------------
-     CONFIG: 5 MACHINES (M5)
-  ----------------------------------------- */
   const week = parseInt(localStorage.getItem("training_week") || "1");
   const block = week === 1 || week === 3 ? "Heavy" : "Light";
   const isSwap = localStorage.getItem("swap_week") === "true";
@@ -19,35 +14,24 @@ export default function StrengthStudio() {
   const dayConfig = WEEKLY[day];
   const machineIds = (dayConfig?.machines || []).slice(0, 5);
 
-  /* -----------------------------------------
-     HELPERS
-  ----------------------------------------- */
   function getTodaySets(id) {
-    const key = `history_${id}_today`;
-    return JSON.parse(localStorage.getItem(key) || "[]");
+    return JSON.parse(localStorage.getItem(`history_${id}_today`) || "[]");
   }
 
   function isMachineComplete(id) {
     const sets = getTodaySets(id);
-    const filled = sets.filter(s => s && s.weight && s.reps);
-    return filled.length === 3;
+    return sets.filter(s => s && s.weight && s.reps).length === 3;
   }
 
   function allMachinesComplete() {
     return machineIds.every(id => isMachineComplete(id));
   }
 
-  /* -----------------------------------------
-     HEADER
-  ----------------------------------------- */
   const title = document.createElement("div");
   title.className = "studio-title";
-  title.textContent = `${dayConfig?.name || "Strength Day"} — ${block}${isSwap ? " (Swap)" : ""}`;
+  title.textContent = `${dayConfig?.name} — ${block}${isSwap ? " (Swap)" : ""}`;
   root.appendChild(title);
 
-  /* -----------------------------------------
-     MACHINE LIST
-  ----------------------------------------- */
   const list = document.createElement("div");
   list.className = "machine-list";
   root.appendChild(list);
@@ -61,9 +45,7 @@ export default function StrengthStudio() {
 
     const status = document.createElement("div");
     status.className = "machine-status";
-
-    const complete = isMachineComplete(id);
-    status.classList.add(complete ? "complete" : "incomplete");
+    status.classList.add(isMachineComplete(id) ? "complete" : "incomplete");
 
     const name = document.createElement("div");
     name.className = "machine-name";
@@ -75,11 +57,14 @@ export default function StrengthStudio() {
 
     const goBtn = document.createElement("div");
     goBtn.className = "machine-go-btn";
-    goBtn.textContent = complete ? "Edit" : "Start";
+    goBtn.textContent = isMachineComplete(id) ? "Edit" : "Start";
 
-    // ⭐ FIXED: GitHub Pages compatible routing
     goBtn.onclick = () => {
-      window.location.href = `./strength/${index + 1}`;
+      window.renderScreen("Machine", {
+        id,
+        number: index + 1,
+        day
+      });
     };
 
     card.appendChild(status);
@@ -90,54 +75,34 @@ export default function StrengthStudio() {
     list.appendChild(card);
   });
 
-  /* -----------------------------------------
-     DAY COMPLETE BANNER
-  ----------------------------------------- */
   const banner = document.createElement("div");
   banner.className = "day-complete-banner";
-  if (allMachinesComplete()) {
-    banner.textContent = "Day Complete!";
-    banner.classList.add("visible");
-  } else {
-    banner.textContent = "Complete all 5 machines to finish the day.";
-  }
+  banner.textContent = allMachinesComplete()
+    ? "Day Complete!"
+    : "Complete all 5 machines to finish the day.";
+  if (allMachinesComplete()) banner.classList.add("visible");
   root.appendChild(banner);
 
-  /* -----------------------------------------
-     COMPLETE DAY BUTTON
-  ----------------------------------------- */
   const completeBtn = document.createElement("div");
   completeBtn.className = "studio-complete-btn";
+  completeBtn.textContent = allMachinesComplete()
+    ? "Complete Day"
+    : "Complete Day (Locked)";
 
   if (allMachinesComplete()) {
-    completeBtn.textContent = "Complete Day";
     completeBtn.classList.add("enabled");
-
-    // ⭐ FIXED: GitHub Pages compatible routing
-    completeBtn.onclick = () => {
-      window.location.href = "./strength/complete";
-    };
+    completeBtn.onclick = () => window.renderScreen("Summary");
   } else {
-    completeBtn.textContent = "Complete Day (Locked)";
     completeBtn.classList.add("disabled");
   }
 
   root.appendChild(completeBtn);
 
-  /* -----------------------------------------
-     BACK BUTTON
-  ----------------------------------------- */
   const backBtn = document.createElement("div");
   backBtn.className = "studio-back-btn";
   backBtn.textContent = "← Back";
-
-  // ⭐ FIXED: GitHub Pages compatible routing
-  backBtn.onclick = () => {
-    window.location.href = "./";
-  };
-
+  backBtn.onclick = () => window.renderScreen("GymFloor");
   root.appendChild(backBtn);
 
   return root;
 }
-
