@@ -31,15 +31,16 @@ export default function WeeklyOverview() {
   // BUILD EACH DAY
   // ------------------------------------------------------------
   Object.keys(WEEKLY).forEach(day => {
+    const config = WEEKLY[day];
+    const machineNumbers = config.machines;   // ⭐ FIXED
+
     const dayCard = document.createElement("div");
     dayCard.className = "machine-card";
 
     const dayTitle = document.createElement("div");
     dayTitle.className = "machine-name";
-    dayTitle.textContent = day;
+    dayTitle.textContent = config.name;       // ⭐ FIXED
     dayCard.appendChild(dayTitle);
-
-    const machineNumbers = WEEKLY[day];
 
     machineNumbers.forEach(num => {
       const m = Object.values(MACHINES).find(x => x.number === num);
