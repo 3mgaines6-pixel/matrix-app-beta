@@ -1,24 +1,60 @@
 import { MACHINES } from "../data/machines.js";
-import { WEEKLY } from "../data/weekly.js";
 
-export default function Machine(machine) {
+export default function Machine(props) {
+  const { id, number, day } = props || {};
+  const machine = MACHINES[id];
+
   const root = document.createElement("div");
   root.className = "strength-screen";
+
+  /* -------------------------------
+     SAFETY CHECK
+  --------------------------------*/
+  if (!machine) {
+    const title = document.createElement("h1");
+    title.className = "strength-title";
+    title.textContent = "Machine not found";
+    root.appendChild(title);
+
+    const back = document.createElement("div");
+    back.className = "gym-button";
+    back.textContent = "← Back to Strength";
+    back.onclick = () => window.renderScreen("StrengthStudio");
+    root.appendChild(back);
+
+    return root;
+  }
 
   /* -------------------------------
      HEADER
   --------------------------------*/
   const title = document.createElement("h1");
   title.className = "strength-title";
-  title.textContent = `${machine.number} • ${machine.emoji} ${machine.name}`;
+  title.textContent = `${number}. ${machine.emoji} ${machine.name}`;
   root.appendChild(title);
+
+  /* -------------------------------
+     DAY LABEL
+  --------------------------------*/
+  const dayLabel = document.createElement("div");
+  dayLabel.className = "machine-baseline";
+  dayLabel.textContent = `Today: ${day}`;
+  root.appendChild(dayLabel);
+
+  /* -------------------------------
+     MUSCLE + TYPE
+  --------------------------------*/
+  const subtitle = document.createElement("div");
+  subtitle.className = "machine-baseline";
+  subtitle.textContent = `${machine.muscle} • ${machine.type}`;
+  root.appendChild(subtitle);
 
   /* -------------------------------
      CUE BAR
   --------------------------------*/
   const cue = document.createElement("div");
   cue.className = "cue-bar";
-  cue.textContent = machine.cue;
+  cue.textContent = machine.cue || "";
   root.appendChild(cue);
 
   /* -------------------------------
@@ -83,7 +119,7 @@ export default function Machine(machine) {
     <div class="machine-baseline" id="today-sets">No sets logged yet.</div>
     <br>
     <div class="machine-name">Last Workout</div>
-    <div class="machine-baseline" id="last-sets">Loading...</div>
+    <div class="machine-baseline" id="last-sets">No previous workout logged.</div>
   `;
   root.appendChild(historyCard);
 
@@ -109,10 +145,40 @@ export default function Machine(machine) {
   /* -------------------------------
      REST TIMER
   --------------------------------*/
-  const timerBtn = document.createElement("div");
-  timerBtn.className = "gym-button";
-  timerBtn.textContent = "Start Rest Timer";
+  const timerBtn = newElement("div", "gym-button", "Start Rest Timer");
   root.appendChild(timerBtn);
+
+  const timerLabel = newElement("div", "machine-baseline", "");
+  root.appendChild(timerLabel);
+
+  let timerInterval = null;
+  let remaining = 0;
+
+  timerBtn.onclick = () => {
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerBtn.textContent = "Start Rest Timer";
+      timerLabel.textContent = "";
+      return;
+    }
+
+    remaining = 60;
+    timerBtn.textContent = "Stop Rest Timer";
+    timerLabel.textContent = `Rest: ${remaining}s`;
+
+    timerInterval = setInterval(() => {
+      remaining -= 1;
+      if (remaining <= 0) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        timerBtn.textContent = "Start Rest Timer";
+        timerLabel.textContent = "Rest complete";
+      } else {
+        timerLabel.textContent = `Rest: ${remaining}s`;
+      }
+    }, 1000);
+  };
 
   /* -------------------------------
      SUGGESTED WEIGHT
@@ -128,8 +194,8 @@ export default function Machine(machine) {
      SAVE LOGIC
   --------------------------------*/
   saveBtn.onclick = () => {
-    const todayKey = `history_${machine.id}_today`;
-    const lastKey = `history_${machine.id}_last`;
+    const todayKey = `history_${id}_today`;
+    const lastKey = `history_${id}_last`;
 
     const todaySets = [];
 
@@ -141,15 +207,12 @@ export default function Machine(machine) {
 
     if (todaySets.length === 0) return;
 
-    // Move today's sets to last workout
     const prevToday = localStorage.getItem(todayKey);
     if (prevToday) {
       localStorage.setItem(lastKey, prevToday);
     }
 
-    // Save new today's sets
     localStorage.setItem(todayKey, JSON.stringify(todaySets));
-
     renderHistory();
   };
 
@@ -157,8 +220,8 @@ export default function Machine(machine) {
      HISTORY RENDERING
   --------------------------------*/
   function renderHistory() {
-    const todayKey = `history_${machine.id}_today`;
-    const lastKey = `history_${machine.id}_last`;
+    const todayKey = `history_${id}_today`;
+    const lastKey = `history_${id}_last`;
 
     const todayEl = historyCard.querySelector("#today-sets");
     const lastEl = historyCard.querySelector("#last-sets");
@@ -175,6 +238,15 @@ export default function Machine(machine) {
 
   renderHistory();
 
+  /* -------------------------------
+     BACK BUTTON
+  --------------------------------*/
+  const back = document.createElement("div");
+  back.className = "gym-button";
+  back.textContent = "← Back to Strength";
+  back.onclick = () => window.renderScreen("StrengthStudio");
+  root.appendChild(back);
+
   return root;
 }
 
@@ -184,5 +256,15 @@ export default function Machine(machine) {
 function getTempo(type) {
   if (type === "Heavy") return "3-1-2";
   if (type === "Core") return "2-2-2";
-  return "2-1-2"; // Light, Utility, Swap
+  return "2-1-2";
+}
+
+/* -------------------------------
+   SMALL HELPER
+--------------------------------*/
+function newElement(tag, className, text) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (text) el.textContent = text;
+  return el;
 }
