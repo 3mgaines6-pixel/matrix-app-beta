@@ -1,26 +1,3 @@
-// DAY SELECTION HELPERS — safe, idempotent
-const DAY_KEYS = ['sun','mon','tue','wed','thu','fri','sat'];
-
-function computeTodayKey() {
-  // returns 'mon','tue', etc. based on local time
-  return DAY_KEYS[new Date().getDay()];
-}
-
-function getSelectedDay() {
-  // return stored selectedDay or compute and persist a sensible default
-  const stored = localStorage.getItem('selectedDay');
-  if (stored && typeof stored === 'string') return stored;
-  const today = computeTodayKey();
-  localStorage.setItem('selectedDay', today);
-  return today;
-}
-
-function setSelectedDay(key) {
-  if (!key) return;
-  localStorage.setItem('selectedDay', key);
-  // emit a simple event so UI can react without coupling
-  window.dispatchEvent(new CustomEvent('selectedDayChanged', { detail: { day: key } }));
-}
 
 
 /* =========================================
