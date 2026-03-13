@@ -1,84 +1,110 @@
-/* =========================================
-   SUMMARY SCREEN — FULL FEATURE VERSION
-========================================= */
-
 import { MACHINES } from "../data/machines.js";
+import { loadHistory } from "../utils/history.js";
+import { RULES } from "../data/rules.js";   // If your rules live elsewhere, adjust import
 
 export default function Summary() {
   const root = document.createElement("div");
-  root.className = "summary-screen";
+  root.id = "summary-root";
 
-  /* HEADER */
-  const header = document.createElement("h1");
-  header.className = "summary-title";
-  header.textContent = "Workout Summary";
+  /* -----------------------------------------
+     HEADER
+  ----------------------------------------- */
+  const header = document.createElement("div");
+  header.className = "summary-header";
+  header.textContent = "Weekly Summary";
   root.appendChild(header);
 
-  /* COLLECT TODAY'S SETS */
-  const todayKeys = Object.keys(localStorage).filter(k =>
-    k.startsWith("history_") && k.endsWith("_today")
-  );
+  /* -----------------------------------------
+     TIME WINDOW — LAST 7 DAYS
+  ----------------------------------------- */
+  const now = Date.now();
+  const cutoff = now - (7 * 24 * 60 * 60 * 1000);
 
-  let totalSets = 0;
-  let totalVolume = 0;
+  /* -----------------------------------------
+     TOTALS STRUCTURE
+  ----------------------------------------- */
+  const totals = {
+    HEAVY: { sets: 0, topReps: 0, topWeight: 0 },
+    LIGHT: { sets: 0, topReps: 0, topWeight: 0 },
+    CORE:  { sets: 0, topReps: 0, topWeight: 0 }
+  };
 
-  /* SUMMARY TOTALS */
-  const totals = document.createElement("div");
-  totals.className = "summary-totals";
+  /* -----------------------------------------
+     STRENGTH SUMMARY LOOP
+  ----------------------------------------- */
+  Object.values(MACHINES).forEach(machine => {
+    const type = machine.type; // HEAVY / LIGHT / CORE
+    const rule = RULES[type];
 
-  todayKeys.forEach(key => {
-    const sets = JSON.parse(localStorage.getItem(key) || "[]");
+    const history = loadHistory(machine.id, type);
+    if (!history.length) return;
 
-    sets.forEach(s => {
-      if (!s) return;
-      totalSets++;
-      totalVolume += parseInt(s.weight) * parseInt(s.reps);
+    // Determine last max weight for this machine/type
+    const lastMax = Math.max(
+      ...history[history.length - 1].sets.map(s => s.weight)
+    );
+
+    history.forEach(session => {
+      if (session.time < cutoff) return;
+
+      session.sets.forEach(set => {
+        totals[type].sets++;
+
+        if (set.reps >= rule.top) totals[type].topReps++;
+        if (set.weight >= lastMax) totals[type].topWeight++;
+      });
     });
   });
 
-  totals.innerHTML = `
-    <div><strong>Total Sets:</strong> ${totalSets}</div>
-    <div><strong>Total Volume:</strong> ${totalVolume} lbs</div>
+  /* -----------------------------------------
+     RENDER STRENGTH SUMMARY
+  ----------------------------------------- */
+  const strengthBox = document.createElement("div");
+  strengthBox.className = "summary-box";
+
+  strengthBox.innerHTML = `
+    <h3>Strength (Last 7 Days)</h3>
+    <table class="summary-table">
+      <tr>
+        <th>Type</th>
+        <th>Total Sets</th>
+        <th>Top Reps</th>
+        <th>Top Weight</th>
+      </tr>
+      <tr>
+        <td>HEAVY</td>
+        <td>${totals.HEAVY.sets}</td>
+        <td>${totals.HEAVY.topReps}</td>
+        <td>${totals.HEAVY.topWeight}</td>
+      </tr>
+      <tr>
+        <td>LIGHT</td>
+        <td>${totals.LIGHT.sets}</td>
+        <td>${totals.LIGHT.topReps}</td>
+        <td>${totals.LIGHT.topWeight}</td>
+      </tr>
+      <tr>
+        <td>CORE</td>
+        <td>${totals.CORE.sets}</td>
+        <td>${totals.CORE.topReps}</td>
+        <td>${totals.CORE.topWeight}</td>
+      </tr>
+    </table>
   `;
-  root.appendChild(totals);
 
-  /* PER-MACHINE BREAKDOWN */
-  const list = document.createElement("div");
-  list.className = "summary-list";
-  root.appendChild(list);
+  root.appendChild(strengthBox);
 
-  todayKeys.forEach(key => {
-    const id = key.replace("history_", "").replace("_today", "");
-    const m = MACHINES[id];
-    if (!m) return;
-
-    const sets = JSON.parse(localStorage.getItem(key) || "[]");
-
-    const card = document.createElement("div");
-    card.className = "summary-card";
-
-    const title = document.createElement("div");
-    title.className = "summary-machine";
-    title.textContent = `${m.emoji} ${m.name}`;
-    card.appendChild(title);
-
-    sets.forEach((s, i) => {
-      if (!s) return;
-
-      const row = document.createElement("div");
-      row.className = "summary-set";
-      row.textContent = `Set ${i + 1}: ${s.weight} lbs × ${s.reps}`;
-      card.appendChild(row);
-    });
-
-    list.appendChild(card);
-  });
-
-  /* BACK BUTTON */
+  /* -----------------------------------------
+     BACK BUTTON
+  ----------------------------------------- */
   const backBtn = document.createElement("div");
-  backBtn.className = "back-button";
-  backBtn.textContent = "Return to Strength Studio";
-  backBtn.onclick = () => window.renderScreen("StrengthStudio");
+  backBtn.className = "back-btn";
+  backBtn.textContent = "← Back";
+
+  backBtn.onclick = () => {
+    window.renderScreen("StrengthStudio");
+  };
+
   root.appendChild(backBtn);
 
   return root;
