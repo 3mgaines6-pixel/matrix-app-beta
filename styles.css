@@ -606,3 +606,58 @@
   background: rgba(0, 0, 0, 0.45); /* soft dark overlay */
   backdrop-filter: blur(2px);
 }
+/* MACHINE SPACING — MATCHES YOUR SCREENSHOT */
+.machine-header {
+  margin-bottom: 26px;
+}
+
+.machine-last-box {
+  margin-bottom: 20px;
+}
+
+.machine-cue-box {
+  margin-bottom: 26px;
+}
+
+/* Set rows spaced like your screenshot */
+.set-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.set-label {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.set-value {
+  font-size: 18px;
+}
+
+.set-delete {
+  margin-left: 14px;
+  font-size: 20px;
+}
+
+/* Buttons spaced properly */
+.add-set-btn,
+.delete-all-btn,
+.next-machine-btn,
+.complete-day-btn,
+.back-btn {
+  margin-top: 22px;
+}
+.week-day {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.week-exercise {
+  display: block;
+  margin: 6px 0;
+  font-size: 16px;
+}
