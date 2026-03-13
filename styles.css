@@ -661,3 +661,35 @@
   margin: 6px 0;
   font-size: 16px;
 }
+/* ------------------------------------------------------------
+   WEEKLY OVERVIEW — FORCE VERTICAL LAYOUT (DS1 OVERRIDES)
+   ------------------------------------------------------------ */
+
+/* Make each day card vertical */
+.machine-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+}
+
+/* Make each exercise row vertical */
+.weekly-item {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  margin: 8px 0 !important;
+  padding: 4px 0 !important;
+}
+
+/* Clean DS1 text styling */
+.weekly-machine {
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  margin-bottom: 2px !important;
+}
+
+.weekly-last {
+  font-size: 15px !important;
+  opacity: 0.8 !important;
+}
