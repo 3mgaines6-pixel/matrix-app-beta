@@ -1,9 +1,10 @@
 import { MACHINES } from "../data/machines.js";
 import { WEEKLY } from "../data/weekly.js";
+import { loadHistory, saveHistory, getLastSession } from "../utils/history.js";
 
 export default function Machine(data) {
   const id = data?.id;
-  const number = data?.number;
+  const index = data?.number;   // position in the day
   const day = data?.day;
 
   if (!id || !MACHINES[id]) {
@@ -13,25 +14,19 @@ export default function Machine(data) {
   }
 
   const m = MACHINES[id];
+  const type = m.type; // HEAVY / LIGHT / CORE
 
+  /* -----------------------------------------
+     ROOT
+  ----------------------------------------- */
   const root = document.createElement("div");
   root.id = "machine-root";
 
   /* -----------------------------------------
-     TODAY'S SET STORAGE (FIXED KEY)
+     LOAD HISTORY
   ----------------------------------------- */
-  const todayKey = `history_today_${id}`;   // <— FIXED
-  let todaySets = JSON.parse(localStorage.getItem(todayKey) || "[]");
-
-  function saveToday() {
-    localStorage.setItem(todayKey, JSON.stringify(todaySets));
-  }
-
-  /* -----------------------------------------
-     LAST SESSION STORAGE
-  ----------------------------------------- */
-  const lastKey = `history_${id}_last`;
-  const lastSession = JSON.parse(localStorage.getItem(lastKey) || "[]");
+  const history = loadHistory(id, type);
+  const last = getLastSession(id, type);
 
   /* -----------------------------------------
      HEADER
@@ -39,8 +34,8 @@ export default function Machine(data) {
   const header = document.createElement("div");
   header.className = "machine-header";
   header.innerHTML = `
-    <div class="machine-title">${m.emoji} ${m.name}</div>
-    <div class="machine-sub">${m.type} • ${m.muscle}</div>
+    <div class="machine-title">#${m.number} ${m.name}</div>
+    <div class="machine-sub">${m.muscle} • ${type}</div>
   `;
   root.appendChild(header);
 
@@ -50,9 +45,10 @@ export default function Machine(data) {
   const lastBox = document.createElement("div");
   lastBox.className = "machine-last-box";
 
-  if (lastSession.length) {
-    const last = lastSession[lastSession.length - 1];
-    lastBox.textContent = `Last: ${last.weight} lbs × ${last.reps}`;
+  if (last) {
+    const formatted = last.sets.map(s => `${s.reps}@${s.weight}`).join(", ");
+    const date = new Date(last.time).toLocaleDateString();
+    lastBox.textContent = `Last (${date}): ${formatted}`;
   } else {
     lastBox.textContent = "Last: —";
   }
@@ -60,51 +56,24 @@ export default function Machine(data) {
   root.appendChild(lastBox);
 
   /* -----------------------------------------
-     CUES + REP TARGETS
+     REP TARGETS + CUES
   ----------------------------------------- */
   const repTargets = {
-    Heavy: "6–8 reps",
-    Light: "10–12 reps",
-    Core: "12–15 reps"
+    HEAVY: "6–8 reps • Tempo 3‑1‑2",
+    LIGHT: "10–12 reps • Tempo 2‑1‑2",
+    CORE: "12–15 reps • Tempo 2‑2‑2"
   };
 
   const cueBox = document.createElement("div");
   cueBox.className = "machine-cue-box";
-  cueBox.textContent = `${m.type} • ${repTargets[m.type]}`;
+  cueBox.textContent = repTargets[type];
   root.appendChild(cueBox);
 
   /* -----------------------------------------
-     DS1 DRAWER
+     SET LIST (TODAY)
   ----------------------------------------- */
-  const drawer = document.createElement("div");
-  drawer.className = "ds1-drawer";
+  let todaySets = [];
 
-  drawer.innerHTML = `
-    <div class="drawer-title">Log Set</div>
-    <input class="drawer-input weight-input" type="number" placeholder="Weight (lbs)">
-    <input class="drawer-input reps-input" type="number" placeholder="Reps">
-    <div class="drawer-log-btn">Log Set</div>
-  `;
-
-  root.appendChild(drawer);
-
-  const weightInput = drawer.querySelector(".weight-input");
-  const repsInput = drawer.querySelector(".reps-input");
-  const logBtn = drawer.querySelector(".drawer-log-btn");
-
-  function openDrawer() {
-    drawer.classList.add("open");
-  }
-
-  function closeDrawer() {
-    drawer.classList.remove("open");
-    weightInput.value = "";
-    repsInput.value = "";
-  }
-
-  /* -----------------------------------------
-     SET LIST (READ-ONLY)
-  ----------------------------------------- */
   const setList = document.createElement("div");
   setList.className = "set-list";
   root.appendChild(setList);
@@ -124,7 +93,6 @@ export default function Machine(data) {
 
       row.querySelector(".set-delete").onclick = () => {
         todaySets.splice(i, 1);
-        saveToday();
         renderSets();
       };
 
@@ -132,7 +100,48 @@ export default function Machine(data) {
     });
   }
 
-  renderSets();
+  /* -----------------------------------------
+     DRAWER
+  ----------------------------------------- */
+  const drawer = document.createElement("div");
+  drawer.className = "ds1-drawer";
+
+  drawer.innerHTML = `
+    <div class="drawer-title">Log Set</div>
+
+    <input class="drawer-input weight-input" type="number" placeholder="Weight (lbs)">
+    <input class="drawer-input reps-input" type="number" placeholder="Reps">
+
+    <div class="drawer-actions">
+      <div class="drawer-log-btn">Log Set</div>
+      <div class="drawer-close-btn">Close</div>
+    </div>
+  `;
+
+  root.appendChild(drawer);
+
+  const weightInput = drawer.querySelector(".weight-input");
+  const repsInput = drawer.querySelector(".reps-input");
+  const logBtn = drawer.querySelector(".drawer-log-btn");
+  const closeBtn = drawer.querySelector(".drawer-close-btn");
+
+  function openDrawer() {
+    drawer.classList.add("open");
+
+    // Auto-fill last weight
+    if (last) {
+      const lastSet = last.sets[last.sets.length - 1];
+      weightInput.value = lastSet.weight;
+    }
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove("open");
+    weightInput.value = "";
+    repsInput.value = "";
+  }
+
+  closeBtn.onclick = closeDrawer;
 
   /* -----------------------------------------
      ADD SET BUTTON
@@ -152,19 +161,21 @@ export default function Machine(data) {
      LOG SET
   ----------------------------------------- */
   logBtn.onclick = () => {
-    const w = weightInput.value.trim();
-    const r = repsInput.value.trim();
+    const weight = parseFloat(weightInput.value);
+    const reps = parseInt(repsInput.value, 10);
 
-    if (!w || !r) return;
+    if (!Number.isFinite(weight) || !Number.isFinite(reps)) {
+      alert("Enter valid weight and reps.");
+      return;
+    }
 
-    todaySets.push({ weight: w, reps: r });
-    saveToday();
+    todaySets.push({ weight, reps });
     renderSets();
     closeDrawer();
   };
 
   /* -----------------------------------------
-     DELETE ALL SETS
+     DELETE ALL
   ----------------------------------------- */
   const delAll = document.createElement("div");
   delAll.className = "delete-all-btn";
@@ -172,11 +183,22 @@ export default function Machine(data) {
 
   delAll.onclick = () => {
     todaySets = [];
-    saveToday();
     renderSets();
   };
 
   root.appendChild(delAll);
+
+  /* -----------------------------------------
+     SAVE SESSION
+  ----------------------------------------- */
+  function saveSession() {
+    if (!todaySets.length) return;
+
+    saveHistory(id, type, {
+      time: Date.now(),
+      sets: todaySets
+    });
+  }
 
   /* -----------------------------------------
      NEXT MACHINE
@@ -186,15 +208,16 @@ export default function Machine(data) {
   nextBtn.textContent = "Next Machine";
 
   nextBtn.onclick = () => {
-    const dayConfig = WEEKLY[day];
-    const machineIds = dayConfig.machines;
+    saveSession();
 
-    const nextId = machineIds[number];
+    const machineIds = WEEKLY[day].machines;
+    const nextId = machineIds[index];
+
     if (!nextId) return;
 
     window.renderScreen("Machine", {
       id: nextId,
-      number: number + 1,
+      number: index + 1,
       day
     });
   };
@@ -209,6 +232,7 @@ export default function Machine(data) {
   completeBtn.textContent = "Complete Day";
 
   completeBtn.onclick = () => {
+    saveSession();
     window.renderScreen("Summary");
   };
 
