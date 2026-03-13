@@ -693,3 +693,23 @@
   font-size: 15px !important;
   opacity: 0.8 !important;
 }
+/* ------------------------------------------------------------
+   DS1 BLUE BUTTON — UNIVERSAL STYLE
+   ------------------------------------------------------------ */
+.ds1-button {
+  width: 90%;
+  padding: 14px 0;
+  margin: 10px auto;
+  background: #1e6bff;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ds1-button:active {
+  transform: scale(0.97);
+}
