@@ -11,7 +11,8 @@ export default function WeeklyOverview() {
   const backBtn = document.createElement("div");
   backBtn.className = "gym-button";
   backBtn.textContent = "← Back";
-  backBtn.onclick = () => window.renderScreen("StrengthStudio");
+  backBtn.onclick = () => window.renderScreen("GymFloor");
+
   root.appendChild(backBtn);
 
   // ------------------------------------------------------------
