@@ -5,7 +5,8 @@ export default function StrengthStudio() {
   const day = localStorage.getItem("selectedDay") || "mon";
 
   const root = document.createElement("div");
-  root.id = "strength-root";
+  root.className = "strength-screen";
+
 
   const week = parseInt(localStorage.getItem("training_week") || "1");
   const block = week === 1 || week === 3 ? "Heavy" : "Light";
