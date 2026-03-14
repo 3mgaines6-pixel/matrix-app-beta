@@ -22,3 +22,10 @@ export function getLastSession(machineNumber, type) {
   const h = loadHistory(machineNumber, type);
   return h.length ? h[h.length - 1] : null;
 }
+
+export function formatSession(session) {
+  const base = session.sets.map(s => `${s.reps}@${s.weight}`).join(", ");
+  const handle = session.handle ? ` (${session.handle})` : "";
+  const date = new Date(session.time).toLocaleDateString();
+  return `${date} — ${base}${handle}`;
+}
