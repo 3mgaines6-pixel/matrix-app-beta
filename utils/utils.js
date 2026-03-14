@@ -1,15 +1,18 @@
 export const DAY_KEYS = [
-  "Sunday",
   "Monday",
   "Tuesday",
   "Wednesday",
   "Thursday",
-  "Friday",
-  "Saturday"
+  "Friday"
 ];
 
 export function computeTodayKey() {
-  return DAY_KEYS[new Date().getDay()];
+  const today = new Date().getDay(); // 0 = Sunday, 6 = Saturday
+
+  // If weekend → default to Monday
+  if (today === 0 || today === 6) return "Monday";
+
+  return DAY_KEYS[today - 1]; // Monday = index 1 → DAY_KEYS[0]
 }
 
 export function getSelectedDay() {
@@ -21,10 +24,10 @@ export function getSelectedDay() {
   return today;
 }
 
-export function setSelectedDay(key) {
-  if (!key) return;
-  localStorage.setItem("selectedDay", key);
+export function setSelectedDay(day) {
+  if (!day) return;
+  localStorage.setItem("selectedDay", day);
   window.dispatchEvent(
-    new CustomEvent("selectedDayChanged", { detail: { day: key } })
+    new CustomEvent("selectedDayChanged", { detail: { day } })
   );
 }
