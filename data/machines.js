@@ -1,5 +1,5 @@
 /* ============================================================
-   MACHINE DATA — NUMBER-INDEXED WITH EMOJIS + CUES
+   MACHINE DATA — NUMBER-INDEXED WITH EMOJIS + CUES (DS1 STANDARD)
 ============================================================ */
 
 export const MACHINES = {
@@ -9,7 +9,7 @@ export const MACHINES = {
     emoji: "💪",
     name: "Dependent Curl",
     muscle: "Arms",
-    type: "Light",
+    type: "LIGHT",
     baseline: 15,
     grips: false,
     cue: "Elbows stay pinned — curl smooth, lower slower."
@@ -21,7 +21,7 @@ export const MACHINES = {
     emoji: "🔗",
     name: "Triceps Press",
     muscle: "Arms",
-    type: "Light",
+    type: "LIGHT",
     baseline: 70,
     grips: true,
     cue: "Lock shoulders down — extend without flaring elbows."
@@ -33,7 +33,7 @@ export const MACHINES = {
     emoji: "💥",
     name: "Ab Crunch",
     muscle: "Core",
-    type: "Core",
+    type: "CORE",
     baseline: 60,
     grips: false,
     cue: "Ribs to hips — don’t pull with your neck."
@@ -45,7 +45,7 @@ export const MACHINES = {
     emoji: "🧱",
     name: "Back Extension",
     muscle: "Lower Back",
-    type: "Light",
+    type: "LIGHT",
     baseline: 70,
     grips: false,
     cue: "Hinge smoothly — don’t overextend at the top."
@@ -57,7 +57,7 @@ export const MACHINES = {
     emoji: "🚣",
     name: "Seated Row",
     muscle: "Mid Back",
-    type: "Light",
+    type: "LIGHT",
     baseline: 60,
     grips: false,
     cue: "Lead with elbows — squeeze shoulder blades together."
@@ -69,7 +69,7 @@ export const MACHINES = {
     emoji: "🎯",
     name: "Shoulder Press",
     muscle: "Shoulders",
-    type: "Light",
+    type: "LIGHT",
     baseline: 45,
     grips: true,
     cue: "Press up without shrugging — control the descent."
@@ -81,7 +81,7 @@ export const MACHINES = {
     emoji: "🏋️",
     name: "Chest Press (Heavy)",
     muscle: "Chest",
-    type: "Heavy",
+    type: "HEAVY",
     baseline: 70,
     grips: true,
     cue: "Shoulders down, chest tall — smooth tempo."
@@ -93,7 +93,7 @@ export const MACHINES = {
     emoji: "🧲",
     name: "Lat Pulldown",
     muscle: "Back",
-    type: "Light",
+    type: "LIGHT",
     baseline: 60,
     grips: false,
     cue: "Pull elbows down — don’t lean back too far."
@@ -105,7 +105,7 @@ export const MACHINES = {
     emoji: "🌀",
     name: "Pec Fly / Rear Delt",
     muscle: "Chest / Rear Delts",
-    type: "Light",
+    type: "LIGHT",
     baseline: 50,
     grips: false,
     cue: "Arms slightly bent — squeeze, then control the return."
@@ -117,7 +117,7 @@ export const MACHINES = {
     emoji: "🔄",
     name: "Prone Leg Curl",
     muscle: "Hamstrings",
-    type: "Swap",
+    type: "LIGHT",
     baseline: null,
     grips: false,
     cue: "Drive heels toward glutes — don’t swing the weight."
@@ -129,7 +129,7 @@ export const MACHINES = {
     emoji: "🦿",
     name: "Leg Extension",
     muscle: "Quads",
-    type: "Utility",
+    type: "LIGHT",
     baseline: null,
     grips: false,
     cue: "Kick out smooth — pause at the top without locking."
@@ -141,7 +141,7 @@ export const MACHINES = {
     emoji: "🔁",
     name: "Seated Leg Curl",
     muscle: "Hamstrings",
-    type: "Light",
+    type: "LIGHT",
     baseline: 40,
     grips: false,
     cue: "Pull with hamstrings — control the return."
@@ -153,7 +153,7 @@ export const MACHINES = {
     emoji: "🦵",
     name: "Hip Adductor",
     muscle: "Inner Thighs",
-    type: "Light",
+    type: "LIGHT",
     baseline: 62.5,
     grips: false,
     cue: "Squeeze inward — slow on the way out."
@@ -165,7 +165,7 @@ export const MACHINES = {
     emoji: "🍑",
     name: "Hip Abductor",
     muscle: "Glutes",
-    type: "Light",
+    type: "LIGHT",
     baseline: 62.5,
     grips: false,
     cue: "Push out — keep hips stable and controlled."
@@ -177,7 +177,7 @@ export const MACHINES = {
     emoji: "🦵",
     name: "Leg Press (Heavy)",
     muscle: "Quads / Glutes",
-    type: "Heavy",
+    type: "HEAVY",
     baseline: 130,
     grips: false,
     cue: "Drive through heels — don’t lock knees."
@@ -189,7 +189,7 @@ export const MACHINES = {
     emoji: "🏋️",
     name: "Chest Press (Light)",
     muscle: "Chest",
-    type: "Light",
+    type: "LIGHT",
     baseline: 50,
     grips: true,
     cue: "Shoulders down — smooth, controlled reps."
@@ -201,15 +201,11 @@ export const MACHINES = {
     emoji: "🦿",
     name: "Leg Press (Light)",
     muscle: "Quads / Glutes",
-    type: "Light",
+    type: "LIGHT",
     baseline: 80,
     grips: false,
     cue: "Smooth reps — full control, no bouncing."
   }
 };
 
-/* ============================================================
-   COMPATIBILITY EXPORT
-   (Allows both M and MACHINES to work across all screens)
-============================================================ */
 export const M = MACHINES;
