@@ -69,3 +69,27 @@ export default function Summary() {
       </tr>
       <tr>
         <td>LIGHT</td>
+        <td>${totals.LIGHT.sets}</td>
+        <td>${totals.LIGHT.topReps}</td>
+        <td>${totals.LIGHT.topWeight}</td>
+      </tr>
+      <tr>
+        <td>CORE</td>
+        <td>${totals.CORE.sets}</td>
+        <td>${totals.CORE.topReps}</td>
+        <td>${totals.CORE.topWeight}</td>
+      </tr>
+    </table>
+  `;
+
+  root.appendChild(strengthBox);
+
+  /* BACK BUTTON */
+  const backBtn = document.createElement("div");
+  backBtn.className = "back-btn";
+  backBtn.textContent = "← Back";
+  backBtn.onclick = () => window.renderScreen("StrengthStudio");
+  root.appendChild(backBtn);
+
+  return root;
+}
