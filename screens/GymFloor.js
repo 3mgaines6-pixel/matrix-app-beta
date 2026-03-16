@@ -1,15 +1,11 @@
 export default function GymFloor() {
-  const container = document.createElement("div");
-  container.className = "gymfloor-bg";
-
+  const root = document.createElement("div");
+  root.className = "gymfloor-screen";
 
   const title = document.createElement("h1");
-  title.className = "gymfloor-title";
+  title.className = "screen-title";
   title.textContent = "Gym Floor";
-  container.appendChild(title);
-
-  const menu = document.createElement("div");
-  menu.className = "gymfloor-menu";
+  root.appendChild(title);
 
   const buttons = [
     { label: "🏆 Strength Studio", screen: "StrengthStudio" },
@@ -19,15 +15,13 @@ export default function GymFloor() {
     { label: "📈 Strength History", screen: "StrengthHistory" }
   ];
 
-  buttons.forEach(btn => {
-    const b = document.createElement("div");
-    b.className = "gymfloor-button";
-    b.textContent = btn.label;
-    b.onclick = () => window.renderScreen(btn.screen);
-    menu.appendChild(b);
+  buttons.forEach(b => {
+    const btn = document.createElement("div");
+    btn.className = "ds1-button";   // ← THIS FIXES EVERYTHING
+    btn.textContent = b.label;
+    btn.onclick = () => window.renderScreen(b.screen);
+    root.appendChild(btn);
   });
 
-  container.appendChild(menu);
-
-  return container;
+  return root;
 }
