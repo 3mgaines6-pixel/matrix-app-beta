@@ -1,830 +1,206 @@
 /* ============================================================
-   GLOBAL BACKGROUNDS
+   DS1 GLOBAL RESET + BASE
 ============================================================ */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f5f5f5;
+  color: #111;
+}
 
-.gymfloor-bg,
-.strength-screen,
-.cardio-screen {
+#app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ============================================================
+   DS1 HEADERS
+============================================================ */
+h1, .screen-title, .strength-title, .weekly-header {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #0a3d91;
+}
+
+/* ============================================================
+   DS1 BUTTON SYSTEM
+============================================================ */
+.ds1-button,
+.gym-button,
+.cardio-button,
+.nav-button,
+.back-btn {
+  width: 100%;
+  padding: 18px;
+  margin: 10px 0;
+  background: #0a3d91;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+.ds1-button:active,
+.gym-button:active,
+.cardio-button:active,
+.nav-button:active,
+.back-btn:active {
+  transform: scale(0.98);
+}
+
+/* ============================================================
+   GYM FLOOR (background + spacing)
+============================================================ */
+.gymfloor-screen {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("images/gym-floor.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh;
   padding: 20px;
-  position: relative;
-  animation: fadeIn 0.45s ease-out;
-  z-index: 0;
-}
-
-/* Gym Entrance */
-.gymfloor-bg {
-  background-image: url("images/gym-entrance.jpg");
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 15px;
+  position: relative;
 }
 
-/* Strength Studio */
-.strength-screen {
-  background-image: url("images/weight-plate.jpg");
-  backdrop-filter: blur(2px);
-}
-
-/* Cardio Studio */
-.cardio-screen {
-  background-image: url("images/treadmill.jpg");
-  backdrop-filter: blur(2px);
-}
-
-/* Readability overlay — FIXED z-index */
-.gymfloor-bg::before,
-.strength-screen::before,
-.cardio-screen::before {
+.gymfloor-screen::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(10, 20, 60, 0.35);
-  pointer-events: none;
-  z-index: 1; /* BELOW content */
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(1px);
 }
 
-/* ============================================================
-   TITLES (Readable Everywhere)
-============================================================ */
-
-.strength-title,
-.header {
-  color: #1e4fff !important;
-  font-weight: 700;
-  padding: 8px 18px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  text-shadow: 0 0 8px rgba(255,255,255,0.85);
-  display: inline-block;
-  margin-bottom: 12px;
+.gymfloor-screen > * {
   position: relative;
-  z-index: 5;
+  z-index: 2;
 }
 
 /* ============================================================
-   CARD LAYOUT — OPTION C
+   STRENGTH STUDIO (using Gym Floor background)
 ============================================================ */
-
-/* Strength Studio → frosted cards */
-.strength-screen .machine-card {
-  background: rgba(255,255,255,0.22);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border-radius: 16px;
-  padding: 16px;
-  color: #1e4fff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.25);
-  position: relative;
-  z-index: 5;
-  animation: cardSlideUp 0.5s ease-out;
-}
-
-/* Machine.js, Nutrition, GymFloor → white cards */
-.machine-card:not(.strength-screen .machine-card),
-.gymfloor-button,
-.cue-bar {
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 22px;
-  padding: 18px;
-  box-shadow: 0 4px 12px rgba(100, 140, 255, 0.25);
-  backdrop-filter: blur(4px);
-  position: relative;
-  z-index: 5;
-}
-
-/* ============================================================
-   MACHINE LIST
-============================================================ */
-
-.machine-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 10px;
-  position: relative;
-  z-index: 5; /* ABOVE overlay */
-}
-
-/* ============================================================
-   TYPOGRAPHY
-============================================================ */
-
-.machine-name {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1a3fa3;
-  margin-bottom: 6px;
-}
-
-.machine-baseline {
-  font-size: 14px;
-  color: #1e4fff !important;
-  font-weight: 600;
-  text-shadow: 0 0 6px rgba(255,255,255,0.7);
-}
-
-.machine-muscle {
-  font-size: 14px;
-  color: #4a4a4a;
-  margin-bottom: 4px;
-}
-
-/* ============================================================
-   BUTTONS
-============================================================ */
-
-.gym-button,
-.back-btn {
-  background: #1a3fa3;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 14px;
-  border: none;
-  margin-bottom: 20px;
-  font-size: 16px;
-  text-align: center;
-  cursor: pointer;
-  position: relative;
-  z-index: 5;
-  transition: background 0.25s ease, transform 0.15s ease;
-}
-
-.gym-button:hover {
-  background: #16368c;
-}
-
-.gym-button:active,
-.back-btn:active {
-  transform: scale(0.96);
-}
-
-/* ============================================================
-   INPUTS
-============================================================ */
-
-.input-box {
+#strength-root {
   width: 100%;
-  padding: 10px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  min-height: 100vh;
+  background-image: url("images/gym-floor.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  position: relative;
+}
+
+#strength-root::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(1px);
+}
+
+#strength-root > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================================
+   CARDIO STUDIO
+============================================================ */
+.cardio-screen {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("images/cardio-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  position: relative;
+}
+
+.cardio-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(1px);
+}
+
+.cardio-screen > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================================
+   DAY SELECTOR (mobile-safe)
+============================================================ */
+.day-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.day-btn {
+  flex: 1 1 calc(33% - 10px);
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  background: #0a3d91;
+  color: white;
+  font-weight: bold;
+}
+
+.day-btn.active {
+  background: #0c4db8;
+}
+
+/* ============================================================
+   MACHINE ROWS (Strength Studio + Weekly Overview)
+============================================================ */
+.machine-row,
+.weekly-machine-row {
+  background: white;
+  padding: 15px;
   border-radius: 12px;
-  border: 1px solid #c7d3ff;
-  font-size: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+.machine-row-title,
+.weekly-machine-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.machine-row-sub,
+.weekly-machine-sub {
+  font-size: 14px;
+  color: #666;
+}
+
+.machine-row-last,
+.weekly-machine-last {
+  font-size: 14px;
+  color: #333;
+  margin-top: 4px;
 }
 
 /* ============================================================
    WEEKLY OVERVIEW
 ============================================================ */
-
-.weekly-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
-  border-bottom: 1px solid #e5e9ff;
-  position: relative;
-  z-index: 5;
-}
-
-.weekly-item:last-child {
-  border-bottom: none;
-}
-
-.weekly-machine {
-  font-size: 15px;
-  color: #1a3fa3;
-  font-weight: 600;
-}
-
-.weekly-last {
-  font-size: 14px;
-  color: #555;
-}
-
-/* ============================================================
-   DELETE ICON
-============================================================ */
-
-.delete-set {
-  color: #d11;
-  font-size: 18px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-/* ============================================================
-   HYDRATION BOX
-============================================================ */
-
-.water-result-box {
-  background: white;
-  padding: 14px;
-  border-radius: 16px;
-  margin-top: 12px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #1e4fff;
-  text-align: center;
-  min-height: 28px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  position: relative;
-  z-index: 5;
-}
-
-/* ============================================================
-   ANIMATIONS
-============================================================ */
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes cardSlideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.machine-card:nth-child(1) { animation-delay: 0.05s; }
-.machine-card:nth-child(2) { animation-delay: 0.10s; }
-.machine-card:nth-child(3) { animation-delay: 0.15s; }
-.machine-card:nth-child(4) { animation-delay: 0.20s; }
-.machine-card:nth-child(5) { animation-delay: 0.25s; }
-/* Overlay must be BELOW content */
-.strength-screen::before,
-.cardio-screen::before,
-.gymfloor-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(10, 20, 60, 0.35);
-  pointer-events: none;
-  z-index: 1; /* FIXED */
-}
-
-/* Content must be ABOVE overlay */
-.strength-screen,
-.cardio-screen,
-.gymfloor-bg {
-  position: relative;
-  z-index: 0;
-}
-
-.machine-list,
-.machine-card,
-.weekly-item,
-.weekly-machine,
-.weekly-last,
-.strength-title,
-.gymfloor-button {
-  position: relative;
-  z-index: 5; /* ABOVE overlay */
-}
-/* ============================================================
-   REMOVE ALL GLASS / BLUR / OVERLAYS
-============================================================ */
-
-/* Remove dark overlay entirely */
-.strength-screen::before,
-.cardio-screen::before,
-.gymfloor-bg::before {
-  display: none !important;
-}
-
-/* Remove blur from backgrounds */
-.strength-screen,
-.cardio-screen,
-.gymfloor-bg {
-  backdrop-filter: none !important;
-}
-
-/* ============================================================
-   TITLES — SOLID, READABLE
-============================================================ */
-
-.strength-title,
-.header {
-  background: white !important;
-  color: #1e4fff !important;
-  font-weight: 800;
-  padding: 10px 20px;
-  border-radius: 10px;
-  text-shadow: none !important;
-  z-index: 10;
-}
-
-/* ============================================================
-   MACHINE CARDS — SOLID WHITE
-============================================================ */
-
-.machine-card {
-  background: white !important;
-  border-radius: 16px !important;
-  padding: 16px !important;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
-  color: #1a3fa3 !important;
-  position: relative;
-  z-index: 10;
-}
-
-/* Ensure machine list is visible */
-.machine-list {
-  position: relative;
-  z-index: 10;
-}
-
-/* ============================================================
-   WEEKLY OVERVIEW — SOLID TEXT
-============================================================ */
-
-.weekly-item,
-.weekly-machine,
-.weekly-last {
-  background: none !important;
-  color: #1a3fa3 !important;
-  z-index: 10;
-}
-
-/* ============================================================
-   BUTTONS — SOLID BLUE
-============================================================ */
-
-.gym-button,
-.back-btn {
-  background: #1a3fa3 !important;
-  color: white !important;
-  border-radius: 14px !important;
-  z-index: 10;
-}
-
-/* ============================================================
-   GENERAL TEXT RESET
-============================================================ */
-
-.machine-name,
-.machine-baseline,
-.machine-muscle {
-  color: #1a3fa3 !important;
-  text-shadow: none !important;
-}
-
-/* ============================
-   FORCE FIX — STRENGTH STUDIO DAY SELECTOR
-============================ */
-
-.day-selector-row {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 14px !important;
-  margin: 16px 0 20px 0 !important;
-  width: 100% !important;
-}
-
-.day-button {
-  padding: 8px 16px !important;
-  background: rgba(255, 255, 255, 0.18) !important;
-  border-radius: 12px !important;
-  color: white !important;
-  font-weight: 600 !important;
-  font-size: 16px !important;
-  text-align: center !important;
-  backdrop-filter: blur(6px) !important;
-}
-
-.day-selected {
-  background: #4da3ff !important;
-  color: white !important;
-  box-shadow: 0 0 10px rgba(77, 163, 255, 0.6) !important;
-}
-/* -----------------------------------------
-   STRENGTH STUDIO LAYOUT
------------------------------------------ */
-#strength-root {
-  padding: 20px;
-  color: white;
-  font-family: system-ui, sans-serif;
-}
-
-/* -----------------------------------------
-   TITLE
------------------------------------------ */
-.studio-title {
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-/* -----------------------------------------
-   MACHINE LIST
------------------------------------------ */
-.machine-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* -----------------------------------------
-   MACHINE CARD
------------------------------------------ */
-.machine-card {
-  background: #1a1d22;
-  padding: 16px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid #2a2f36;
-  transition: 0.2s ease;
-}
-
-.machine-card:hover {
-  background: #22262c;
-}
-
-/* -----------------------------------------
-   MACHINE STATUS DOT
------------------------------------------ */
-.machine-status {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  margin-right: 12px;
-}
-
-.machine-status.incomplete {
-  background: #555;
-}
-
-.machine-status.complete {
-  background: #2ecc71; /* green */
-}
-
-/* -----------------------------------------
-   MACHINE NAME + TYPE
------------------------------------------ */
-.machine-name {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.machine-type {
-  font-size: 13px;
-  opacity: 0.7;
-  margin-top: 4px;
-}
-
-/* -----------------------------------------
-   MACHINE GO BUTTON
------------------------------------------ */
-.machine-go-btn {
-  background: #007bff;
-  padding: 10px 16px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.machine-go-btn:hover {
-  background: #0a84ff;
-}
-
-/* -----------------------------------------
-   DAY COMPLETE BANNER
------------------------------------------ */
-.day-complete-banner {
-  margin-top: 20px;
-  padding: 14px;
-  background: #1a1d22;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 18px;
-  border: 1px solid #2a2f36;
-  opacity: 0.6;
-  transition: 0.3s ease;
-}
-
-.day-complete-banner.visible {
-  opacity: 1;
-  background: #2ecc71;
-  border-color: #27ae60;
-  color: black;
-  font-weight: 700;
-}
-
-/* -----------------------------------------
-   COMPLETE DAY BUTTON
------------------------------------------ */
-.studio-complete-btn {
-  margin-top: 25px;
-  padding: 16px;
-  border-radius: 12px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.studio-complete-btn.enabled {
-  background: #007bff;
-  color: white;
-}
-
-.studio-complete-btn.enabled:hover {
-  background: #0a84ff;
-}
-
-.studio-complete-btn.disabled {
-  background: #333;
-  color: #777;
-  cursor: not-allowed;
-}
-
-/* -----------------------------------------
-   BACK BUTTON
------------------------------------------ */
-.studio-back-btn {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 16px;
-  opacity: 0.7;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.studio-back-btn:hover {
-  opacity: 1;
-}
-.machine-header {
-  margin-bottom: 22px;
-}
-
-.machine-last-box {
-  margin-bottom: 16px;
-}
-
-.machine-cue-box {
-  margin-bottom: 20px;
-}
-
-.set-row {
-  margin-bottom: 14px;
-}
-
-.add-set-btn,
-.delete-all-btn,
-.next-machine-btn,
-.complete-day-btn,
-.back-btn {
-  margin-top: 18px;
-}
-#gym-floor {
-  width: 100%;
-  height: 100%;
-  background-image: url("images/gym-entrance.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-}
-
-/* DS1 overlay for readability */
-#gym-floor::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45); /* soft dark overlay */
-  backdrop-filter: blur(2px);
-}
-/* MACHINE SPACING — MATCHES YOUR SCREENSHOT */
-.machine-header {
-  margin-bottom: 26px;
-}
-
-.machine-last-box {
-  margin-bottom: 20px;
-}
-
-.machine-cue-box {
-  margin-bottom: 26px;
-}
-
-/* Set rows spaced like your screenshot */
-.set-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-}
-
-.set-label {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.set-value {
-  font-size: 18px;
-}
-
-.set-delete {
-  margin-left: 14px;
-  font-size: 20px;
-}
-
-/* Buttons spaced properly */
-.add-set-btn,
-.delete-all-btn,
-.next-machine-btn,
-.complete-day-btn,
-.back-btn {
-  margin-top: 22px;
-}
-.week-day {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 24px;
-}
-
-.week-exercise {
-  display: block;
-  margin: 6px 0;
-  font-size: 16px;
-}
-/* ------------------------------------------------------------
-   WEEKLY OVERVIEW — FORCE VERTICAL LAYOUT (DS1 OVERRIDES)
-   ------------------------------------------------------------ */
-
-/* Make each day card vertical */
-.machine-card {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  width: 100% !important;
-}
-
-/* Make each exercise row vertical */
-.weekly-item {
-  display: flex !important;
-  flex-direction: column !important;
-  width: 100% !important;
-  margin: 8px 0 !important;
-  padding: 4px 0 !important;
-}
-
-/* Clean DS1 text styling */
-.weekly-machine {
-  font-size: 17px !important;
-  font-weight: 600 !important;
-  margin-bottom: 2px !important;
-}
-
-.weekly-last {
-  font-size: 15px !important;
-  opacity: 0.8 !important;
-}
-/* ------------------------------------------------------------
-   DS1 BLUE BUTTON — UNIVERSAL STYLE
-   ------------------------------------------------------------ */
-.ds1-button {
-  width: 90%;
-  padding: 14px 0;
-  margin: 10px auto;
-  background: #1e6bff;
-  color: white;
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-  border-radius: 10px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.ds1-button:active {
-  transform: scale(0.97);
-}
-/* FIX DAY SELECTOR VISIBILITY + SPACING */
-.day-selector {
-  display: flex;
-  justify-content: space-between;
-  width: 90%;
-  margin: 20px auto 20px auto;   /* pushes it DOWN away from the title */
-  padding: 8px 0;
-  background: rgba(0,0,0,0.35);  /* gives it a visible bar */
-  border-radius: 10px;
-}
-
-.day-btn {
-  flex: 1;
-  text-align: center;
-  padding: 10px 0;
-  margin: 0 4px;
-  background: rgba(255,255,255,0.18);
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  color: white;                  /* ensures readability */
-}
-
-.day-btn.selected {
-  background: #1e6bff;
-  color: white;
-}
-#strength-root {
-  padding: 20px;
-}
-
-.strength-header {
-  font-size: 24px;
-  font-weight: bold;
-  color: #0a3d91;
-  margin-bottom: 20px;
-}
-
-.back-btn {
-  margin-bottom: 15px;
-  color: #0a3d91;
-  font-weight: bold;
-}
-
-.day-selector {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.day-btn {
-  padding: 8px 14px;
-  border-radius: 8px;
-  background: white;
-  color: #0a3d91;
-  border: 1px solid #0a3d91;
-}
-
-.day-btn.active {
-  background: #0a3d91;
-  color: white;
-}
-
-.machine-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.machine-row {
-  padding: 15px;
-  border-radius: 10px;
-  background: white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.machine-row-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #0a3d91;
-}
-
-.machine-row-sub {
-  color: #555;
-  margin-top: 4px;
-}
-
-.machine-row-last {
-  margin-top: 6px;
-  color: #0a3d91;
-  font-weight: bold;
-}
-
-.weekly-btn {
-  margin-top: 25px;
-  padding: 12px;
-  background: #0a3d91;
-  color: white;
-  text-align: center;
-  border-radius: 10px;
-}
-#weekly-root {
-  padding: 20px;
-}
-
-.weekly-header {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 15px;
-  color: #0a3d91;
-}
-
 .weekly-container {
   display: flex;
   flex-direction: column;
@@ -845,92 +221,47 @@
   color: #0a3d91;
 }
 
-.weekly-machine-row {
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
-}
-
-.weekly-machine-row:last-child {
-  border-bottom: none;
-}
-
-.weekly-machine-title {
-  font-weight: bold;
-}
-
-.weekly-machine-sub {
-  font-size: 14px;
-  color: #666;
-}
-
-.weekly-machine-last {
-  font-size: 14px;
-  color: #333;
-  margin-top: 4px;
-}
-.day-selector {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  width: 100%;
-}
-
-.day-btn {
-  flex: 1 1 calc(33% - 10px);
-  text-align: center;
-  padding: 10px;
-  border-radius: 8px;
-  background: #0a3d91;
-  color: white;
-  font-weight: bold;
-}
-.gymfloor-screen {
+/* ============================================================
+   SUMMARY SCREEN
+============================================================ */
+.summary-box {
+  background: white;
   padding: 20px;
-}
-
-.gym-button {
-  width: 100%;
-  padding: 15px;
-  margin: 10px 0;
-  background: #0a3d91;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 10px;
-  text-align: center;
-  cursor: pointer;
+  border-radius: 12px;
+  margin-bottom: 20px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.gym-button:hover {
-  background: #0c4db8;
-}
-/* ================================
-   GYM FLOOR — DS1 SPACING + STYLE
-================================ */
-
-.gymfloor-screen {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.gym-button {
+.summary-table {
   width: 100%;
-  padding: 18px;
-  background: #0a3d91;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 12px;
-  text-align: center;
-  cursor: pointer;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  border-collapse: collapse;
 }
 
-.gym-button:active {
-  transform: scale(0.98);
+.summary-table th,
+.summary-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+/* ============================================================
+   STRENGTH HISTORY
+============================================================ */
+.machine-card {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.machine-name {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.machine-baseline {
+  font-size: 14px;
+  color: #444;
+  margin-top: 4px;
 }
