@@ -56,13 +56,11 @@ h1, .screen-title, .strength-title, .weekly-header {
   transform: scale(0.98);
 }
 
-/* ============================================================
-   GYM FLOOR (background + spacing)
-============================================================ */
+/* GYM FLOOR */
 .gymfloor-screen {
   width: 100%;
   min-height: 100vh;
-  background-image: url("images/gym-floor.jpg");
+  background-image: url("images/gym-entrance.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -86,13 +84,11 @@ h1, .screen-title, .strength-title, .weekly-header {
   z-index: 2;
 }
 
-/* ============================================================
-   STRENGTH STUDIO (using Gym Floor background)
-============================================================ */
+/* STRENGTH STUDIO (same background as Gym Floor) */
 #strength-root {
   width: 100%;
   min-height: 100vh;
-  background-image: url("images/gym-floor.jpg");
+  background-image: url("images/gym-entrance.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -119,7 +115,7 @@ h1, .screen-title, .strength-title, .weekly-header {
 .cardio-screen {
   width: 100%;
   min-height: 100vh;
-  background-image: url("images/cardio-bg.jpg");
+  background-image: url("images/treadmill.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -139,6 +135,7 @@ h1, .screen-title, .strength-title, .weekly-header {
   position: relative;
   z-index: 2;
 }
+
 
 /* ============================================================
    DAY SELECTOR (mobile-safe)
