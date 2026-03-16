@@ -42,7 +42,7 @@ export default function WeeklyOverview() {
       const last = getLastSession(m.number, m.type);
 
       const row = document.createElement("div");
-      row.className = "weekly-machine-row";
+      row.className = "weekly-machine-row";   // NON-CLICKABLE
 
       const lastText = last
         ? last.sets.map(s => `${s.reps}@${s.weight}`).join(", ")
@@ -54,13 +54,7 @@ export default function WeeklyOverview() {
         <div class="weekly-machine-last">Last: ${lastText}</div>
       `;
 
-      row.onclick = () => {
-        window.renderScreen("Machine", {
-          id,
-          number: m.number,
-          day
-        });
-      };
+      // ❌ REMOVED onclick — Weekly Overview is READ-ONLY
 
       list.appendChild(row);
     });
